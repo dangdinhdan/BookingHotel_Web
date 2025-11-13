@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="QLKS" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="dbo.tbl_ChiTietDatPhong" Member="tbl_ChiTietDatPhongs">
+    <Type Name="tbl_ChiTietDatPhong">
+      <Column Name="ChiTietDatPhongID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DatPhongID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PhongID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GiaTaiThoiDiemDat" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Association Name="tbl_DatPhong_tbl_ChiTietDatPhong" Member="tbl_DatPhong" ThisKey="DatPhongID" OtherKey="DatPhongID" Type="tbl_DatPhong" IsForeignKey="true" />
+      <Association Name="tbl_Phong_tbl_ChiTietDatPhong" Member="tbl_Phong" ThisKey="PhongID" OtherKey="PhongID" Type="tbl_Phong" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_DatPhong" Member="tbl_DatPhongs">
+    <Type Name="tbl_DatPhong">
+      <Column Name="DatPhongID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TaiKhoanID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NgayDat" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="NgayNhanPhong" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="NgayTraPhong" Type="System.DateTime" DbType="DateTime2 NOT NULL" CanBeNull="false" />
+      <Column Name="SoLuongNguoi" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TongTien" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="TrangThai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="GhiChu" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Association Name="tbl_DatPhong_tbl_ChiTietDatPhong" Member="tbl_ChiTietDatPhongs" ThisKey="DatPhongID" OtherKey="DatPhongID" Type="tbl_ChiTietDatPhong" />
+      <Association Name="tbl_DatPhong_tbl_GiaoDich" Member="tbl_GiaoDiches" ThisKey="DatPhongID" OtherKey="DatPhongID" Type="tbl_GiaoDich" />
+      <Association Name="tbl_TaiKhoan_tbl_DatPhong" Member="tbl_TaiKhoan" ThisKey="TaiKhoanID" OtherKey="TaiKhoanID" Type="tbl_TaiKhoan" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_GiaoDich" Member="tbl_GiaoDiches">
+    <Type Name="tbl_GiaoDich">
+      <Column Name="GiaoDichID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DatPhongID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NgayThanhToan" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="SoTien" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="TrangThai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="tbl_DatPhong_tbl_GiaoDich" Member="tbl_DatPhong" ThisKey="DatPhongID" OtherKey="DatPhongID" Type="tbl_DatPhong" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_LoaiPhong" Member="tbl_LoaiPhongs">
+    <Type Name="tbl_LoaiPhong">
+      <Column Name="LoaiPhongID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenLoaiPhong" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="MoTa" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="Create_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="isDelete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Update_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="Delete_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="tbl_LoaiPhong_tbl_Phong" Member="tbl_Phongs" ThisKey="LoaiPhongID" OtherKey="LoaiPhongID" Type="tbl_Phong" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_Phong" Member="tbl_Phongs">
+    <Type Name="tbl_Phong">
+      <Column Name="PhongID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SoPhong" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="LoaiPhongID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GiaMoiDem" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="SucChuaToiDa" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MoTa" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="TrangThai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="HinhAnh" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="Create_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="isDelete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Update_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="Delete_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="tbl_Phong_tbl_ChiTietDatPhong" Member="tbl_ChiTietDatPhongs" ThisKey="PhongID" OtherKey="PhongID" Type="tbl_ChiTietDatPhong" />
+      <Association Name="tbl_LoaiPhong_tbl_Phong" Member="tbl_LoaiPhong" ThisKey="LoaiPhongID" OtherKey="LoaiPhongID" Type="tbl_LoaiPhong" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_TaiKhoan" Member="tbl_TaiKhoans">
+    <Type Name="tbl_TaiKhoan">
+      <Column Name="TaiKhoanID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="HoTen" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="MatKhau" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="SoDienThoai" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Create_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="VaiTroID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Update_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="isDelete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Delete_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="tbl_TaiKhoan_tbl_DatPhong" Member="tbl_DatPhongs" ThisKey="TaiKhoanID" OtherKey="TaiKhoanID" Type="tbl_DatPhong" />
+      <Association Name="tbl_VaiTro_tbl_TaiKhoan" Member="tbl_VaiTro" ThisKey="VaiTroID" OtherKey="VaiTroID" Type="tbl_VaiTro" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tbl_VaiTro" Member="tbl_VaiTros">
+    <Type Name="tbl_VaiTro">
+      <Column Name="VaiTroID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TenVaiTro" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Create_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="isDelete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Delete_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Association Name="tbl_VaiTro_tbl_TaiKhoan" Member="tbl_TaiKhoans" ThisKey="VaiTroID" OtherKey="VaiTroID" Type="tbl_TaiKhoan" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vw_DanhSachPhong" Member="vw_DanhSachPhongs">
+    <Type Name="vw_DanhSachPhong">
+      <Column Name="PhongID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SoPhong" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="GiaMoiDem" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="MoTa" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="HinhAnh" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Column Name="SucChuaToiDa" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Create_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="isDelete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Delete_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="Update_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="TenLoaiPhong" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vw_DanhSachTaiKhoan" Member="vw_DanhSachTaiKhoans">
+    <Type Name="vw_DanhSachTaiKhoan">
+      <Column Name="TaiKhoanID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="HoTen" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="TenVaiTro" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="VaiTroID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SoDienThoai" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="Create_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="isDelete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Delete_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="Update_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.sp_TimPhongTrong" Method="sp_TimPhongTrong">
+    <Parameter Name="NgayNhanPhong" Parameter="ngayNhanPhong" Type="System.DateTime" DbType="DateTime2" />
+    <Parameter Name="NgayTraPhong" Parameter="ngayTraPhong" Type="System.DateTime" DbType="DateTime2" />
+    <Parameter Name="SucChuaToiDa" Parameter="sucChuaToiDa" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_TimPhongTrongResult">
+      <Column Name="PhongID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SoPhong" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="TenLoaiPhong" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="GiaMoiDem" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="SucChuaToiDa" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TrangThai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MoTa" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="HinhAnh" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

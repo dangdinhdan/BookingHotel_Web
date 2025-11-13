@@ -1,0 +1,147 @@
+﻿@{
+    ViewBag.Title = "Sua";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="app-content-header">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Row-->
+        <div class="row">
+            <div class="col-sm-6"><h3 class="mb-0">Thêm mới Loại phòng</h3></div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                    <li class="breadcrumb-item"><a href="~/admin/QLLPhong/DSLP">DSLP</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">SuaLoaiPhong</li>
+                </ol>
+            </div>
+        </div>
+        <!--end::Row-->
+    </div>
+    <!--end::Container-->
+</div>
+<!--end::App Content Header-->
+<!--begin::App Content-->
+<div class="app-content">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Row-->
+        <div class="row g-4">
+            <!--begin::Col-->
+            <div class="col-12">
+                <!--begin::Quick Example-->
+                <div class="card card-primary card-outline mb-4">
+                    <!--begin::Header-->
+                    <div class="card-header"><div class="card-title">Thông tin Loại Phòng</div></div>
+                    <!--end::Header-->
+                    <!--begin::Form-->
+                    <form id="form-act">
+
+                        <div class="card-body">
+
+                            <div class="row">
+                                <input type="hidden" name="Txt_LoaiPhongID" value="@Model.LoaiPhongID" />
+
+                                <div class="col-lg-4 mb-2">
+                                    <label for="txt_TenLoaiPhong" class="form-label">Tên loại phòng</label>
+                                    <input type="text" class="form-control" id="txt_TenLoaiPhong" name="txt_TenLoaiPhong" value="@Model.TenLoaiPhong" />
+                                </div>
+
+                                <div class="col-lg-8 mb-2">
+                                    <label for="txt_MoTa" class="form-label">Mô tả</label>
+                                    <input type="text" class="form-control" name="txt_MoTa" id="txt_MoTa" value="@Model.MoTa" />
+                                </div>
+
+                            </div>
+
+
+
+                        </div>
+                        <!--end::Body-->
+                        <!--begin::Footer-->
+                        <div class="card-footer">
+                            <button type="button" id="btn_sua" class="btn btn-primary">Cập nhật</button>
+                        </div>
+                        <!--end::Footer-->
+                    </form>
+                    <!--end::Form-->
+                </div>
+                <!--end::Quick Example-->
+            </div>
+        </div>
+    </div>
+    <!--end::Container-->
+</div>
+<!--end::App Content-->
+
+<script>
+    //var url = window.location.href;
+    //console.log(url);
+    //var id_str = url.split("?")[1];
+    //console.log("id_str=" + id_str);
+    //var id = id_str.split("=")[1];
+    //console.log("id=" + id);
+    ////var id = id_str_01.substring(1, id_str_01.length - 1);
+    ////console.log(id);
+
+    //if (id) {
+    //    $("#txt_LoaiP_cansua").val(id);
+    //    LayTT(id);
+    //}
+
+    $("#btn_sua").click(function () {
+
+
+        var form = $('#form-act')[0];
+        var formData = new FormData(form);
+
+
+        $.ajax({
+            type: "POST",
+            data: formData,
+            contentType: "application/json; charset=utf-8",
+            url: window.location.origin + '/QLLPhong/Edit',
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (response) {
+                console.log(response);
+                var rs = JSON.parse(response);
+                if (rs.ErrCode == 1) {
+
+                    window.location.href = '../Index';
+                    alert(rs.ErrDesc);
+                }
+                else {
+
+                    alert(rs.ErrDesc);
+                }
+                //alert(response);
+                //refresh lại trang.
+               
+            },
+            error: function (data) {
+                console.log(data);
+            }
+            //success: function (response) {
+            //    console.log(response);
+
+            //    var rs = JSON.parse(response);
+
+            //    if (rs.ErrCode == 1) {
+
+            //        window.location.href = '../QLLPhong/DSLP';
+            //        alert(rs.ErrDesc);
+            //    }
+            //    else {
+
+            //        alert(rs.ErrDesc);
+            //    }
+            //},
+            //error: function (data) {
+            //    console.log(data);
+            //}
+        });
+    });
+
+</script>

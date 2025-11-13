@@ -1,0 +1,152 @@
+﻿@model PagedList.PagedList<HotelBooking_Web.Models.vw_DanhSachTaiKhoan>
+@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="app-content-header">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Row-->
+        <div class="row">
+            <div class="col-sm-6"><h3 class="mb-0">Danh sách tài khoản</h3></div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                    <li class="breadcrumb-item"><a href="~/admin">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Danh sách tài khoản</li>
+                </ol>
+            </div>
+        </div>
+        <!--end::Row-->
+    </div>
+    <!--end::Container-->
+</div>
+<!--end::App Content Header-->
+<!--begin::App Content-->
+<div class="app-content">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Row-->
+        <div class="row">
+            <div class="col-12">
+                <!-- Default box -->
+                <div class="card">
+                    <div class="card-header">
+
+                        <div class="card-tools">
+                            <a href="~/admin/QLTKhoan/Them" class="btn btn-primary">Thêm tài khoản</a>
+                        </div>
+
+                        <div class="row ">
+                            <label for="txt_query" class="form-label">Tìm kiếm</label>
+                            <div class=" col-md-4 col-lg-4">
+                                <input type="text" class="form-control" id="txt_query" name="txt_query" />
+                            </div>
+                            <div class=" col-md-4 col-lg-2">
+                                <button type="button" id="btn_timkiem" class="btn btn-primary">Tìm kiếm</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Họ Tên</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Email</th>
+                                    <th>SoDienThoai</th>
+                                    <th>Vai trò</th>
+                                    <th>Thao Tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    var i = 1;
+                                    foreach (var item in Model)
+                                    {
+                                        <tr id="trow_@item.TaiKhoanID">
+                                            <td>@i</td>
+                                            <td>@item.HoTen</td>
+                                            <td>@item.DiaChi</td>
+                                            <td>@item.Email</td>
+                                            <td>@item.SoDienThoai</td>
+                                            <td>@item.TenVaiTro</td>
+                                            
+                                            <td>
+                                                <a href="/admin/QLTKhoan/Sua/@item.TaiKhoanID" class="btn btn-sm btn-primary">Sửa</a>
+                                                <a href="#" data-id="@item.TaiKhoanID" class="btn btn-sm btn-danger btnDelete">Xóa</a>
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td align="center">Không có bản ghi nào</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-5"></div>
+                            <div class="col-7">
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer"></div>
+                    <!-- /.card-footer-->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <!--end::Row-->
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('body').on('click', '.btnDelete', function () {
+            var id = $(this).data("id")
+            var conf = confirm("bạn có muốn xóa bản ghi này không?");
+            if (conf == true) {
+                $.ajax({
+                    url: window.location.origin + '/QLTKhoan/Delete',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (response) {
+                        var rs = JSON.parse(response);
+                        if (rs.ErrCode == 1) {
+
+                            //$('#trow_' + id).remove();
+                             
+                            alert(rs.ErrDesc);
+                        }
+                        else {
+
+                            alert(rs.ErrDesc);
+                        }
+
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+
+        });
+    });
+</script>
+
+<script>
+    $("#btn_timkiem").click(function () {
+        var query = $("#txt_query").val();
+        window.location.href = "/Admin/QLTKhoan/Index?query=" + encodeURIComponent(query);
+    });
+</script>

@@ -1,0 +1,118 @@
+﻿@*<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - My ASP.NET Application</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+            <div class="container">
+                @Html.ActionLink("khong choi sao biet minh khong the", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="    Toggle navigation" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+    </html>*@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>@ViewData["Title"] - 4anhemdatai</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/css01/style.css" />
+
+    <script src="~/Scripts/No1JavaScript/script01.js" defer></script>
+    @RenderSection("Scripts", required: false)
+</head>
+<body id="top">
+
+    <header>
+        <div class="container topbar">
+            <div class="brand">
+                <div class="logo">36</div>
+                <div>
+                    <div class="brand-name">4anhemdatai</div>
+                    <div class="brand-sub">Phòng nghỉ — Dịch vụ tận tâm</div>
+                </div>
+            </div>
+
+            @*<nav>
+            <a asp-controller="Home" asp-action="Index">Trang chủ</a>
+            <a asp-controller="Rooms" asp-action="Rooms">Phòng</a>
+            <a asp-controller="Home" asp-action="About">Giới thiệu</a>
+            <a asp-controller="Home" asp-action="Contact">Liên hệ</a>
+        </nav>*@
+
+            @*<nav>
+                <a asp-controller="Home" asp-action="Index">Trang chủ</a>
+
+                <a asp-controller="Home" asp-action="Index" asp-fragment="Rooms">Phòng</a>
+                <a asp-controller="Home" asp-action="Index" asp-fragment="About">Giới thiệu</a>
+                <a asp-controller="Home" asp-action="Index" asp-fragment="Contact">Liên hệ</a>
+            </nav>*@
+
+            <nav>
+                <a href="/#top">Trang chủ</a>
+
+                <a href="/#rooms">Phòng</a>
+
+                <a href="/#about">Giới thiệu</a>
+
+                <a href="/#contact">Liên hệ</a>
+            </nav>
+
+            <div class="auth">
+                <button class="btn btn-ghost">Đăng nhập</button>
+                <button class="btn btn-primary">Đăng ký</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        @RenderBody()
+    </main>
+
+    <footer id="contact" class="section">
+        <div class="footer-wrap">
+            <div>
+                <div class="brand-name">4anhemdatai</div>
+                <div class="muted">© <span id="year"></span> 4anhemdatai</div>
+            </div>
+            <div class="muted footer-links">
+                <div>Chính sách |</div>
+                <div>FAQ |</div>
+                <div>Liên hệ</div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="modalRoot" aria-hidden="true"></div>
+
+</body>
+</html>

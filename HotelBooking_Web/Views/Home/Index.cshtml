@@ -1,0 +1,122 @@
+﻿@{
+    ViewData["Title"] = "Trang chủ";
+}
+
+@*<section class="hero">
+    <div class="hero-inner">
+        <div class="hero-left">
+            <div class="hotel-title">Khách sạn Sunset Bay</div>
+            <div class="hotel-sub">
+                Trải nghiệm nghỉ dưỡng thoải mái bên bờ biển — phòng tiện nghi, dịch vụ chu đáo.
+            </div>
+
+            <div class="search-card">
+                <div class="form-control" style="flex:1">
+              <label class="label">Ngày nhận / trả</label>
+                    <div style="display:flex;gap:8px">
+                        <input id="checkin" type="date">
+                        <input id="checkout" type="date">
+                    </div>
+                </div>
+
+                <div class="form-control" style="width:140px">
+                    <label class="label">Khách</label>
+                    <select id="guests">
+                        <option value="1">1 khách</option>
+                        <option value="2" selected>2 khách</option>
+                        <option value="3">3 khách</option>
+                        <option value="4">4 khách</option>
+                    </select>
+                </div>
+
+                <div class="search-actions">
+                    <button id="searchBtn" class="btn btn-primary">Tìm phòng</button>
+                </div>
+            </div>
+
+            <div class="note">Đây chỉ là giao diện frontend demo. Chưa kết nối backend.</div>
+        </div>
+
+        <div class="hero-right">
+            <div class="hero-image"></div>
+        </div>
+    </div>
+</section>*@
+<main class="container">
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-left">
+                <div class="hotel-title">Khách sạn Sunset Bay</div>
+                <div class="hotel-sub">Trải nghiệm nghỉ dưỡng thoải mái bên bờ biển — phòng tiện nghi, dịch vụ chu đáo.</div>
+
+                <div class="search-card">
+                    <div class="form-control" style="flex:1; padding-right: 20px ">
+                        <label class="label">Ngày nhận / trả</label>
+                        <div style="display:flex;gap:8px">
+                            <input id="checkin" type="date">
+                            <input id="checkout" type="date">
+                        </div>
+                    </div>
+
+                    <div class="form-control" style="width:140px">
+                        <label class="label">Khách</label>
+                        <select id="guests"; style="display:flex;gap:8px">
+                            <option value="1" selected>1 khách</option>
+                            <option value="2">2 khách</option>
+                            <option value="3">3 khách</option>
+                            <option value="4">4 khách</option>
+                        </select>
+                    </div>
+
+                    <div class="search-actions">
+                        <button id="searchBtn" class="btn btn-primary">Tìm phòng</button>
+                    </div>
+                </div>
+
+                <div class="note">Không hỗ trợ thanh toán online trong demo. Đây là giao diện frontend.</div>
+            </div>
+
+            <div class="hero-right">
+                <div class="hero-image"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROOMS -->
+    <section id="rooms" class="section">
+        <div class="section-head">
+            <h2>Các loại phòng</h2>
+            <div class="muted" id="resultsInfo">Tất cả phòng</div>
+        </div>
+        <div class="grid" id="roomsGrid"></div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section">
+        <div class="about-wrap">
+            <div>
+                <h3>Về khách sạn</h3>
+                <p class="muted">Khách sạn Sunset Bay nằm ngay mặt biển, tiện di chuyển, phòng sạch sẽ, phục vụ chu đáo. Phù hợp cho cả chuyến công tác và nghỉ dưỡng gia đình.</p>
+            </div>
+            <div class="about-box">
+                <div class="info-title">Địa chỉ</div>
+                <div class="muted">123 Đường Biển, Thành phố X</div>
+                <div style="height:8px"></div>
+                <div class="info-title">Liên hệ</div>
+                <div class="muted">+84 123 456 789</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <!--<footer id="contact" class="section">
+        <div class="footer-wrap">
+            <div>
+                <div class="brand-name">HotelOne</div>
+                <div class="muted">© <span id="year"></span> HotelOne — Demo project. Xử lý thực tế cần backend.</div>
+            </div>-->
+
+            @*@section Scripts {
+                <script src="~/Scripts/No1JavaScript/script01.js"></script>
+            }*@

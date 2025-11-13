@@ -1,0 +1,138 @@
+﻿@model HotelBooking_Web.Areas.Admin.ViewModel.TaiKhoanViewModel
+@{
+    ViewBag.Title = "Them";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="app-content-header">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Row-->
+        <div class="row">
+            <div class="col-sm-6"><h3 class="mb-0">Sửa phòng</h3></div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                    <li class="breadcrumb-item"><a href="~/admin/QLPhong">Danh sách phòng</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Sửa phòng</li>
+                </ol>
+            </div>
+        </div>
+        <!--end::Row-->
+    </div>
+    <!--end::Container-->
+</div>
+
+<!--end::App Content Header-->
+<!--begin::App Content-->
+<div class="app-content">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Row-->
+        <div class="row g-4">
+            <!--begin::Col-->
+            <div class="col-12">
+                <!--begin::Quick Example-->
+                <div class="card card-primary card-outline mb-4">
+                    <!--begin::Header-->
+
+                    <div class="card-header"><div class="card-title">Thông tin Phòng</div></div>
+                    <!--end::Header-->
+                    <!--begin::Form-->
+                    <form id="form-act">
+                        <div class="card-body">
+                            <input type="hidden" name="txt_TaiKhoanID" value="@Model.taikhoan.TaiKhoanID" />
+                            <div class="col-md-12">
+                                <label for="txt_HoTen" class="form-label">Họ tên</label>
+                                <input class="form-control" type="text" id="txt_HoTen" name="txt_HoTen" value="@Model.taikhoan.HoTen">
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="txt_Email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="txt_Email" name="txt_Email" value="@Model.taikhoan.Email">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="txt_SoDienThoai" class="form-label">Số điện thoại</label>
+                                <input type="text" class="form-control" id="txt_SoDienThoai" name="txt_SoDienThoai" value="@Model.taikhoan.SoDienThoai">
+                            </div>
+                            <div class="mb-3">
+                                <label for="txt_DiaChi" class="form-label">Địa Chỉ</label>
+                                <input type="text" class="form-control" id="txt_DiaChi" name="txt_DiaChi" value="@Model.taikhoan.DiaChi">
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <label for="slc_VaiTro" class="form-label">chọn vai trò</label>
+                                <select id="slc_VaiTro" name="slc_VaiTro" class="form-control">
+                                    <option value="@Model.taikhoan.VaiTroID">@Model.taikhoan.TenVaiTro</option>
+                                    @if (Model != null && Model.DSVT.Any())
+                                    {
+
+                                        foreach (var item in Model.DSVT)
+                                        {
+                                            <option value="@item.VaiTroID">@item.TenVaiTro</option>
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option value="@Model.taikhoan.VaiTroID">@Model.taikhoan.TenVaiTro</option>
+                                    }
+                                </select>
+
+                            </div>
+
+
+                        </div>
+                        
+                        <!--end::Body-->
+                        <!--begin::Footer-->
+                        <div class="card-footer">
+                            <button type="button" id="btn_sua" class="btn btn-primary">Sửa phòng</button>
+                        </div>
+                        <!--end::Footer-->
+                    </form>
+                    <!--end::Form-->
+                </div>
+                <!--end::Quick Example-->
+            </div>
+        </div>
+    </div>
+    <!--end::Container-->
+</div>
+<!--end::App Content-->
+
+<script>
+    $("#btn_sua").click(function () {
+        var form = $('#form-act')[0];
+        var formData = new FormData(form);
+
+        $.ajax({
+            type: "POST",
+            data: formData,
+            //data: JSON.stringify(lst),
+            contentType: "application/json; charset=utf-8",
+            url: window.location.origin + '/QLTKhoan/Edit',
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (response) {
+                console.log(response);
+
+                var rs = JSON.parse(response);
+
+                if (rs.ErrCode == 1) {
+                    window.location.href = '../Index';
+                    alert(rs.ErrDesc);
+                }
+                else {
+
+                    alert(rs.ErrDesc);
+                }
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    });
+
+</script>

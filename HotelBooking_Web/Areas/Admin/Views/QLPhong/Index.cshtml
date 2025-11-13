@@ -1,0 +1,154 @@
+﻿@model PagedList.PagedList<HotelBooking_Web.Models.vw_DanhSachPhong>
+@using PagedList.Mvc;
+@using PagedList; 
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="app-content-header">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Row-->
+        <div class="row">
+            <div class="col-sm-6"><h3 class="mb-0">Danh sách phòng</h3></div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                    <li class="breadcrumb-item"><a href="~/admin">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Danh sách phòng</li>
+                </ol>
+            </div>
+        </div>
+        <!--end::Row-->
+    </div>
+    <!--end::Container-->
+</div>
+<!--end::App Content Header-->
+<!--begin::App Content-->
+<div class="app-content">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Row-->
+        <div class="row">
+            <div class="col-12">
+                <!-- Default box -->
+                <div class="card">
+                    <div class="card-header">
+                        
+                        <div class="card-tools">
+                            <a href="../admin/QLPhong/Them" class="btn btn-primary">Thêm phòng</a>
+                        </div>
+                        
+                            <div class="row ">
+                                <label for="txt_query" class="form-label">Tìm kiếm</label>
+                                <div class=" col-md-4 col-lg-4">
+                                    <input type="text" class="form-control" id="txt_query" name="txt_query" />
+                                </div>
+                                <div class=" col-md-4 col-lg-2">
+                                    <button type="button" id="btn_timkiem" class="btn btn-primary">Tìm kiếm</button>
+                                </div>
+                            </div>
+                        
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>ảnh</th>
+                                    <th>Mã phòng</th>
+                                    <th>Loại Phòng</th>
+                                    <th>Giá mỗi đêm</th>
+                                    <th>Sức chứa</th>
+                                    <th>Mô tả</th>
+                                    <th>Thao Tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    var i = 1;
+                                    foreach (var item in Model)
+                                    {
+                                        <tr id="trow_@item.PhongID">
+                                            <td>@i</td>
+                                            <td><img class="img-size-50" src="@item.HinhAnh" /></td>
+                                            <td>@item.SoPhong</td>
+                                            <td>@item.TenLoaiPhong</td>
+                                            <td>@item.GiaMoiDem</td>
+                                            <td>@item.SucChuaToiDa</td>
+                                            <td>@item.MoTa</td>
+                                            <td>
+                                                <a href="/admin/QLPhong/Sua/@item.PhongID" class="btn btn-sm btn-primary">Sửa</a>
+                                                <a href="#" data-id="@item.PhongID" class="btn btn-sm btn-danger btnDelete">Xóa</a>
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td align="center">Không có bản ghi nào</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <div class="row">
+                            <div class="col-5"></div>
+                            <div class="col-7">
+                                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer"></div>
+                    <!-- /.card-footer-->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <!--end::Row-->
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('body').on('click', '.btnDelete', function () {
+            var id = $(this).data("id")
+            var conf = confirm("bạn có muốn xóa bản ghi này không?");
+            if (conf == true) {
+                $.ajax({
+                    url: window.location.origin + '/QLPhong/Delete',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (response) {
+                        var rs = JSON.parse(response);
+                        if (rs.ErrCode == 1) {
+
+                            $('#trow_' + id).remove();
+                            alert(rs.ErrDesc);
+                        }
+                        else {
+
+                            alert(rs.ErrDesc);
+                        }
+
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+
+        });
+    });
+</script>
+
+<script>
+    $("#btn_timkiem").click(function () {
+        var query = $("#txt_query").val();
+        
+        alert(query)
+        window.location.href = "/Admin/QLPhong/Index?query=" + encodeURIComponent(query);
+    });
+</script>
