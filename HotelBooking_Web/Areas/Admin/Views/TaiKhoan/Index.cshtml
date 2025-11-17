@@ -35,7 +35,7 @@
                     <div class="card-header">
 
                         <div class="card-tools">
-                            <a href="~/admin/QLTKhoan/Them" class="btn btn-primary">Thêm tài khoản</a>
+                            <a href="~/admin/TaiKhoan/Them" class="btn btn-primary">Thêm tài khoản</a>
                         </div>
 
                         <div class="row ">
@@ -117,7 +117,7 @@
             var conf = confirm("bạn có muốn xóa bản ghi này không?");
             if (conf == true) {
                 $.ajax({
-                    url: window.location.origin + '/QLTKhoan/Delete',
+                    url: window.location.origin + '/TaiKhoan/Delete',
                     type: 'POST',
                     data: { id: id },
                     success: function (response) {

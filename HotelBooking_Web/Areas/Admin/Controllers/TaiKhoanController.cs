@@ -12,7 +12,7 @@ using System.Web.Services.Description;
 
 namespace HotelBooking_Web.Areas.Admin.Controllers
 {
-    public class QLTKhoanController : Controller
+    public class TaiKhoanController : Controller
     {
         private DataClasses1DataContext db = new DataClasses1DataContext();
         private QLTKhoanService service = new QLTKhoanService();
@@ -29,6 +29,8 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
             return View(items);
         }
 
+
+
         public ActionResult Them()
         {
             var items = db.tbl_VaiTros.Where(x => x.isDelete == null || x.isDelete == false);
@@ -40,6 +42,11 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
             var items = service.LayThongTinViewSua(id);
 
             return View(items);
+        }
+
+        public ActionResult login()
+        {
+            return View();
         }
 
         public string Insert()
