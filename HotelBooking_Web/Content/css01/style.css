@@ -131,13 +131,26 @@ nav {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 24px;
 }
+
+    .hero .search-card {
+        margin: auto !important;
+    }
 
 .hero-left {
     flex: 1;
     min-width: 260px;
+    justify-content: center;
+    align-items:center;
+}
+
+.hero-inner {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
 }
 
 .hotel-title {
@@ -151,19 +164,34 @@ nav {
 }
 
 .search-card {
+    align-items:flex-end;
     background: var(--white);
     padding: 16px;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
+    gap: 24px;
+/*    flex-wrap: wrap;*/
+    margin: auto;
 }
 
+.form-control {
+    display: flex;
+    flex-direction: column; 
+    gap: 8px; 
+}
+
+    .form-control div {
+        display: flex;
+        gap: 8px; 
+
+    }
+
 .label {
-    font-size: 12px;
+    font-size: 15px;
     color: var(--muted);
     margin-bottom: 4px;
+    margin-right:10px;
 }
 
 input[type="date"],
@@ -190,6 +218,8 @@ select {
 .hero-right {
     width: 480px;
     max-width: 100%;
+    justify-content:center;
+    align-items:center;
 }
 
 .hero-image {
@@ -413,3 +443,32 @@ footer {
     flex: 1;
     min-width: 280px;
 }
+
+/*button view all*/
+.view-all-room {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn-view-all {
+    background: var(--primary);
+    color: white;
+    padding: 10px 80px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+    cursor:pointer;
+}
+    .btn-view-all:hover {
+        background: #333;
+
+        /*        transform: translate(-2px);*/
+        -moz-transform: inherit;
+        -ms-transform: inherit;
+        -o-transform: inherit;
+        -webkit-transform: inherit;
+        transform: inherit;
+    }

@@ -13,10 +13,14 @@ namespace HotelBooking_Web.Controllers
 
     namespace HotelBooking_Web.Controllers
     {
-        public class RoomController : Controller
+        public class RoomsController : Controller
         {
-            public ActionResult Rooms()
+            public ActionResult SearchRooms(DateTime? checkin, DateTime? checkout, int? guests)
             {
+                //ViewBag.CheckinDate = checkin;
+                //ViewBag.CheckoutDate = checkout;
+                //ViewBag.GuestCount = guests;
+
                 return View();
             }
 
@@ -25,6 +29,8 @@ namespace HotelBooking_Web.Controllers
                 ViewBag.RoomId = id;
                 return View();
             }
+
+           
         }
     }
 }

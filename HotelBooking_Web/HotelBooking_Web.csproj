@@ -139,7 +139,7 @@
     <Compile Include="Areas\Admin\Service\QLPhongService.cs" />
     <Compile Include="Areas\Admin\ViewModel\TaiKhoanViewModel.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\RoomController.cs" />
+    <Compile Include="Controllers\RoomsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -264,7 +264,7 @@
     <Content Include="Areas\Admin\Scripts\js\adminlte.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\No1JavaScript\room.js" />
-    <Content Include="Scripts\No1JavaScript\Rooms.js" />
+    <Content Include="Scripts\No1JavaScript\SearchRooms.js" />
     <Content Include="Scripts\No1JavaScript\script01.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -282,8 +282,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Scripts\js\adminlte.js.map" />
     <Content Include="Areas\Admin\Scripts\js\adminlte.min.js.map" />
-    <Content Include="Views\Home\Rooms.cshtml" />
-    <Content Include="Views\Home\room.cshtml" />
+    <Content Include="Views\Rooms\SearchRooms.cshtml" />
+    <Content Include="Views\Rooms\room.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
