@@ -45,7 +45,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
             try
             {
                 //cố gắng lấy ra lớp quản lý có mã lớp là maLopQL
-                var qr = db.tbl_Phongs.Where(o => o.SoPhong == SoPhong && (o.isDelete == null || o.isDelete == false));
+                var qr = db.tbl_Phongs.Where(o => o.SoPhong == SoPhong);
 
                 if (!qr.Any())
                 {
@@ -69,9 +69,34 @@ namespace HotelBooking_Web.Areas.Admin.Service
                 }
                 else
                 {
-                    //trường hợp đã tồn tại lớp quản lý có mã lớp = maLopQL
-                    rs.ErrCode = EnumErrCode.Existent;
-                    rs.ErrDesc = "Thêm mới phòng thất bại do đã tồn tại lớp quản lý có mã = " + SoPhong;
+                    if (qr.SingleOrDefault().isDelete == true)
+                    {
+                        tbl_Phong old_obj = qr.SingleOrDefault();
+
+                        old_obj.SoPhong = SoPhong ?? old_obj.SoPhong;
+                        old_obj.LoaiPhongID = LoaiPhongID;
+                        old_obj.GiaMoiDem = GiaMoiDem;
+                        old_obj.SucChuaToiDa = SucChuaToiDa;
+                        old_obj.MoTa = MoTa ?? old_obj.MoTa;
+                        old_obj.HinhAnh = HinhAnh ?? old_obj.HinhAnh;
+                        old_obj.Update_at = null;
+                        old_obj.Create_at = DateTime.Now;
+                        old_obj.isDelete = false;
+                        old_obj.Delete_at = null;
+
+                        db.SubmitChanges();
+                        rs.ErrCode = EnumErrCode.Success;
+                        rs.ErrDesc = "thành công";
+                        rs.Data = old_obj;
+
+
+                    }
+                    else
+                    {
+                        rs.ErrCode = EnumErrCode.Existent;
+                        rs.ErrDesc = "Thêm mới phòng thất bại do đã tồn tại lớp quản lý có mã = " + SoPhong;
+                        rs.Data = null;
+                    }
 
                 }
 

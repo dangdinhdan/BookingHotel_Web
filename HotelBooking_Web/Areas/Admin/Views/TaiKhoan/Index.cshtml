@@ -1,4 +1,4 @@
-﻿@model PagedList.PagedList<HotelBooking_Web.Models.vw_DanhSachTaiKhoan>
+﻿@model PagedList.PagedList<HotelBooking_Web.Models.tbl_TaiKhoan>
 @using PagedList.Mvc;
 @using PagedList;
 @{
@@ -74,7 +74,7 @@
                                             <td>@item.DiaChi</td>
                                             <td>@item.Email</td>
                                             <td>@item.SoDienThoai</td>
-                                            <td>@item.TenVaiTro</td>
+                                            <td>@item.VaiTro</td>
                                             
                                             <td>
                                                 <a href="/admin/QLTKhoan/Sua/@item.TaiKhoanID" class="btn btn-sm btn-primary">Sửa</a>
@@ -147,6 +147,6 @@
 <script>
     $("#btn_timkiem").click(function () {
         var query = $("#txt_query").val();
-        window.location.href = "/Admin/QLTKhoan/Index?query=" + encodeURIComponent(query);
+        window.location.href = "/Admin/TaiKhoan/Index?query=" + encodeURIComponent(query);
     });
 </script>

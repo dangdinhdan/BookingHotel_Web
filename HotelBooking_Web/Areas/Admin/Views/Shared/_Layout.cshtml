@@ -24,15 +24,15 @@
     <!-- Skip links will be dynamically added by accessibility.js -->
     <meta name="supported-color-schemes" content="light dark" />
     <link rel="preload" href="~/Assets/admin/css/adminlte.css" as="style" />
-    <link href="~/Assets/PagedList.css" rel="stylesheet" />
+    <link href="~/Assets/PagedList.css" rel="stylesheet" />F
     <!--end::Accessibility Features-->
     <!--begin::Fonts-->
-    @*<link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
-        integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q="
-        crossorigin="anonymous"
-        media="print"
-        onload="this.media='all'" />*@
+    <link rel="stylesheet"
+          href="~/Assets/admin/css/index.css"
+          integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q="
+          crossorigin="anonymous"
+          media="print"
+          onload="this.media='all'" />
     <!--end::Fonts-->
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <link rel="stylesheet"
@@ -51,6 +51,8 @@
 <!--end::Head-->
 <!--begin::Body-->
 <body class="layout-fixed sidebar-expand-lg sidebar-open bg-body-tertiary">
+
+
     <!--begin::App Wrapper-->
     <div class="app-wrapper">
         <!--begin::Header-->
@@ -198,18 +200,16 @@
                     <!--end::Fullscreen Toggle-->
                     <!--begin::User Menu Dropdown-->
                     <li class="nav-item dropdown user-menu">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            
+                        <a href="#" class="nav-link dropdown-toggle show" data-bs-toggle="dropdown" aria-expanded="true">
+                            <img src="~/assets/img/user2-160x160.jpg" class="user-image rounded-circle shadow" alt="User Image">
+                            <span class="d-none d-md-inline">@Session["Hoten"]</span>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+                        <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end " >
                             <!--begin::User Image-->
                             <li class="user-header text-bg-primary">
-                                <img src="~/Assets/img/user2-160x160.jpg"
-                                     class="rounded-circle shadow"
-                                     alt="User Image" />
+                                <img src="~/assets/img/user2-160x160.jpg" class="rounded-circle shadow" alt="User Image">
                                 <p>
-                                    Alexander Pierce - Web Developer
-                                    <small>Member since Nov. 2023</small>
+                                    <text>Chào mừng @Session["HoTen"] đến với hệ thống!</text>
                                 </p>
                             </li>
                             <!--end::User Image-->
@@ -217,9 +217,9 @@
                             <li class="user-body">
                                 <!--begin::Row-->
                                 <div class="row">
-                                    <div class="col-4 text-center"><a href="#">Followers</a></div>
+                                    @*<div class="col-4 text-center"><a href="#">Followers</a></div>
                                     <div class="col-4 text-center"><a href="#">Sales</a></div>
-                                    <div class="col-4 text-center"><a href="#">Friends</a></div>
+                                    <div class="col-4 text-center"><a href="#">Friends</a></div>*@
                                 </div>
                                 <!--end::Row-->
                             </li>
@@ -227,7 +227,7 @@
                             <!--begin::Menu Footer-->
                             <li class="user-footer">
                                 <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                <a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
+                                <a href="#" class="btn btn-default btn-flat float-end btn_logout">log out</a>
                             </li>
                             <!--end::Menu Footer-->
                         </ul>
@@ -257,7 +257,7 @@
                 <!--end::Brand Link-->
             </div>
             <!--end::Sidebar Brand-->
-           @Html.Partial("_PartialSideBar")
+            @Html.Partial("_PartialSideBar")
         </aside>
         <!--end::Sidebar-->
         <!--begin::App Main-->
@@ -286,8 +286,8 @@
     <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js"
             crossorigin="anonymous"></script>
     <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
-    @*<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-            crossorigin="anonymous"></script>*@
+    <script src="~/Scripts/admin/js/popper.min.js"
+            crossorigin="anonymous"></script>
     <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"
             crossorigin="anonymous"></script>
@@ -320,44 +320,40 @@
 <!--end::Body-->
 </html>
 
+<script>
+        // Biến JS lưu thông tin login
+        var isLoggedIn = @((Session["HoTen"] != null).ToString().ToLower());
 
-@*<!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>@ViewBag.Title - My ASP.NET Application</title>
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
-    </head>
-    <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                    </ul>
-                </div>
-            </div>
-        </div>
+        if(isLoggedIn){
+            console.log("Người dùng đã login.");
+            
+        } else {
+            console.log("Chưa login, chuyển hướng tới trang login...");
+             window.location.href = '/Admin/TaiKhoan/Login'; 
+        }
+</script>
 
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-            </footer>
-        </div>
+<script>
+    $(document).ready(function () {
+        $('body').on('click', '.btn_logout', function () {
+            
+            var conf = confirm("bạn có muốn Đăng xuất không?");
+            if (conf == true) {
+                $.ajax({
+                    url: window.location.origin + '/TaiKhoan/logout_act',
+                    type: 'POST',
+                    
+                    success: function (response) {
+                        
+                        window.location.href = window.location.origin + '/Admin/TaiKhoan/Login';
 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
-    </body>
-    </html>*@
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+
+        });
+    });
+</script>

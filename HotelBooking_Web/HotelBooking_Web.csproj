@@ -157,7 +157,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
@@ -165,7 +164,7 @@
     <Compile Include="Areas\Admin\Controllers\QLLPhongController.cs" />
     <Compile Include="Areas\Admin\Controllers\QLPhongController.cs" />
     <Compile Include="Areas\Admin\Controllers\TaiKhoanController.cs" />
-    <Compile Include="Areas\Admin\Service\QLTKhoanService.cs" />
+    <Compile Include="Areas\Admin\Service\TaiKhoanService.cs" />
     <Compile Include="Areas\Admin\Service\QLLPhongService.cs" />
     <Compile Include="Areas\Admin\Service\QLPhongService.cs" />
     <Compile Include="Areas\Admin\ViewModel\TaiKhoanViewModel.cs" />
@@ -184,9 +183,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\admin\css\index.css" />
     <Content Include="Assets\img\AdminLTEFullLogo.png" />
     <Content Include="Assets\img\AdminLTELogo.png" />
     <Content Include="Assets\img\avatar.png" />
@@ -246,6 +247,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Assets\Site.css" />
+    <Content Include="Scripts\admin\js\popper.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -277,7 +279,7 @@
     <Content Include="Areas\Admin\Views\TaiKhoan\Sua.cshtml" />
     <Content Include="Areas\Admin\Views\QLDP\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LayoutLogin.cshtml" />
-    <Content Include="Areas\Admin\Views\TaiKhoan\login.cshtml" />
+    <Content Include="Areas\Admin\Views\TaiKhoan\Login.cshtml" />
     <None Include="Models\DataClasses1.dbml.layout">
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </None>
@@ -321,6 +323,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Content\" />
+    <Folder Include="Filters\" />
     <Folder Include="Views\IdentityConfig\" />
   </ItemGroup>
   <ItemGroup>

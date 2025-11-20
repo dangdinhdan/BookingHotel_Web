@@ -5,8 +5,7 @@ USE QLKS
 go
 
 CREATE TABLE tbl_VaiTro(
-	VaiTroID INT PRIMARY KEY IDENTITY(1,1),
-	TenVaiTro NVARCHAR(50),
+	VaiTro NVARCHAR(50) PRIMARY KEY ,
 	Create_at DATETIME2 DEFAULT SYSUTCDATETIME(),
 	isDelete BIT DEFAULT 0,
 	Delete_at DATETIME2 NULL
@@ -22,7 +21,7 @@ CREATE TABLE tbl_TaiKhoan(
 	SoDienThoai VARCHAR(10) NOT NULL ,
 	DiaChi NVARCHAR(255),
 	Create_at DATETIME2 DEFAULT SYSUTCDATETIME(),
-	VaiTroID INT NOT NULL REFERENCES tbl_VaiTro(VaiTroID),
+	VaiTro NVARCHAR(50) NOT NULL REFERENCES tbl_VaiTro(VaiTro) DEFAULT 'customer',
 	Update_at DATETIME2 NULL,
 	isDelete BIT DEFAULT 0,
 	Delete_at DATETIME2 NULL
@@ -104,21 +103,6 @@ JOIN tbl_Phong P on P.PhongID= CTDP.PhongID
 JOIN tbl_TaiKhoan TK on DP.TaiKhoanID =TK.TaiKhoanID 
 GO
 
-CREATE OR ALTER VIEW vw_DanhSachTaiKhoan AS
-SELECT tk.TaiKhoanID,
-		tk.HoTen,
-		tk.DiaChi,
-		tk.Email,
-		vt.TenVaiTro,
-		vt.VaiTroID,
-		tk.SoDienThoai,
-		tk.Create_at,
-		tk.isDelete,
-		tk.Delete_at,
-		tk.Update_at
-FROM tbl_TaiKhoan tk
-JOIN tbl_VaiTro vt ON tk.VaiTroID= vt.VaiTroID
-GO
 
 CREATE OR ALTER VIEW vw_DanhSachPhong AS
 SELECT P.PhongID,
