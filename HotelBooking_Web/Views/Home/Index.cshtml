@@ -50,35 +50,37 @@
                 <div class="hotel-title">Khách sạn Sunset Bay</div>
                 <div class="hotel-sub">Trải nghiệm nghỉ dưỡng thoải mái bên bờ biển — phòng tiện nghi, dịch vụ chu đáo.</div>
 
-                <div class="search-card">
-                    <div class="form-control" style="flex:1; padding-right: 20px ">
-                        <label class="label">Ngày nhận / trả</label>
-                        <div style="display:flex;gap:8px">
-                            <input id="checkin" type="date">
-                            <input id="checkout" type="date">
-                        </div>
-                    </div>
 
-                    <div class="form-control" style="width:140px">
-                        <label class="label">Khách</label>
-                        <select id="guests"; style="display:flex;gap:8px">
-                            <option value="1" selected>1 khách</option>
-                            <option value="2">2 khách</option>
-                            <option value="3">3 khách</option>
-                            <option value="4">4 khách</option>
-                        </select>
-                    </div>
-
-                    <div class="search-actions">
-                        <button id="searchBtn" class="btn btn-primary">Tìm phòng</button>
-                    </div>
-                </div>
 
                 <div class="note">Không hỗ trợ thanh toán online trong demo. Đây là giao diện frontend.</div>
             </div>
 
             <div class="hero-right">
                 <div class="hero-image"></div>
+            </div>
+        </div>
+
+        <div class="search-card">
+            <div class="form-control" style="flex:1; padding-right: 20px ">
+                <label class="label">Ngày nhận / trả</label>
+                <div style="gap:8px">
+                    <input id="checkin" type="date">
+                    <input id="checkout" type="date">
+                </div>
+            </div>
+
+            <div class="form-control" style="width:140px">
+                <label class="label">Khách</label>
+                <select id="guests" ; style="display:flex;gap:8px">
+                    <option value="1" selected>1 khách</option>
+                    <option value="2">2 khách</option>
+                    <option value="3">3 khách</option>
+                    <option value="4">4 khách</option>
+                </select>
+            </div>
+
+            <div class="view-all-room">
+                <button id="searchBtn" class="btn-view-all">Tìm phòng</button>
             </div>
         </div>
     </section>
@@ -90,6 +92,10 @@
             <div class="muted" id="resultsInfo">Tất cả phòng</div>
         </div>
         <div class="grid" id="roomsGrid"></div>
+
+        @*<div class="view-all-room">
+        <button id="viewAllBtn" class="btn-view-all">Xem tất cả</button>
+    </div>*@
     </section>
 
     <!-- ABOUT -->
