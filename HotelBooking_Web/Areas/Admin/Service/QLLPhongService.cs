@@ -1,4 +1,5 @@
 ﻿using HotelBooking_Web.Models;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
             FunctResult<tbl_LoaiPhong> rs = new FunctResult<tbl_LoaiPhong>();
             try
             {
-                var qr = db.tbl_LoaiPhongs.Where(o=>o.TenLoaiPhong == TenLoaiPhong &&(o.isDelete==null || o.isDelete==false));
+                var qr = db.tbl_LoaiPhongs.Where(o=>o.TenLoaiPhong == TenLoaiPhong);
                 if (!qr.Any()) {
                     tbl_LoaiPhong new_obj = new tbl_LoaiPhong();
                     new_obj.TenLoaiPhong= TenLoaiPhong;
@@ -31,9 +32,30 @@ namespace HotelBooking_Web.Areas.Admin.Service
                 }
                 else
                 {
-                    rs.ErrCode = EnumErrCode.Existent;
-                    rs.ErrDesc = "Thêm mới lớp quản lý thất bại do đã tồn tại lớp quản lý có mã = " + TenLoaiPhong;
-                    rs.Data = null;
+                    if (qr.SingleOrDefault().isDelete == true)
+                    {
+                        tbl_LoaiPhong old_obj = qr.SingleOrDefault();
+                        old_obj.TenLoaiPhong = TenLoaiPhong ?? old_obj.TenLoaiPhong;
+                        old_obj.MoTa = MoTa ?? old_obj.MoTa;
+                        old_obj.Update_at = null;
+                        old_obj.Create_at = DateTime.Now;
+                        old_obj.isDelete = false;
+                        old_obj.Delete_at = null;
+
+                        db.SubmitChanges();
+                        rs.ErrCode = EnumErrCode.Success;
+                        rs.ErrDesc = "thành công";
+                        rs.Data = old_obj;
+
+
+                    }
+                    else 
+                    {
+                        rs.ErrCode = EnumErrCode.Existent;
+                        rs.ErrDesc = "Thêm mới loại phòng thất bại do đã tồn tại loại phòng có mã = " + TenLoaiPhong;
+                        rs.Data = null;
+                    }
+                    
                 }
             }
             catch(Exception ex) 
@@ -45,6 +67,8 @@ namespace HotelBooking_Web.Areas.Admin.Service
             return rs;
         }
 
+
+        
 
         public FunctResult<tbl_LoaiPhong> Sua(int id,String TenLoaiPhong, string MoTa)
         {
@@ -62,6 +86,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
                     db.SubmitChanges();
                     rs.ErrCode = EnumErrCode.Success;
                     rs.ErrDesc = "cập nhật thành công";
+                    rs.Data = old_obj;
                     
                 }
                 else 

@@ -97,6 +97,7 @@
     $(document).ready(function () {
         $('body').on('click', '.btnDelete', function () {
             var id = $(this).data("id")
+            console.log(id)
             var conf = confirm("bạn có muốn xóa bản ghi này không?");
             if (conf == true) {
                 $.ajax({
@@ -107,7 +108,7 @@
                         var rs = JSON.parse(response);
                         if (rs.ErrCode == 1) {
 
-                            $('#trow_' + id).remove();
+                            window.location.href= '../QLLPhong'
                             alert(rs.ErrDesc);
                         }
                         else {

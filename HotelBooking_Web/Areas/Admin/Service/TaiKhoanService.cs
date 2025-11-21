@@ -2,6 +2,7 @@
 using HotelBooking_Web.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Security.Policy;
 using System.Web;
@@ -9,12 +10,12 @@ using System.Web.Helpers;
 
 namespace HotelBooking_Web.Areas.Admin.Service
 {
-    public class QLTKhoanService
+    public class TaiKhoanService
     {
         private DataClasses1DataContext db = new DataClasses1DataContext();
 
 
-        public FunctResult<tbl_TaiKhoan> Them(string HoTen, string DiaChi, string Email,string SoDienThoai, string MatKhau,int VaiTroID)
+        public FunctResult<tbl_TaiKhoan> Them(string HoTen, string DiaChi, string Email,string SoDienThoai, string MatKhau,string VaiTro)
         {
             FunctResult<tbl_TaiKhoan> rs = new FunctResult<tbl_TaiKhoan>();
 
@@ -32,7 +33,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
                     new_obj.Email = Email;
                     new_obj.SoDienThoai = SoDienThoai;
                     new_obj.MatKhau = MatKhau;
-                    new_obj.VaiTroID = VaiTroID;
+                    new_obj.VaiTro = VaiTro;
 
                     new_obj.Create_at = DateTime.Now;
 
@@ -45,16 +46,40 @@ namespace HotelBooking_Web.Areas.Admin.Service
                 }
                 else
                 {
-                    //trường hợp đã tồn tại lớp quản lý có mã lớp = maLopQL
-                    rs.ErrCode = EnumErrCode.Existent;
-                    rs.ErrDesc = "Thêm mới thất bại do đã tồn tại Email = " + Email;
+                    if (qr.SingleOrDefault().isDelete == true)
+                    {
+                        tbl_TaiKhoan old_obj = qr.SingleOrDefault();
+
+                        old_obj.HoTen = HoTen ?? old_obj.HoTen;
+                        old_obj.Email = Email;
+                        old_obj.SoDienThoai = SoDienThoai;
+                        old_obj.MatKhau = MatKhau ?? old_obj.MatKhau;
+                        old_obj.DiaChi = DiaChi ?? old_obj.DiaChi;
+                        old_obj.VaiTro = VaiTro;
+                        old_obj.Update_at = null;
+                        old_obj.Create_at = DateTime.Now;
+                        old_obj.isDelete = false;
+                        old_obj.Delete_at = null;
+
+                        db.SubmitChanges();
+                        rs.ErrCode = EnumErrCode.Success;
+                        rs.ErrDesc = "thành công";
+                        rs.Data = old_obj;
+
+
+                    }
+                    else
+                    {
+                        rs.ErrCode = EnumErrCode.Existent;
+                        rs.ErrDesc = "Thêm mới thất bại do đã tồn tại Email = " + Email;
+                        rs.Data = null;
+                    }
 
                 }
 
             }
             catch (Exception ex)
             {
-                //nếu lấy ds lớp quản lý lỗi thì trả ra fail
                 rs.ErrCode = EnumErrCode.Error;
                 rs.ErrDesc = "Có lỗi xảy ra trong quá trình thêm mới. Chi tiết lỗi: " + ex.Message;
 
@@ -65,7 +90,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
 
 
 
-        public FunctResult<tbl_TaiKhoan> Sua(int TaiKhoanID ,string HoTen, string DiaChi, string Email, string SoDienThoai, string MatKhau, int VaiTroID)
+        public FunctResult<tbl_TaiKhoan> Sua(int TaiKhoanID ,string HoTen, string DiaChi, string Email, string SoDienThoai, string MatKhau, string VaiTro)
         {
             FunctResult<tbl_TaiKhoan> rs = new FunctResult<tbl_TaiKhoan>();
 
@@ -84,7 +109,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
                     old_obj.SoDienThoai = SoDienThoai;
                     old_obj.MatKhau = MatKhau ?? old_obj.MatKhau;
                     old_obj.DiaChi = DiaChi ?? old_obj.DiaChi;
-                    old_obj.VaiTroID = VaiTroID;
+                    old_obj.VaiTro = VaiTro;
                     old_obj.Update_at = DateTime.Now;
 
 
@@ -119,7 +144,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
 
         public TaiKhoanViewModel LayThongTinViewSua(int id)
         {
-            var taiKhoan = db.vw_DanhSachTaiKhoans.FirstOrDefault(x => x.TaiKhoanID == id);
+            var taiKhoan = db.tbl_TaiKhoans.FirstOrDefault(x => x.TaiKhoanID == id);
             if (taiKhoan == null)
             {
                 return null;
@@ -169,9 +194,9 @@ namespace HotelBooking_Web.Areas.Admin.Service
         }
 
 
-        public List<vw_DanhSachTaiKhoan> Search(string query)
+        public List<tbl_TaiKhoan> Search(string query)
         {
-            var list = db.vw_DanhSachTaiKhoans.Where(x => x.isDelete == null || x.isDelete == false);
+            var list = db.tbl_TaiKhoans.Where(x => x.isDelete == null || x.isDelete == false);
 
             if (!string.IsNullOrEmpty(query))
             {
@@ -181,6 +206,55 @@ namespace HotelBooking_Web.Areas.Admin.Service
             return list.ToList();
 
 
+        }
+
+        public FunctResult<ThongTinTaiKhoan> Login_action(string email, string password)
+        {
+            FunctResult<ThongTinTaiKhoan> rs = new FunctResult<ThongTinTaiKhoan>();
+            try
+            {
+                if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(password))
+                {
+                    rs.ErrCode = EnumErrCode.Empty;
+                    rs.ErrDesc = "không được để trống tài khoản mật khẩu";
+                }
+                else
+                {
+                    var qr = db.tbl_TaiKhoans.Where(o => o.Email == email && o.MatKhau == password && o.VaiTro == "admin" && (o.isDelete == null || o.isDelete == false));
+                    if (qr.Any())
+                    {
+                        tbl_TaiKhoan tk = qr.SingleOrDefault();
+
+                        rs.Data = new ThongTinTaiKhoan()
+                        {
+                            TaiKhoanID = tk.TaiKhoanID,
+                            MaTK = tk.MaTK,
+                            HoTen = tk.HoTen,
+                            Email = tk.Email,
+                            VaiTro = tk.VaiTro,
+                            SoDienThoai = tk.SoDienThoai,
+                            DiaChi = tk.DiaChi
+                        };
+
+                        rs.ErrCode = EnumErrCode.Success;
+                        rs.ErrDesc = "Đăng nhập thành công";
+                    }
+                    else
+                    {
+                        rs.Data = null;
+                        rs.ErrCode = EnumErrCode.Error;
+                        rs.ErrDesc = "Tài khoản hoặc mật khẩu không chính xác";
+
+                    }
+                }
+            }
+            catch (Exception ex) 
+            {
+                rs.ErrCode=EnumErrCode.Error;
+                rs.ErrDesc="Có lôi xảy ra trong quá trình đăng nhập" + ex.Message;
+
+            }
+            return rs;
         }
     }
 }

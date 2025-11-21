@@ -11,7 +11,7 @@
             <div class="col-sm-6"><h3 class="mb-0">Thêm tài khoản</h3></div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
-                    <li class="breadcrumb-item"><a href="~/admin/QLTKhoan">Danh sách tài khoản</a></li>
+                    <li class="breadcrumb-item"><a href="~/admin/TaiKhoan">Danh sách tài khoản</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Thêm phòng</li>
                 </ol>
             </div>
@@ -73,7 +73,7 @@
 
                                         foreach (var item in Model)
                                         {
-                                            <option value="@item.VaiTroID">@item.TenVaiTro</option>
+                                            <option value="@item.VaiTro">@item.VaiTro</option>
 
                                         }
                                     }
@@ -119,7 +119,7 @@
             data: formData,
             //data: JSON.stringify(lst),
             contentType: "application/json; charset=utf-8",
-            url: window.location.origin + '/QLTKhoan/Insert',
+            url: window.location.origin + '/TaiKhoan/Insert',
             processData: false,
             contentType: false,
             cache: false,
@@ -129,7 +129,7 @@
                 var rs = JSON.parse(response);
 
                 if (rs.ErrCode == 1) {
-                    window.location.href = '../QLTKhoan/Index';
+                    window.location.href = '../TaiKhoan/Index';
                     alert(rs.ErrDesc);
                 }
                 else {
