@@ -21,13 +21,15 @@
     padding: 0;
 }
 
+
+
+
 body {
     background: var(--bg);
     color: var(--primary);
     line-height: 1.6;
 }
 
-/* Container */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -44,10 +46,23 @@ header {
 }
 
 .topbar {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr; 
     align-items: center;
-    justify-content: space-between;
     padding: 14px 0;
+}
+
+.header-left {
+    justify-self: start;
+}
+
+.header-center {
+    justify-self: center;
+}
+
+.header-right {
+    justify-self: end;
+    width: 100%;
 }
 
 .brand {
@@ -472,3 +487,84 @@ footer {
         -webkit-transform: inherit;
         transform: inherit;
     }
+
+
+/* BOOKING PAGE */
+.booking-box {
+    background: var(--white);
+    padding: 18px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+}
+
+.booking-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 14px;
+}
+
+    .form-group label {
+        margin-bottom: 4px;
+        font-weight: 500;
+        color: var(--secondary);
+    }
+
+.input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: var(--radius);
+    background: var(--white);
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.summary-box {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 18px;
+    box-shadow: var(--shadow);
+}
+
+.summary-section {
+    border-top: 1px solid #eaeaea;
+    padding-top: 12px;
+    margin-top: 12px;
+}
+
+.summary-title {
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: var(--secondary);
+}
+
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    margin-top: 10px;
+}
+
+.total-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--primary);
+}

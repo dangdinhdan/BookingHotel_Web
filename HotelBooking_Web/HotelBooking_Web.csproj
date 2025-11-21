@@ -138,6 +138,7 @@
     <Compile Include="Areas\Admin\Service\QLLPhongService.cs" />
     <Compile Include="Areas\Admin\Service\QLPhongService.cs" />
     <Compile Include="Areas\Admin\ViewModel\TaiKhoanViewModel.cs" />
+    <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoomsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -283,7 +284,8 @@
     <Content Include="Areas\Admin\Scripts\js\adminlte.js.map" />
     <Content Include="Areas\Admin\Scripts\js\adminlte.min.js.map" />
     <Content Include="Views\Rooms\SearchRooms.cshtml" />
-    <Content Include="Views\Rooms\room.cshtml" />
+    <Content Include="Views\Rooms\Detail.cshtml" />
+    <Content Include="Views\Booking\Booking.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
