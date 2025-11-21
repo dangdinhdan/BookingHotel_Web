@@ -46,7 +46,37 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.4\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.4\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.4\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
     </Reference>
@@ -133,8 +163,8 @@
     <Compile Include="Areas\Admin\Controllers\QLDPController.cs" />
     <Compile Include="Areas\Admin\Controllers\QLLPhongController.cs" />
     <Compile Include="Areas\Admin\Controllers\QLPhongController.cs" />
-    <Compile Include="Areas\Admin\Controllers\QLTKhoanController.cs" />
-    <Compile Include="Areas\Admin\Service\QLTKhoanService.cs" />
+    <Compile Include="Areas\Admin\Controllers\TaiKhoanController.cs" />
+    <Compile Include="Areas\Admin\Service\TaiKhoanService.cs" />
     <Compile Include="Areas\Admin\Service\QLLPhongService.cs" />
     <Compile Include="Areas\Admin\Service\QLPhongService.cs" />
     <Compile Include="Areas\Admin\ViewModel\TaiKhoanViewModel.cs" />
@@ -154,9 +184,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\admin\css\index.css" />
     <Content Include="Assets\img\AdminLTEFullLogo.png" />
     <Content Include="Assets\img\AdminLTELogo.png" />
     <Content Include="Assets\img\avatar.png" />
@@ -191,31 +223,32 @@
     <Content Include="Assets\img\user6-128x128.jpg" />
     <Content Include="Assets\img\user7-128x128.jpg" />
     <Content Include="Assets\img\user8-128x128.jpg" />
-    <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-grid.rtl.css" />
-    <Content Include="Content\bootstrap-grid.rtl.min.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
-    <Content Include="Content\bootstrap-reboot.rtl.css" />
-    <Content Include="Content\bootstrap-reboot.rtl.min.css" />
-    <Content Include="Content\bootstrap-utilities.css" />
-    <Content Include="Content\bootstrap-utilities.min.css" />
-    <Content Include="Content\bootstrap-utilities.rtl.css" />
-    <Content Include="Content\bootstrap-utilities.rtl.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\bootstrap.rtl.css" />
-    <Content Include="Content\bootstrap.rtl.min.css" />
-    <Content Include="Areas\Admin\Content\Client\css\adminlte.css" />
-    <Content Include="Areas\Admin\Content\Client\css\adminlte.min.css" />
-    <Content Include="Areas\Admin\Content\Client\css\adminlte.rtl.css" />
-    <Content Include="Areas\Admin\Content\Client\css\adminlte.rtl.min.css" />
-    <Content Include="Content\css01\style.css" />
-    <Content Include="Content\PagedList.css" />
+    <Content Include="Assets\bootstrap-grid.css" />
+    <Content Include="Assets\bootstrap-grid.min.css" />
+    <Content Include="Assets\bootstrap-grid.rtl.css" />
+    <Content Include="Assets\bootstrap-grid.rtl.min.css" />
+    <Content Include="Assets\bootstrap-reboot.css" />
+    <Content Include="Assets\bootstrap-reboot.min.css" />
+    <Content Include="Assets\bootstrap-reboot.rtl.css" />
+    <Content Include="Assets\bootstrap-reboot.rtl.min.css" />
+    <Content Include="Assets\bootstrap-utilities.css" />
+    <Content Include="Assets\bootstrap-utilities.min.css" />
+    <Content Include="Assets\bootstrap-utilities.rtl.css" />
+    <Content Include="Assets\bootstrap-utilities.rtl.min.css" />
+    <Content Include="Assets\bootstrap.css" />
+    <Content Include="Assets\bootstrap.min.css" />
+    <Content Include="Assets\bootstrap.rtl.css" />
+    <Content Include="Assets\bootstrap.rtl.min.css" />
+    <Content Include="Assets\admin\css\adminlte.css" />
+    <Content Include="Assets\admin\css\adminlte.min.css" />
+    <Content Include="Assets\admin\css\adminlte.rtl.css" />
+    <Content Include="Assets\admin\css\adminlte.rtl.min.css" />
+    <Content Include="Assets\client\css01\style.css" />
+    <Content Include="Assets\PagedList.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Assets\Site.css" />
+    <Content Include="Scripts\admin\js\popper.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -223,10 +256,10 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\web.config" />
-    <Content Include="Areas\Admin\Content\Client\css\adminlte.css.map" />
-    <Content Include="Areas\Admin\Content\Client\css\adminlte.min.css.map" />
-    <Content Include="Areas\Admin\Content\Client\css\adminlte.rtl.css.map" />
-    <Content Include="Areas\Admin\Content\Client\css\adminlte.rtl.min.css.map" />
+    <Content Include="Assets\admin\css\adminlte.css.map" />
+    <Content Include="Assets\admin\css\adminlte.min.css.map" />
+    <Content Include="Assets\admin\css\adminlte.rtl.css.map" />
+    <Content Include="Assets\admin\css\adminlte.rtl.min.css.map" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
@@ -242,10 +275,12 @@
     <Content Include="Areas\Admin\Views\QLLPhong\Them.cshtml" />
     <Content Include="Areas\Admin\Views\QLLPhong\Index.cshtml" />
     <Content Include="Areas\Admin\Views\QLLPhong\Sua.cshtml" />
-    <Content Include="Areas\Admin\Views\QLTKhoan\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\QLTKhoan\Them.cshtml" />
-    <Content Include="Areas\Admin\Views\QLTKhoan\Sua.cshtml" />
+    <Content Include="Areas\Admin\Views\TaiKhoan\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TaiKhoan\Them.cshtml" />
+    <Content Include="Areas\Admin\Views\TaiKhoan\Sua.cshtml" />
     <Content Include="Areas\Admin\Views\QLDP\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutLogin.cshtml" />
+    <Content Include="Areas\Admin\Views\TaiKhoan\Login.cshtml" />
     <None Include="Models\DataClasses1.dbml.layout">
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </None>
@@ -261,8 +296,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Areas\Admin\Scripts\js\adminlte.js" />
-    <Content Include="Areas\Admin\Scripts\js\adminlte.min.js" />
+    <Content Include="Scripts\admin\js\adminlte.js" />
+    <Content Include="Scripts\admin\js\adminlte.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\No1JavaScript\room.js" />
     <Content Include="Scripts\No1JavaScript\SearchRooms.js" />
@@ -289,24 +324,27 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Content\" />
+    <Folder Include="Filters\" />
+    <Folder Include="Views\IdentityConfig\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.rtl.min.css.map" />
-    <Content Include="Content\bootstrap.rtl.css.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
-    <Content Include="Content\bootstrap-utilities.min.css.map" />
-    <Content Include="Content\bootstrap-utilities.css.map" />
-    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-grid.rtl.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Assets\bootstrap.rtl.min.css.map" />
+    <Content Include="Assets\bootstrap.rtl.css.map" />
+    <Content Include="Assets\bootstrap.min.css.map" />
+    <Content Include="Assets\bootstrap.css.map" />
+    <Content Include="Assets\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="Assets\bootstrap-utilities.rtl.css.map" />
+    <Content Include="Assets\bootstrap-utilities.min.css.map" />
+    <Content Include="Assets\bootstrap-utilities.css.map" />
+    <Content Include="Assets\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="Assets\bootstrap-reboot.rtl.css.map" />
+    <Content Include="Assets\bootstrap-reboot.min.css.map" />
+    <Content Include="Assets\bootstrap-reboot.css.map" />
+    <Content Include="Assets\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="Assets\bootstrap-grid.rtl.css.map" />
+    <Content Include="Assets\bootstrap-grid.min.css.map" />
+    <Content Include="Assets\bootstrap-grid.css.map" />
     <None Include="packages.config" />
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Scripts\bootstrap.js.map" />

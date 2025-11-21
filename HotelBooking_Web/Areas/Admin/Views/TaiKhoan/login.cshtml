@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "login";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="card-body login-card-body">
+    <p class="login-box-msg">Sign in to start your session</p>
+    <form action="../index3.html" id="form-act">
+        <div class="input-group mb-3">
+            <input type="email" class="form-control" id="txt_Email" name="txt_Email" placeholder="Email" />
+            <div class="input-group-text"><span class="bi bi-envelope"></span></div>
+        </div>
+        <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Password" id="txt_Password" name="txt_Password"/>
+            <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
+        </div>
+        <!--begin::Row-->
+        <div class="row">
+            
+            <!-- /.col -->
+            <div class="col-4">
+                <div class="d-grid gap-2">
+                    <button type="button" id="login" class="btn btn-primary">Login</button>
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!--end::Row-->
+    </form>
+
+    <!-- /.social-auth-links -->
+    <p class="mb-1"><a href="#">I forgot my password</a></p>
+    
+</div>
+
+<script>
+    $("#login").click(function () {
+        var form = $('#form-act')[0];
+        var formdata = new FormData(form);
+        console.log(formdata);
+
+        $.ajax({
+            type: "POST",
+            data: formdata,
+            contentType: false,
+            processData: false,
+            cache: false,
+            url: window.location.origin + '/TaiKhoan/Login_admin',
+            success: function (response) {
+                console.log(response);
+                window.location.href = window.location.origin + '/admin';
+                
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    });
+
+</script>
+
+
