@@ -52,6 +52,7 @@
 </head>
 <body id="top">
 
+
     <header>
         <div class="container topbar">
             <div class="brand">
@@ -72,9 +73,61 @@
                 <a href="/#contact">Liên hệ</a>
             </nav>
 
-            <div class="auth">
-                <button class="btn btn-ghost">Đăng nhập</button>
-                <button class="btn btn-primary">Đăng ký</button>
+            @{
+                var username = Session["username"] as string;
+            }
+
+            <div class="auth" id="user-menu-container">
+                @if (!string.IsNullOrEmpty(username))
+                {
+                    <button id="user-menu-button"
+                            type="button"
+                            class="user-avatar-button"
+                            aria-expanded="false"
+                            aria-haspopup="true">
+
+                        <span class="avatar-circle">
+                            @(username.ToUpper().FirstOrDefault())
+                        </span>
+                        <span class="hidden-xs">@username</span>
+
+                    </button>
+
+                    <div id="user-menu"
+                         class="dropdown-menu"
+                         role="menu"
+                         aria-orientation="vertical"
+                         aria-labelledby="user-menu-button">
+
+                        <h6 class="dropdown-header">
+                            Xin chào, @username
+                        </h6>
+                        <div class="dropdown-divider"></div>
+
+                        <a href="/TaiKhoan/Profile" class="dropdown-item" role="menuitem">
+                            Hồ sơ
+                        </a>
+
+                        <a href="/TaiKhoan/TransactionHistory" class="dropdown-item" role="menuitem">
+                            Danh sách giao dịch
+                        </a>
+
+                        <a href="/TaiKhoan/SavedRooms" class="dropdown-item" role="menuitem">
+                            Phòng đã lưu
+                        </a>
+
+                        <div class="dropdown-divider"></div>
+
+                        <a href="/TaiKhoan/Logout" class="dropdown-item" style="color: #dc3545;" role="menuitem">
+                            Đăng xuất
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <a href="/TaiKhoan/Login" class="btn btn-ghost">Đăng nhập</a>
+                    <a href="/TaiKhoan/Register" class="btn btn-primary">Đăng ký</a>
+                }
             </div>
         </div>
     </header>
@@ -98,6 +151,32 @@
     </footer>
 
     <div id="modalRoot" aria-hidden="true"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const button = document.getElementById('user-menu-button');
+            const menu = document.getElementById('user-menu');
+            const container = document.getElementById('user-menu-container');
+
+            if (button && menu) {
+                button.addEventListener('click', function (event) {
+                    event.stopPropagation();
+                    menu.classList.toggle('show');
+                    const isExpanded = menu.classList.contains('show');
+                    button.setAttribute('aria-expanded', isExpanded);
+                });
+
+                document.addEventListener('click', function (event) {
+                    if (container && !container.contains(event.target)) {
+                        if (menu.classList.contains('show')) {
+                            menu.classList.remove('show');
+                            button.setAttribute('aria-expanded', 'false');
+                        }
+                    }
+                });
+            }
+        });
+    </script>
 
 </body>
 </html>
