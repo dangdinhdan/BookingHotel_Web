@@ -24,9 +24,8 @@ namespace HotelBooking_Web.Controllers
                 return View();
             }
 
-            public ActionResult Room(int id)
+            public ActionResult Detail()
             {
-                ViewBag.RoomId = id;
                 return View();
             }
 
