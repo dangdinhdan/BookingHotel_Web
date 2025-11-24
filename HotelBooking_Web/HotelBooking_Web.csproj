@@ -322,7 +322,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Content\" />
     <Folder Include="Filters\" />
     <Folder Include="Views\IdentityConfig\" />
   </ItemGroup>
