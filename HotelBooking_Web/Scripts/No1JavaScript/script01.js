@@ -117,27 +117,47 @@ function renderRooms(list) {
 renderRooms(ROOMS);
 
 /* --- Tìm kiếm --- */
+//document.getElementById("searchBtn").addEventListener("click", () => {
+//    const guests = Number(document.getElementById("guests").value);
+//    const checkin = document.getElementById("checkin").value;
+//    const checkout = document.getElementById("checkout").value;
+
+//    if (checkin && checkout && new Date(checkin) > new Date(checkout)) {
+//        alert("Ngày nhận phải trước ngày trả.");
+//        return;
+//    }
+
+//    const filtered = ROOMS.filter((r) => r.guests >= guests);
+//    renderRooms(filtered);
+
+//    let label = `${filtered.length} loại phòng`;
+//    if (checkin && checkout) label += ` · ${checkin} → ${checkout}`;
+//    resultsInfo.textContent = label;
+
+//    document.getElementById("rooms").scrollIntoView({
+//        behavior: "smooth",
+//        block: "start",
+//    });
+
+
 document.getElementById("searchBtn").addEventListener("click", () => {
-    const guests = Number(document.getElementById("guests").value);
-    const checkin = document.getElementById("checkin").value;
-    const checkout = document.getElementById("checkout").value;
+    //// 1. Lấy giá trị
+    //const guests = document.getElementById("guests").value;
+    //const checkin = document.getElementById("checkin").value;
+    //const checkout = document.getElementById("checkout").value;
 
-    if (checkin && checkout && new Date(checkin) > new Date(checkout)) {
-        alert("Ngày nhận phải trước ngày trả.");
-        return;
-    }
+    //// 2. Kiểm tra (validate) ngày - Rất tốt!
+    //if (checkin && checkout && new Date(checkin) > new Date(checkout)) {
+    //    alert("Ngày nhận phải trước ngày trả.");
+    //    return; // Dừng lại nếu ngày sai
+    //}
 
-    const filtered = ROOMS.filter((r) => r.guests >= guests);
-    renderRooms(filtered);
+    //// 3. Xây dựng URL đích
+    ////    Chúng ta không lọc (filter) ở đây
+    //const targetUrl = `/Rooms/SearchRooms?checkin=${checkin}&checkout=${checkout}&guests=${guests}`;
 
-    let label = `${filtered.length} loại phòng`;
-    if (checkin && checkout) label += ` · ${checkin} → ${checkout}`;
-    resultsInfo.textContent = label;
-
-    document.getElementById("rooms").scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-    });
+    //// 4. Điều hướng sang trang mới
+    window.location.href = "/Rooms/SearchRooms";
 });
 
 /* --- SCROLL MƯỢT THÔNG MINH CHO MVC --- */
@@ -289,4 +309,40 @@ function closeModal() {
 /* --- ESC để đóng --- */
 document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeModal();
+});
+
+/* chuyen sang trang phong */
+//document.getElementById("viewAllBtn").onclick = () => {
+//    window.location.href = "/Room/Rooms.cshtml";
+//};
+
+document.addEventListener("DOMContentLoaded", () => {
+    const btn = document.getElementById("viewAllBtn");
+    if (btn) {
+        btn.addEventListener("click", () => {
+            window.location.href = "/Rooms/Rooms";
+        });
+    }
+});
+console.log("JS LOADED");
+
+//document.getElementById("viewAllBtn")?.addEventListener("click", () => {
+//    console.log("BTN CLICKED");
+//    window.location.href = "/Rooms/SearchRooms";
+//});
+
+document.getElementById("viewAllBtn")?.addEventListener("click", () => {
+    //console.log("BTN CLICKED");
+
+    //// 1. Lấy giá trị từ các input
+    //var checkinDate = document.getElementById("checkin").value;
+    //var checkoutDate = document.getElementById("checkout").value;
+    //var guestCount = document.getElementById("guests").value;
+
+    //// 2. Xây dựng URL đích với các tham số (query string)
+    //// Tên tham số (checkin, checkout, guests) phải khớp với Action trong Controller
+    //var targetUrl = `/Rooms/SearchRooms?checkin=${checkinDate}&checkout=${checkoutDate}&guests=${guestCount}`;
+
+    // 3. Điều hướng trang
+    window.location.href = "/Rooms/SearchRooms";
 });

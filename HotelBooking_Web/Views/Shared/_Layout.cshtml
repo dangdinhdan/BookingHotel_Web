@@ -54,43 +54,29 @@
 
     <header>
         <div class="container topbar">
-            <div class="brand">
-                <div class="logo">36</div>
-                <div>
-                    <div class="brand-name">4anhemdatai</div>
-                    <div class="brand-sub">Phòng nghỉ — Dịch vụ tận tâm</div>
+            <div class="header-left">
+                <div class="brand">
+                    <div class="logo">36</div>
+                    <div>
+                        <div class="brand-name">4anhemdatai</div>
+                        <div class="brand-sub">Phòng nghỉ — Dịch vụ tận tâm</div>
+                    </div>
                 </div>
             </div>
 
-            @*<nav>
-            <a asp-controller="Home" asp-action="Index">Trang chủ</a>
-            <a asp-controller="Rooms" asp-action="Rooms">Phòng</a>
-            <a asp-controller="Home" asp-action="About">Giới thiệu</a>
-            <a asp-controller="Home" asp-action="Contact">Liên hệ</a>
-        </nav>*@
+            <div class="header-center">
+                <nav>
+                    <a href="/#top">Trang chủ</a>
 
-            @*<nav>
-                <a asp-controller="Home" asp-action="Index">Trang chủ</a>
+                    <a href="/#rooms">Phòng</a>
 
-                <a asp-controller="Home" asp-action="Index" asp-fragment="Rooms">Phòng</a>
-                <a asp-controller="Home" asp-action="Index" asp-fragment="About">Giới thiệu</a>
-                <a asp-controller="Home" asp-action="Index" asp-fragment="Contact">Liên hệ</a>
-            </nav>*@
+                    <a href="/#about">Giới thiệu</a>
 
-            <nav>
-                <a href="/#top">Trang chủ</a>
-
-                <a href="/#rooms">Phòng</a>
-
-                <a href="/#about">Giới thiệu</a>
-
-                <a href="/#contact">Liên hệ</a>
-            </nav>
-
-            <div class="auth">
-                <button class="btn btn-ghost">Đăng nhập</button>
-                <button class="btn btn-primary">Đăng ký</button>
+                    <a href="/#contact">Liên hệ</a>
+                </nav>
             </div>
+
+            <div class=" header-right"></div>
         </div>
     </header>
 

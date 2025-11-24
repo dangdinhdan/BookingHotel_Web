@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Tim phong";
+}
+
+<section class="section">
+    <h2>Danh sách phòng</h2>
+    <div class="muted" id="searchSummary"></div>
+
+    <div class="search-card" style="margin-top:16px">
+       
+
+        <div class="form-control" style="flex:1; padding-right: 20px ; width: 450px ">
+            <label class="label">Ngày nhận / trả</label>
+            <div>
+                <input id="checkin_search" type="date">
+                <input id="checkout_search" type="date">
+            </div>
+        </div>
+
+        <div class="form-control" style="width:160px;">
+            <label class="label">Số khách</label>
+            <select id="guests">
+                <option value="0">Tất cả</option>
+                <option value="1">1 khách</option>
+                <option value="2">2 khách</option>
+                <option value="3">3 khách</option>
+                <option value="4">4 khách</option>
+            </select>
+        </div>
+
+        <div class="search-actions">
+            <button id="searchBtn" class="btn btn-primary">Lọc phòng</button>
+        </div>
+    </div>
+
+    @*<div style="height:12px"></div>
+    <div id="roomsGrid" class="grid"></div>*@
+</section>
+
+<section id="rooms" class="section">
+    <div class="section-head">
+        <h2>Các loại phòng</h2>
+        <div class="muted" id="resultsInfo">Tất cả phòng</div>
+    </div>
+    <div class="grid" id="roomsGrid"></div>
+</section>
+
+@section Scripts {
+    <script src="~/Scripts/No1JavaScript/SearchRooms.js?v=@DateTime.Now.Ticks"></script>
+}
