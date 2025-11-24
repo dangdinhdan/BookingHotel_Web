@@ -1125,13 +1125,11 @@ body {
     padding: 20px 15px;
 }
 
-/* --- Cấu trúc Trang Hồ sơ --- */
 .profile-page {
     display: flex;
     gap: 30px;
 }
 
-/* --- Sidebar Menu (Menu bên trái) --- */
 .profile-sidebar {
     width: 280px;
     flex-shrink: 0;
@@ -1162,7 +1160,7 @@ body {
         gap: 10px;
         padding: 12px 15px;
         text-decoration: none;
-        color: var(--text-color); /* Link mặc định là màu đen */
+        color: var(--text-color); 
         font-weight: 500;
         transition: background-color 0.2s, color 0.2s;
     }
@@ -1174,19 +1172,17 @@ body {
             stroke-width: 1.8;
         }
 
-        /* Thay đổi: Màu Active và Hover giờ là màu Đen/Xám đậm mới */
         .profile-sidebar li.active a,
         .profile-sidebar li a:hover {
             background-color: var(--border-color);
-            color: var(--primary-color); /* Highlight là màu Đen/Xám đậm */
+            color: var(--primary-color); 
         }
 
             .profile-sidebar li.active a svg,
             .profile-sidebar li a:hover svg {
-                stroke: var(--primary-color); /* Icon highlight là màu Đen/Xám đậm */
+                stroke: var(--primary-color);
             }
 
-    /* Style đặc biệt cho Đăng xuất */
     .profile-sidebar li.logout a {
         color: var(--danger-color);
         border-top: 1px solid var(--border-color);
@@ -1203,7 +1199,6 @@ body {
                 stroke: var(--danger-color);
             }
 
-/* --- Phần Header Tên Người dùng --- */
 .profile-user-header {
     display: flex;
     align-items: center;
@@ -1212,7 +1207,6 @@ body {
     margin-bottom: 20px;
 }
 
-/* Thay đổi: Background avatar giờ là màu Đen/Xám đậm mới */
 .profile-avatar {
     width: 55px;
     height: 55px;
@@ -1241,7 +1235,6 @@ body {
 }
 
 
-/* --- Nội dung Chính (Profile Content) --- */
 .profile-content {
     flex-grow: 1;
     min-width: 0;
@@ -1254,7 +1247,6 @@ body {
         color: var(--text-color);
     }
 
-/* Thẻ Thông tin Chi tiết */
 .profile-card {
     background-color: var(--card-bg);
     padding: 25px;
@@ -1279,13 +1271,12 @@ body {
         margin: 0;
     }
 
-/* Nút Ghost - Thay đổi: Màu chữ và Icon giờ là màu Đen/Xám đậm mới */
 .btn-ghost {
     display: flex;
     align-items: center;
     font-size: 14px;
     font-weight: 600;
-    color: var(--primary-color); /* Đã đổi màu chữ sang Đen/Xám đậm */
+    color: var(--primary-color); 
     text-decoration: none;
     padding: 5px 10px;
     border-radius: 5px;
@@ -1293,7 +1284,7 @@ body {
 }
 
     .btn-ghost:hover {
-        background-color: #f0f0f0; /* Nền xám nhạt khi hover */
+        background-color: #f0f0f0; 
     }
 
     .btn-ghost svg {
@@ -1301,7 +1292,6 @@ body {
     }
 
 
-/* --- Hàng Thông tin Chi tiết --- */
 .info-row {
     display: flex;
     justify-content: space-between;
@@ -1335,7 +1325,6 @@ body {
     color: var(--muted-color);
 }
 
-/* --- Thẻ Xóa Tài khoản --- */
 .danger-card {
     border-color: #f89090 !important;
     background: #fffbfb !important;
@@ -1373,7 +1362,6 @@ body {
         background: #a80000 !important;
     }
 
-/* --- Responsive cho di động --- */
 @media (max-width: 900px) {
     .profile-page {
         flex-direction: column;
@@ -1396,7 +1384,7 @@ body {
         }
 
         .profile-sidebar li {
-            flex: 1 1 50%; /* 2 cột trên di động */
+            flex: 1 1 50%; 
         }
 
             .profile-sidebar li.logout {
@@ -1420,3 +1408,147 @@ body {
         gap: 15px;
     }
 }
+.auth-form-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+    .auth-form-field label {
+        font-size: 14px;
+        margin-bottom: 6px;
+        color: var(--secondary);
+        font-weight: 500;
+    }
+
+    .auth-form-field input,
+    .auth-form-field textarea {
+        padding: 10px;
+        border-radius: var(--radius);
+        border: 1px solid #ccc;
+        font-size: 14px;
+        transition: 0.2s;
+        background: white;
+    }
+
+        .auth-form-field input:focus,
+        .auth-form-field textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+            outline: none;
+        }
+
+.muted-text {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+}
+.delete-card-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+}
+
+.delete-card {
+    width: 100%;
+    max-width: 520px;
+    background: #fff;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border: 1px solid #eee;
+}
+
+.delete-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #d40000;
+}
+
+.delete-warning-text {
+    background: #fff5f5;
+    border-left: 4px solid #d40000;
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-bottom: 22px;
+    color: #a00000;
+    font-size: 14px;
+}
+
+.delete-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+    .delete-field label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #444;
+        margin-bottom: 6px;
+    }
+
+    .delete-field textarea {
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        resize: vertical;
+        min-height: 90px;
+        font-size: 14px;
+    }
+
+        .delete-field textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+        }
+
+.delete-confirm {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 14px 0 25px;
+    font-size: 14px;
+}
+
+.delete-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Button Xóa tài khoản (đỏ) */
+.btn-danger-full {
+    background: #d40000;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+    .btn-danger-full:hover {
+        background: #a80000;
+    }
+
+/* Nút hủy */
+.btn-cancel {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    background: #f3f3f3;
+    color: #333;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+    .btn-cancel:hover {
+        background: #e5e5e5;
+    }

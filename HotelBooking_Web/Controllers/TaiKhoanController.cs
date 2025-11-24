@@ -42,6 +42,10 @@ namespace HotelBooking_Web.Controllers
         }
 
         // GET: Register
+        public ActionResult Register()
+        {
+            return View();
+        }
         [HttpPost]
         public ActionResult Register(string username, string password)
         {
@@ -73,6 +77,43 @@ namespace HotelBooking_Web.Controllers
         public ActionResult ChangePassword()
         {
             return View();
+        }
+        public ActionResult DeleteAccount()
+        {
+            // Kiểm tra nếu chưa đăng nhập → đá về login
+            if (Session["username"] == null)
+                return RedirectToAction("Login");
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteAccount(string reason, bool? confirm)
+        {
+            if (Session["username"] == null)
+                return RedirectToAction("Login");
+
+            // Chưa tick xác nhận
+            if (confirm != true)
+            {
+                TempData["DeleteError"] = "Bạn phải xác nhận trước khi xóa tài khoản.";
+                return RedirectToAction("DeleteAccount");
+            }
+
+            // Nếu sau này có DB → xóa tại đây
+            // Example:
+            // _db.Users.Remove(user);
+            // _db.SaveChanges();
+
+            string deletedUser = Session["username"].ToString();
+
+            // Xóa session → log out
+            Session.Clear();
+
+            TempData["DeleteSuccess"] = $"Tài khoản '{deletedUser}' đã được xóa thành công.";
+
+            return RedirectToAction("Index", "Home");
         }
     }
     
