@@ -108,7 +108,7 @@ namespace HotelBooking_Web.Controllers
 
             string deletedUser = Session["username"].ToString();
 
-            // Xóa session → log out
+            // Xóa session → log outd
             Session.Clear();
 
             TempData["DeleteSuccess"] = $"Tài khoản '{deletedUser}' đã được xóa thành công.";
