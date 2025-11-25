@@ -13,7 +13,7 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
         public DataClasses1DataContext db = new DataClasses1DataContext();
 
         // GET: Admin/QLDP
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page, string query)
         {
             int pageIndex = page ?? 1;
             var pageSize = 10;
@@ -26,11 +26,15 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
             var item = db.vw_DanhSachDatPhongs.Where(o => o.DatPhongID == id && (o.isDelete == null||o.isDelete== false));
             return View(item);
         }
-        public ActionResult CheckIn()
+        public ActionResult Checkin()
         {
             return View();
         }
-        public ActionResult CheckOut()
+        public ActionResult Checkin_Comf()
+        {
+            return View();
+        }
+        public ActionResult Checkout()
         {
             return View();
         }

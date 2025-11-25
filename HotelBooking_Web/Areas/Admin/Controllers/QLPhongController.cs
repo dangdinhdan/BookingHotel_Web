@@ -16,7 +16,7 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
     {
         // GET: Admin/QLPhong
         private DataClasses1DataContext db = new DataClasses1DataContext();
-        private QLPhongService service = QLPhongService.Instance;
+        private QLPhongService service = new QLPhongService();
 
         public ActionResult Index(string query, int? page)
         {

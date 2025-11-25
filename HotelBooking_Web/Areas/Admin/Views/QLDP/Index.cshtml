@@ -35,16 +35,35 @@
                     <div class="card-header">
 
                         <div class="card-tools">
-                            <a href="../admin/QLPhong/Them" class="btn btn-primary">Thêm phòng</a>
+                            <a href="~/admin/QLDP/Checkin" class="btn btn-primary">Check in</a>
                         </div>
 
-                        <div class="row ">
-                            <label for="txt_query" class="form-label">Tìm kiếm</label>
-                            <div class=" col-md-4 col-lg-4">
-                                <input type="text" class="form-control" id="txt_query" name="txt_query" />
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <label for="txt_query" class="form-label">Tìm kiếm</label>
+                                    
+                                    <div class="col-md-9 col-lg-9">
+                                        <input type="text" class="form-control" id="txt_query" name="txt_query" />
+                                    </div>
+                                    <div class=" col-md-2 col-lg-3">
+                                        <button type="button" id="btn_timkiem" class="btn btn-primary">Tìm kiếm</button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class=" col-md-4 col-lg-2">
-                                <button type="button" id="btn_timkiem" class="btn btn-primary">Tìm kiếm</button>
+                            <div class="col-md-6 align-items-center">
+                                <div class="row  " >
+                                    <label class="col-md-2">
+                                        <input type="radio" name="txt_Status" value="Pending"> Pending
+                                    </label>
+                                    <label class="col-md-2">
+                                        <input type="radio" name="txt_Status" value="female"> Checkin
+                                    </label>
+                                    <label class="col-md-2">
+                                        <input type="radio" name="txt_Status" value="other"> Checkout
+                                    </label>
+
+                                </div>
                             </div>
                         </div>
 
@@ -83,7 +102,7 @@
                                                 {
                                                     <a href="/admin/QLDP/Checkin/@item.DatPhongID" class="btn btn-sm btn-primary">Check in</a>
                                                 }
-                                                @if (item.TrangThai == "checkin")
+                                                @if (item.TrangThai == "Checkin")
                                                 {
                                                     <a href="/admin/QLDP/Checkout/@item.DatPhongID" class="btn btn-sm btn-primary">Check out</a>
                                                 }
