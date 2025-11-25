@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace HotelBooking_Web.Areas.Admin.Controllers
 {
@@ -16,7 +17,7 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
         {
             int pageIndex = page ?? 1;
             var pageSize = 10;
-            var item = db.vw_DanhSachDatPhongs.ToList();
+            var item = db.vw_DanhSachDatPhongs.OrderByDescending(x => x.PhongID).ToPagedList(pageIndex, pageSize); ;
             //var item = db.vw_DanhSachDatPhongs.Where(o => o.isDelete == null || o.isDelete == false).ToList();
             return View(item);
         }

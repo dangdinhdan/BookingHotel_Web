@@ -1,4 +1,4 @@
-﻿@model PagedList.PagedList<HotelBooking_Web.Models.vw_DanhSachPhong>
+﻿@model PagedList.PagedList<HotelBooking_Web.Models.vw_DanhSachDatPhong>
 @using PagedList.Mvc;
 @using PagedList;
 @{
@@ -55,11 +55,11 @@
                                 <tr>
                                     <th>STT</th>
                                     <th>Mã đặt phòng</th>
+                                    <th>Mã khách hàng</th>
                                     <th>Mã phòng</th>
-                                    <th>Loại Phòng</th>
-                                    <th>Giá mỗi đêm</th>
-                                    <th>Sức chứa</th>
-                                    <th>Mô tả</th>
+                                    <th>Ngày nhận phòng</th>
+                                    <th>Ngày trả phòng</th>
+                                    <th>Trạng thái</th>
                                     <th>Thao Tác</th>
                                 </tr>
                             </thead>
@@ -69,17 +69,25 @@
                                     var i = 1;
                                     foreach (var item in Model)
                                     {
-                                        <tr id="trow_@item.PhongID">
+                                        <tr>
                                             <td>@i</td>
-                                            <td><img class="img-size-50" src="@item.HinhAnh" /></td>
+                                            <td>@item.DatPhongID</td>
+                                            <td>@item.MaTK</td>
                                             <td>@item.SoPhong</td>
-                                            <td>@item.TenLoaiPhong</td>
-                                            <td>@item.GiaMoiDem</td>
-                                            <td>@item.SucChuaToiDa</td>
-                                            <td>@item.MoTa</td>
+                                            <td>@item.NgayNhanPhong</td>
+                                            <td>@item.NgayTraPhong</td>
+                                            <td>@item.TrangThai</td>
                                             <td>
-                                                <a href="/admin/QLPhong/Sua/@item.PhongID" class="btn btn-sm btn-primary">Sửa</a>
-                                                <a href="#" data-id="@item.PhongID" class="btn btn-sm btn-danger btnDelete">Xóa</a>
+                                                <a href="/admin/QLDP/Detail/@item.DatPhongID" class="btn btn-sm btn-primary">Xem chi tiết</a>
+                                                @if (item.TrangThai == "Pending")
+                                                {
+                                                    <a href="/admin/QLDP/Checkin/@item.DatPhongID" class="btn btn-sm btn-primary">Check in</a>
+                                                }
+                                                @if (item.TrangThai == "checkin")
+                                                {
+                                                    <a href="/admin/QLDP/Checkout/@item.DatPhongID" class="btn btn-sm btn-primary">Check out</a>
+                                                }
+
                                             </td>
                                         </tr>
                                         i++;
@@ -111,44 +119,13 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
-        $('body').on('click', '.btnDelete', function () {
-            var id = $(this).data("id")
-            var conf = confirm("bạn có muốn xóa bản ghi này không?");
-            if (conf == true) {
-                $.ajax({
-                    url: window.location.origin + '/QLPhong/Delete',
-                    type: 'POST',
-                    data: { id: id },
-                    success: function (response) {
-                        var rs = JSON.parse(response);
-                        if (rs.ErrCode == 1) {
 
-                            $('#trow_' + id).remove();
-                            alert(rs.ErrDesc);
-                        }
-                        else {
 
-                            alert(rs.ErrDesc);
-                        }
-
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
-            }
-
-        });
-    });
-</script>
-
-<script>
+@*<script>
     $("#btn_timkiem").click(function () {
         var query = $("#txt_query").val();
 
         alert(query)
         window.location.href = "/Admin/QLPhong/Index?query=" + encodeURIComponent(query);
     });
-</script>
+</script>*@

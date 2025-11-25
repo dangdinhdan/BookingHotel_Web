@@ -108,7 +108,7 @@ FROM tbl_DatPhong DP
 JOIN tbl_ChiTietDatPhong CTDP ON DP.DatPhongID=CTDP.DatPhongID
 JOIN tbl_Phong P on P.PhongID= CTDP.PhongID
 JOIN tbl_TaiKhoan TK on DP.TaiKhoanID =TK.TaiKhoanID
-ORDER BY 
+
 GO
 
 
@@ -197,7 +197,7 @@ BEGIN
             JOIN tbl_DatPhong dp ON ctdp.DatPhongID = dp.DatPhongID
             WHERE 
                 ctdp.PhongID = p.PhongID -- Chỉ kiểm tra cho phòng hiện tại
-                AND dp.TrangThai IN (N'Đã đặt', N'Đã checkin') -- Các trạng thái đặt phòng hợp lệ
+                AND dp.TrangThai IN (N'Pending', N'Checkin') -- Các trạng thái đặt phòng hợp lệ
                 AND (
                     -- Logic kiểm tra trùng lặp thời gian
                     @NgayNhanPhong < dp.NgayTraPhong AND
