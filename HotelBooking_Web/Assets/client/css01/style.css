@@ -1409,6 +1409,11 @@ body {
 }
 
 .profile-user-info p {
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
     font-size: 13px;
     color: var(--muted-color);
     margin: 3px 0 0 0;
