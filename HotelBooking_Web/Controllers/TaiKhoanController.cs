@@ -1,7 +1,6 @@
 ﻿using HotelBooking_Web.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,13 +9,15 @@ namespace HotelBooking_Web.Controllers
 {
     public class TaiKhoanController : Controller
     {
+        // Hàm tạo dữ liệu giả lập cho trang Profile
         private EditProfileViewModel GetMockUserProfile()
         {
             return new EditProfileViewModel
             {
-                // Lấy tên từ Session để đảm bảo dữ liệu khớp với người dùng đang đăng nhập
-                TenNguoiDung = Session["username"]?.ToString() ?? "Người dùng",
-                Email = "user.email@hotel.com",
+                // Lấy tên hiển thị từ Session, nếu chưa có thì hiện mặc định
+                TenNguoiDung = Session["DisplayName"]?.ToString() ?? "Khách Hàng",
+                // Lấy Email từ Session (đây là định danh chính)
+                Email = Session["UserEmail"]?.ToString() ?? "khach@gmail.com",
                 SoDienThoai = "0901234567" // Dữ liệu giả
             };
         }
@@ -28,16 +29,26 @@ namespace HotelBooking_Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(string username, string password)
+        public ActionResult Login(string email, string password)
         {
-            // Tạm thời cho phép đăng nhập demo
-            if (username == "khongchoisaobietminhkhongthe" && password == "1236")
+            // --- TÀI KHOẢN TEST CỐ ĐỊNH ---
+            string testEmail = "khach@gmail.com";
+            string testPass = "123456";
+
+            // Kiểm tra: Nếu đúng email test HOẶC admin (để bạn dễ test)
+            if ((email == testEmail && password == testPass) || (email == "admin@gmail.com" && password == "123456"))
             {
-                Session["username"] = username;
+                // 1. Lưu Email làm định danh chính (Key: UserEmail)
+                Session["UserEmail"] = email;
+                
+                // 2. Tạo tên hiển thị giả (Lấy phần trước @ làm tên)
+                string displayName = email.Split('@')[0];
+                Session["DisplayName"] = displayName;
+
                 return RedirectToAction("Index", "Home");
             }
 
-            ViewBag.Error = "Sai tên đăng nhập hoặc mật khẩu!";
+            ViewBag.Error = "Sai email hoặc mật khẩu! (Thử: khach@gmail.com / 123456)";
             return View();
         }
 
@@ -46,23 +57,30 @@ namespace HotelBooking_Web.Controllers
         {
             return View();
         }
+
         [HttpPost]
-        public ActionResult Register(string username, string password)
+        public ActionResult Register(string username, string email, string password)
         {
-            // Chỉ demo: không lưu DB
-            TempData["msg"] = "Đăng ký thành công! Mời đăng nhập.";
-            return RedirectToAction("Login");
+            // GIẢ LẬP: Đăng ký xong tự động đăng nhập luôn
+            Session["UserEmail"] = email;
+            Session["DisplayName"] = username; // Username lúc đăng ký đóng vai trò là Họ Tên
+
+            TempData["msg"] = "Đăng ký thành công! Đã tự động đăng nhập.";
+            
+            // Về trang chủ luôn cho tiện (giống Booking.com)
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Logout()
         {
-            Session.Clear();
+            Session.Clear(); // Xóa hết UserEmail, DisplayName...
             return RedirectToAction("Index", "Home");
         }
 
         public ActionResult Profile()
         {
-            if (Session["username"] == null)
+            // Kiểm tra đăng nhập bằng key UserEmail
+            if (Session["UserEmail"] == null)
             {
                 return RedirectToAction("Login");
             }
@@ -71,17 +89,33 @@ namespace HotelBooking_Web.Controllers
 
         public ActionResult EditProfile()
         {
-            return View();
+            if (Session["UserEmail"] == null) return RedirectToAction("Login");
+            // Truyền model vào view để hiện thông tin cũ
+            var model = GetMockUserProfile();
+            return View(model);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile(EditProfileViewModel model)
+        {
+             // Giả lập lưu: Cập nhật lại Session tên hiển thị
+             if(ModelState.IsValid)
+             {
+                 Session["DisplayName"] = model.TenNguoiDung;
+                 TempData["Success"] = "Cập nhật hồ sơ thành công!";
+             }
+             return View(model);
         }
 
         public ActionResult ChangePassword()
         {
             return View();
         }
+
         public ActionResult DeleteAccount()
         {
-            // Kiểm tra nếu chưa đăng nhập → đá về login
-            if (Session["username"] == null)
+            if (Session["UserEmail"] == null)
                 return RedirectToAction("Login");
 
             return View();
@@ -91,30 +125,20 @@ namespace HotelBooking_Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteAccount(string reason, bool? confirm)
         {
-            if (Session["username"] == null)
+            if (Session["UserEmail"] == null)
                 return RedirectToAction("Login");
 
-            // Chưa tick xác nhận
             if (confirm != true)
             {
                 TempData["DeleteError"] = "Bạn phải xác nhận trước khi xóa tài khoản.";
                 return RedirectToAction("DeleteAccount");
             }
 
-            // Nếu sau này có DB → xóa tại đây
-            // Example:
-            // _db.Users.Remove(user);
-            // _db.SaveChanges();
-
-            string deletedUser = Session["username"].ToString();
-
-            // Xóa session → log outd
-            Session.Clear();
+            string deletedUser = Session["UserEmail"].ToString();
+            Session.Clear(); // Logout
 
             TempData["DeleteSuccess"] = $"Tài khoản '{deletedUser}' đã được xóa thành công.";
-
             return RedirectToAction("Index", "Home");
         }
     }
-    
 }

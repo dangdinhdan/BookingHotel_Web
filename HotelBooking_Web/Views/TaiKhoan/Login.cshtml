@@ -7,25 +7,25 @@
 
     <form method="post">
         <div class="form-control">
-            <label for="username">Tên đăng nhập</label>
-            <input type="text" id="username" name="username" placeholder="Nhập tên đăng nhập" required />
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Ví dụ: khach@gmail.com" required />
         </div>
 
         <div class="form-control">
             <label for="password">Mật khẩu</label>
-            <input type="password" id="password" name="password" placeholder="Nhập mật khẩu" required />
+            <input type="password" id="password" name="password" placeholder="Ví dụ: 123456" required />
         </div>
 
         <button type="submit" class="btn btn-primary">Đăng nhập</button>
 
         @if (ViewBag.Error != null)
         {
-            <p style="color:red">@ViewBag.Error</p>
+            <p style="color:red; margin-top:10px;">@ViewBag.Error</p>
         }
     </form>
 
     <div class="switch-auth">
-        Chưa có tài khoản? <a href="/TaiKhoan/Register">Đăng ký ngay</a>
+        Chưa có tài khoản?
+        <a href="/TaiKhoan/Register">Đăng ký ngay</a>
     </div>
 </div>
-

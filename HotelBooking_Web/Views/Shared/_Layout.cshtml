@@ -52,7 +52,6 @@
 </head>
 <body id="top">
 
-
     <header>
         <div class="container topbar">
             <div class="brand">
@@ -65,21 +64,25 @@
 
             <nav>
                 <a href="/#top">Trang chủ</a>
-
                 <a href="/#rooms">Phòng</a>
-
                 <a href="/#about">Giới thiệu</a>
-
                 <a href="/#contact">Liên hệ</a>
             </nav>
 
+            @* --- PHẦN LOGIC ĐĂNG NHẬP MỚI --- *@
             @{
-                var username = Session["username"] as string;
+                // Lấy thông tin từ Session (đã sửa đổi ở Controller)
+                var userEmail = Session["UserEmail"] as string;
+                var displayName = Session["DisplayName"] as string;
+
+                // Logic hiển thị: Nếu có Tên thì hiện Tên, nếu không thì hiện Email
+                var labelName = !string.IsNullOrEmpty(displayName) ? displayName : userEmail;
             }
 
             <div class="auth" id="user-menu-container">
-                @if (!string.IsNullOrEmpty(username))
+                @if (!string.IsNullOrEmpty(userEmail)) // Kiểm tra đã đăng nhập chưa (dựa vào Email)
                 {
+                    // --- TRẠNG THÁI ĐÃ ĐĂNG NHẬP ---
                     <button id="user-menu-button"
                             type="button"
                             class="user-avatar-button"
@@ -87,9 +90,9 @@
                             aria-haspopup="true">
 
                         <span class="avatar-circle">
-                            @(username.ToUpper().FirstOrDefault())
+                            @(labelName.Substring(0, 1).ToUpper())
                         </span>
-                        <span class="hidden-xs">@username</span>
+                        <span class="hidden-xs">@labelName</span>
 
                     </button>
 
@@ -100,16 +103,20 @@
                          aria-labelledby="user-menu-button">
 
                         <h6 class="dropdown-header">
-                            Xin chào, @username
+                            Xin chào, @labelName
+                            <small style="display:block; font-weight:normal; color:#888; font-size:12px; margin-top: 2px;">
+                                @userEmail
+                            </small>
                         </h6>
+
                         <div class="dropdown-divider"></div>
 
                         <a href="/TaiKhoan/Profile" class="dropdown-item" role="menuitem">
-                            Hồ sơ
+                            Hồ sơ cá nhân
                         </a>
 
                         <a href="/TaiKhoan/TransactionHistory" class="dropdown-item" role="menuitem">
-                            Danh sách giao dịch
+                            Lịch sử giao dịch
                         </a>
 
                         <a href="/TaiKhoan/SavedRooms" class="dropdown-item" role="menuitem">
@@ -125,6 +132,7 @@
                 }
                 else
                 {
+                    // --- TRẠNG THÁI CHƯA ĐĂNG NHẬP ---
                     <a href="/TaiKhoan/Login" class="btn btn-ghost">Đăng nhập</a>
                     <a href="/TaiKhoan/Register" class="btn btn-primary">Đăng ký</a>
                 }
@@ -152,11 +160,16 @@
 
     <div id="modalRoot" aria-hidden="true"></div>
 
+    @* Script xử lý đóng/mở menu User (Giữ nguyên) *@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const button = document.getElementById('user-menu-button');
             const menu = document.getElementById('user-menu');
             const container = document.getElementById('user-menu-container');
+
+            // Cập nhật năm tự động ở footer
+            const yearSpan = document.getElementById('year');
+            if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 
             if (button && menu) {
                 button.addEventListener('click', function (event) {

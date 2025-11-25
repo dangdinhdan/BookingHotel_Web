@@ -1,47 +1,40 @@
-﻿@{
+﻿[cite_start]@* [cite: 59, 60, 61] *@
+@{
     ViewBag.Title = "Hồ sơ cá nhân";
 
-    // Dữ liệu giả lập
-    var userName = "Nguyễn Văn A";
-    var memberSince = "25/08/2023";
-    var userEmail = "nguyen.vana@example.com";
-    var userPhone = "0987-654-321";
-    var loginName = "khongchoisaobietminhkhongthe";
+    // --- KHAI BÁO BIẾN Ở ĐÂY ĐỂ DÙNG ĐƯỢC TOÀN TRANG ---
+    // Lấy dữ liệu từ Session, nếu null thì dùng giá trị mặc định
+    var userEmail = Session["UserEmail"] as string ?? "email@example.com";
+    var displayName = Session["DisplayName"] as string ?? "Khách hàng"; // Biến displayName được khai báo tại đây
 
-
+    var memberSince = "25/11/2025";
+    var userPhone = "0901234567";
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    <!-- Thêm liên kết đến file CSS mới -->
-    <link href="/path/to/profile_styles.css" rel="stylesheet" />
-    <link href="https://www.google.com/search?q=https://fonts.googleapis.com/css2%3Ffamily%3DInter:wght%40400%3B500%3B600%3B700%3B800%26display%3Dswap" rel="stylesheet">
 </head>
 <body>
 
     <div class="container">
         <div class="profile-page">
 
-            <!-- Sidebar Menu -->
             <aside class="profile-sidebar">
 
-                <!-- Thẻ Header Tên Người dùng -->
                 <div class="profile-user-header">
                     <div class="profile-avatar">
-                        @userName.Substring(0, 1)
+                        @(displayName.Length > 0 ? displayName.Substring(0, 1) : "U")
                     </div>
                     <div class="profile-user-info">
-                        <h3>@userName</h3>
-                        <p>Thành viên từ: @memberSince</p>
+                        <h3>@displayName</h3>
+                        <p>@userEmail</p>
                     </div>
                 </div>
 
-                <!-- Quản lý Đặt phòng -->
                 <h3>Quản lý Đặt phòng</h3>
                 <ul>
                     <li><a href="/TaiKhoan/Bookings"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" /></svg> Đơn đặt phòng</a></li>
@@ -49,7 +42,6 @@
                     <li><a href="/Favourite/Index"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" /></svg> Đã lưu (Yêu thích)</a></li>
                 </ul>
 
-                <!-- Cài đặt Tài khoản -->
                 <h3>Cài đặt Tài khoản</h3>
                 <ul>
                     <li class="active"><a href="/TaiKhoan/Profile"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg> Hồ sơ cá nhân</a></li>
@@ -59,11 +51,9 @@
                 </ul>
             </aside>
 
-            <!-- Nội dung chính -->
             <section class="profile-content">
                 <h2>@ViewBag.Title</h2>
 
-                <!-- Thông tin Chi tiết -->
                 <div class="profile-card">
                     <div class="profile-card-header">
                         <h3>Thông tin Chi tiết</h3>
@@ -75,22 +65,15 @@
 
                     <div class="info-row">
                         <div class="info-group">
-                            <div class="info-label">Tên đăng nhập</div>
-                            <div class="info-value">@loginName</div>
+                            <div class="info-label">Tài khoản (Email)</div>
+                            <div class="info-value">@userEmail</div>
                         </div>
                     </div>
 
                     <div class="info-row">
                         <div class="info-group">
                             <div class="info-label">Họ và tên</div>
-                            <div class="info-value">@userName</div>
-                        </div>
-                    </div>
-
-                    <div class="info-row">
-                        <div class="info-group">
-                            <div class="info-label">Địa chỉ Email</div>
-                            <div class="info-value">@userEmail</div>
+                            <div class="info-value">@displayName</div>
                         </div>
                     </div>
 
@@ -102,7 +85,6 @@
                     </div>
                 </div>
 
-                <!-- Thông tin Bảo mật -->
                 <div class="profile-card">
                     <div class="profile-card-header">
                         <h3>Bảo mật</h3>
@@ -123,7 +105,6 @@
                     </div>
                 </div>
 
-                <!-- Xóa Tài khoản -->
                 <div class="profile-card danger-card">
                     <div class="profile-card-header">
                         <div>
@@ -136,8 +117,6 @@
 
             </section>
         </div>
-
-
     </div>
 </body>
 </html>
