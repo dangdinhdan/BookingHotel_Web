@@ -1,41 +1,38 @@
 ﻿@{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Đăng ký";
 }
 
-<div class="auth-form-container">
-    <h2>Đăng ký</h2>
+<div class="container">
+    <div class="auth-box">
+        <h2 class="auth-title">Đăng ký</h2>
 
-    <form method="post">
-        <div class="form-control">
-            <label for="username">Họ và tên</label>
-            <input type="text" id="username" name="username" placeholder="Nhập họ và tên của bạn" required />
+        <form method="post">
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="Nhập email" required />
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" name="password" class="form-input" placeholder="Nhập mật khẩu" required />
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Xác nhận mật khẩu</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" placeholder="Nhập lại mật khẩu" required />
+            </div>
+
+            <button type="submit" class="btn-submit">Đăng ký</button>
+
+            @if (TempData["msg"] != null)
+            {
+                <div class="alert-success">@TempData["msg"]</div>
+            }
+        </form>
+
+        <div class="auth-footer">
+            Đã có tài khoản? <a href="/TaiKhoan/Login">Đăng nhập</a>
         </div>
-
-        <div class="form-control">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Nhập địa chỉ email" required />
-        </div>
-
-        <div class="form-control">
-            <label for="password">Mật khẩu</label>
-            <input type="password" id="password" name="password" placeholder="Tạo mật khẩu" required />
-        </div>
-
-        <div class="form-control">
-            <label for="confirmPassword">Xác nhận mật khẩu</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Nhập lại mật khẩu" required />
-        </div>
-
-        <button type="submit" class="btn btn-primary">Đăng ký</button>
-
-        @if (TempData["msg"] != null)
-        {
-            <p style="color:green">@TempData["msg"]</p>
-        }
-    </form>
-
-    <div class="switch-auth">
-        Đã có tài khoản?
-        <a href="/TaiKhoan/Login">Đăng nhập</a>
     </div>
 </div>

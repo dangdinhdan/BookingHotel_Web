@@ -63,81 +63,85 @@
                     </div>
                 </div>
             </div>
+            <div class=" header-center">
+                <nav>
+                    <a href="/#top">Trang chủ</a>
+                    <a href="/#rooms">Phòng</a>
+                    <a href="/#about">Giới thiệu</a>
+                    <a href="/#contact">Liên hệ</a>
+                </nav>
+            </div>
 
-            <nav>
-                <a href="/#top">Trang chủ</a>
-                <a href="/#rooms">Phòng</a>
-                <a href="/#about">Giới thiệu</a>
-                <a href="/#contact">Liên hệ</a>
-            </nav>
+            <div class=" header-right">
 
-            @* --- PHẦN LOGIC ĐĂNG NHẬP MỚI --- *@
-            @{
-                // Lấy thông tin từ Session (đã sửa đổi ở Controller)
-                var userEmail = Session["UserEmail"] as string;
-                var displayName = Session["DisplayName"] as string;
+                @* --- PHẦN LOGIC ĐĂNG NHẬP MỚI --- *@
+                @{
+                    // Lấy thông tin từ Session (đã sửa đổi ở Controller)
+                    var userEmail = Session["UserEmail"] as string;
+                    var displayName = Session["DisplayName"] as string;
 
-                // Logic hiển thị: Nếu có Tên thì hiện Tên, nếu không thì hiện Email
-                var labelName = !string.IsNullOrEmpty(displayName) ? displayName : userEmail;
-            }
-
-            <div class="auth" id="user-menu-container">
-                @if (!string.IsNullOrEmpty(userEmail)) // Kiểm tra đã đăng nhập chưa (dựa vào Email)
-                {
-                    // --- TRẠNG THÁI ĐÃ ĐĂNG NHẬP ---
-                    <button id="user-menu-button"
-                            type="button"
-                            class="user-avatar-button"
-                            aria-expanded="false"
-                            aria-haspopup="true">
-
-                        <span class="avatar-circle">
-                            @(labelName.Substring(0, 1).ToUpper())
-                        </span>
-                        <span class="hidden-xs">@labelName</span>
-
-                    </button>
-
-                    <div id="user-menu"
-                         class="dropdown-menu"
-                         role="menu"
-                         aria-orientation="vertical"
-                         aria-labelledby="user-menu-button">
-
-                        <h6 class="dropdown-header">
-                            Xin chào, @labelName
-                            <small style="display:block; font-weight:normal; color:#888; font-size:12px; margin-top: 2px;">
-                                @userEmail
-                            </small>
-                        </h6>
-
-                        <div class="dropdown-divider"></div>
-
-                        <a href="/TaiKhoan/Profile" class="dropdown-item" role="menuitem">
-                            Hồ sơ cá nhân
-                        </a>
-
-                        <a href="/TaiKhoan/TransactionHistory" class="dropdown-item" role="menuitem">
-                            Lịch sử giao dịch
-                        </a>
-
-                        <a href="/TaiKhoan/SavedRooms" class="dropdown-item" role="menuitem">
-                            Phòng đã lưu
-                        </a>
-
-                        <div class="dropdown-divider"></div>
-
-                        <a href="/TaiKhoan/Logout" class="dropdown-item" style="color: #dc3545;" role="menuitem">
-                            Đăng xuất
-                        </a>
-                    </div>
+                    // Logic hiển thị: Nếu có Tên thì hiện Tên, nếu không thì hiện Email
+                    var labelName = !string.IsNullOrEmpty(displayName) ? displayName : userEmail;
                 }
-                else
-                {
-                    // --- TRẠNG THÁI CHƯA ĐĂNG NHẬP ---
-                    <a href="/TaiKhoan/Login" class="btn btn-ghost">Đăng nhập</a>
-                    <a href="/TaiKhoan/Register" class="btn btn-primary">Đăng ký</a>
-                }
+
+                <div class="auth" id="user-menu-container">
+                    @if (!string.IsNullOrEmpty(userEmail)) // Kiểm tra đã đăng nhập chưa (dựa vào Email)
+                    {
+                        // --- TRẠNG THÁI ĐÃ ĐĂNG NHẬP ---
+                        <button id="user-menu-button"
+                                type="button"
+                                class="user-avatar-button"
+                                aria-expanded="false"
+                                aria-haspopup="true">
+
+                            <span class="avatar-circle">
+                                @(labelName.Substring(0, 1).ToUpper())
+                            </span>
+                            <span class="hidden-xs">@labelName</span>
+
+                        </button>
+
+                        <div id="user-menu"
+                             class="dropdown-menu"
+                             role="menu"
+                             aria-orientation="vertical"
+                             aria-labelledby="user-menu-button">
+
+                            <h6 class="dropdown-header">
+                                Xin chào, @labelName
+                                <small style="display:block; font-weight:normal; color:#888; font-size:12px; margin-top: 2px;">
+                                    @userEmail
+                                </small>
+                            </h6>
+
+                            <div class="dropdown-divider"></div>
+
+                            <a href="/TaiKhoan/Profile" class="dropdown-item" role="menuitem">
+                                Hồ sơ cá nhân
+                            </a>
+
+                            <a href="/TaiKhoan/TransactionHistory" class="dropdown-item" role="menuitem">
+                                Lịch sử giao dịch
+                            </a>
+
+                            <a href="/TaiKhoan/SavedRooms" class="dropdown-item" role="menuitem">
+                                Phòng đã lưu
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+
+                            <a href="/TaiKhoan/Logout" class="dropdown-item" style="color: #dc3545;" role="menuitem">
+                                Đăng xuất
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        // --- TRẠNG THÁI CHƯA ĐĂNG NHẬP ---
+                        <a href="/TaiKhoan/Login" class="btn btn-ghost">Đăng nhập</a>
+                        <a href="/TaiKhoan/Register" class="btn btn-primary">Đăng ký</a>
+                    }
+                </div>
             </div>
         </div>
     </header>

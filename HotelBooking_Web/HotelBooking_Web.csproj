@@ -192,6 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\admin\css\index.css" />
+    <Content Include="Assets\client\css01\Duc.css" />
     <Content Include="Assets\img\AdminLTEFullLogo.png" />
     <Content Include="Assets\img\AdminLTELogo.png" />
     <Content Include="Assets\img\avatar.png" />

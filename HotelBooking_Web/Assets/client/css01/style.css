@@ -47,22 +47,27 @@ header {
 
 .topbar {
     display: grid;
-    grid-template-columns: 1fr auto 1fr; 
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
     padding: 14px 0;
+    gap: 20px; 
 }
 
 .header-left {
     justify-self: start;
+    display: flex;
+    align-items: center;
 }
 
 .header-center {
-    justify-self: center;
+    justify-self: center; 
 }
 
 .header-right {
     justify-self: end;
-    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%; 
 }
 
 .brand {
@@ -96,13 +101,15 @@ header {
 
 nav {
     display: flex;
-    gap: 18px;
+    gap: 30px; 
 }
 
     nav a {
         text-decoration: none;
         color: var(--secondary);
-        font-weight: 500;
+        font-weight: 600;
+        font-size: 15px;
+        white-space: nowrap; 
         transition: color 0.2s;
     }
 
@@ -1747,4 +1754,116 @@ body {
     font-size: 12px;
     margin-top: 4px;
     color: var(--muted);
+}
+/* ========== STYLE CHO AUTH BOX (Login/Register) ========== */
+
+/* Cái HỘP màu trắng */
+.auth-box {
+    background-color: #ffffff; /* Màu nền của hộp: TRẮNG */
+    width: 100%;
+    max-width: 420px; /* Độ rộng tối đa */
+    margin: 60px auto; /* Căn giữa trang */
+    padding: 40px 30px; /* Khoảng cách đệm bên trong */
+    border-radius: 12px; /* Bo tròn góc */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); /* Đổ bóng để hộp nổi lên */
+    border: 1px solid #eee; /* Viền mỏng */
+}
+
+/* Tiêu đề Box */
+.auth-title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #111;
+}
+
+/* Nhóm (Label + Input) */
+.form-group {
+    margin-bottom: 20px;
+}
+
+    /* Nhãn (Tên đăng nhập...) */
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        color: #333;
+    }
+
+/* Ô nhập liệu */
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    transition: all 0.2s;
+    box-sizing: border-box; /* Quan trọng để không bị vỡ khung */
+}
+
+    .form-input:focus {
+        border-color: #000;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+    }
+
+/* Nút bấm Đăng nhập/Đăng ký */
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background-color: #111; /* Màu đen */
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 10px;
+}
+
+    .btn-submit:hover {
+        background-color: #333;
+    }
+
+/* Footer (Link chuyển đổi) */
+.auth-footer {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 14px;
+    color: #666;
+}
+
+    .auth-footer a {
+        color: #111;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+/* Thông báo lỗi/thành công */
+.alert-error {
+    color: #d93025;
+    background: #fce8e6;
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.alert-success {
+    color: #188038;
+    background: #e6f4ea;
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
 }
