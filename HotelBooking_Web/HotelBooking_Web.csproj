@@ -168,8 +168,8 @@
     <Compile Include="Areas\Admin\Service\QLLPhongService.cs" />
     <Compile Include="Areas\Admin\Service\QLPhongService.cs" />
     <Compile Include="Areas\Admin\ViewModel\TaiKhoanViewModel.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\BookingController.cs" />
-    <Compile Include="Controllers\DetailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoomsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -179,6 +179,8 @@
     <Compile Include="Models\DataClasses1.cs">
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\DbContext.cs" />
     <Compile Include="Models\FunctResult.cs" />
     <Compile Include="Models\DataClasses1.designer.cs">
       <AutoGen>True</AutoGen>
@@ -187,6 +189,8 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\CustomerService.cs" />
+    <Compile Include="Service\QLKSContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\admin\css\index.css" />
@@ -322,12 +326,14 @@
     <Content Include="Views\Rooms\SearchRooms.cshtml" />
     <Content Include="Views\Rooms\Detail.cshtml" />
     <Content Include="Views\Booking\Booking.cshtml" />
+    <Content Include="Views\Customer\Register.cshtml" />
+    <Content Include="Views\Customer\RegisterSuccess.cshtml" />
+    <Content Include="Views\Customer\RegisterConfirmEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Content\" />
     <Folder Include="Filters\" />
-    <Folder Include="Views\Detail\" />
     <Folder Include="Views\IdentityConfig\" />
   </ItemGroup>
   <ItemGroup>
