@@ -102,6 +102,7 @@ SELECT DP.DatPhongID,
 	P.PhongID,
 	DP.TaiKhoanID,
 	TK.MaTK,
+	Tk.HoTen,
 	DP.isDelete
 
 FROM tbl_DatPhong DP

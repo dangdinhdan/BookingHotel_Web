@@ -112,6 +112,7 @@
       <Column Name="PhongID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="TaiKhoanID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="MaTK" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="HoTen" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="isDelete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </Type>
   </Table>
@@ -137,6 +138,13 @@
       <Column Name="TenLoaiPhong" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
+  <Function Name="dbo.sp_BaoCaoDoanhThuTheoThang" Method="sp_BaoCaoDoanhThuTheoThang">
+    <Parameter Name="Nam" Parameter="nam" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_BaoCaoDoanhThuTheoThangResult">
+      <Column Name="Thang" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TongDoanhThu" Type="System.Decimal" DbType="Decimal(38,2) NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
   <Function Name="dbo.sp_TimPhongTrong" Method="sp_TimPhongTrong">
     <Parameter Name="NgayNhanPhong" Parameter="ngayNhanPhong" Type="System.DateTime" DbType="DateTime2" />
     <Parameter Name="NgayTraPhong" Parameter="ngayTraPhong" Type="System.DateTime" DbType="DateTime2" />
@@ -152,19 +160,9 @@
       <Column Name="HinhAnh" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
     </ElementType>
   </Function>
-  <Function Name="dbo.sp_TimPhongTrong" Method="sp_TimPhongTrong1">
-    <Parameter Name="NgayNhanPhong" Parameter="ngayNhanPhong" Type="System.DateTime" DbType="DateTime2" />
-    <Parameter Name="NgayTraPhong" Parameter="ngayTraPhong" Type="System.DateTime" DbType="DateTime2" />
-    <Parameter Name="SucChuaToiDa" Parameter="sucChuaToiDa" Type="System.Int32" DbType="Int" />
-    <ElementType Name="sp_TimPhongTrongResult1">
-      <Column Name="PhongID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="SoPhong" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
-      <Column Name="TenLoaiPhong" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
-      <Column Name="GiaMoiDem" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
-      <Column Name="SucChuaToiDa" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="TrangThai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="MoTa" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
-      <Column Name="HinhAnh" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
-    </ElementType>
+  <Function Name="dbo.sp_CapNhatTrangThaiPhong" Method="sp_CapNhatTrangThaiPhong">
+    <Parameter Name="PhongID" Parameter="phongID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TrangThai" Parameter="trangThai" Type="System.String" DbType="NVarChar(50)" />
+    <Return Type="System.Int32" />
   </Function>
 </Database>

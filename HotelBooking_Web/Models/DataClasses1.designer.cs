@@ -161,6 +161,13 @@ namespace HotelBooking_Web.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_BaoCaoDoanhThuTheoThang")]
+		public ISingleResult<sp_BaoCaoDoanhThuTheoThangResult> sp_BaoCaoDoanhThuTheoThang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nam", DbType="Int")] System.Nullable<int> nam)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nam);
+			return ((ISingleResult<sp_BaoCaoDoanhThuTheoThangResult>)(result.ReturnValue));
+		}
+		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_TimPhongTrong")]
 		public ISingleResult<sp_TimPhongTrongResult> sp_TimPhongTrong([global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayNhanPhong", DbType="DateTime2")] System.Nullable<System.DateTime> ngayNhanPhong, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayTraPhong", DbType="DateTime2")] System.Nullable<System.DateTime> ngayTraPhong, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SucChuaToiDa", DbType="Int")] System.Nullable<int> sucChuaToiDa)
 		{
@@ -168,11 +175,11 @@ namespace HotelBooking_Web.Models
 			return ((ISingleResult<sp_TimPhongTrongResult>)(result.ReturnValue));
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_TimPhongTrong")]
-		public ISingleResult<sp_TimPhongTrongResult1> sp_TimPhongTrong1([global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayNhanPhong", DbType="DateTime2")] System.Nullable<System.DateTime> ngayNhanPhong, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayTraPhong", DbType="DateTime2")] System.Nullable<System.DateTime> ngayTraPhong, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SucChuaToiDa", DbType="Int")] System.Nullable<int> sucChuaToiDa)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_CapNhatTrangThaiPhong")]
+		public int sp_CapNhatTrangThaiPhong([global::System.Data.Linq.Mapping.ParameterAttribute(Name="PhongID", DbType="Int")] System.Nullable<int> phongID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="TrangThai", DbType="NVarChar(50)")] string trangThai)
 		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ngayNhanPhong, ngayTraPhong, sucChuaToiDa);
-			return ((ISingleResult<sp_TimPhongTrongResult1>)(result.ReturnValue));
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), phongID, trangThai);
+			return ((int)(result.ReturnValue));
 		}
 	}
 	
@@ -2300,6 +2307,8 @@ namespace HotelBooking_Web.Models
 		
 		private string _MaTK;
 		
+		private string _HoTen;
+		
 		private System.Nullable<bool> _isDelete;
 		
 		public vw_DanhSachDatPhong()
@@ -2494,6 +2503,22 @@ namespace HotelBooking_Web.Models
 				if ((this._MaTK != value))
 				{
 					this._MaTK = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HoTen", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string HoTen
+		{
+			get
+			{
+				return this._HoTen;
+			}
+			set
+			{
+				if ((this._HoTen != value))
+				{
+					this._HoTen = value;
 				}
 			}
 		}
@@ -2785,6 +2810,50 @@ namespace HotelBooking_Web.Models
 		}
 	}
 	
+	public partial class sp_BaoCaoDoanhThuTheoThangResult
+	{
+		
+		private int _Thang;
+		
+		private decimal _TongDoanhThu;
+		
+		public sp_BaoCaoDoanhThuTheoThangResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Thang", DbType="Int NOT NULL")]
+		public int Thang
+		{
+			get
+			{
+				return this._Thang;
+			}
+			set
+			{
+				if ((this._Thang != value))
+				{
+					this._Thang = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongDoanhThu", DbType="Decimal(38,2) NOT NULL")]
+		public decimal TongDoanhThu
+		{
+			get
+			{
+				return this._TongDoanhThu;
+			}
+			set
+			{
+				if ((this._TongDoanhThu != value))
+				{
+					this._TongDoanhThu = value;
+				}
+			}
+		}
+	}
+	
 	public partial class sp_TimPhongTrongResult
 	{
 		
@@ -2805,158 +2874,6 @@ namespace HotelBooking_Web.Models
 		private string _HinhAnh;
 		
 		public sp_TimPhongTrongResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhongID", DbType="Int NOT NULL")]
-		public int PhongID
-		{
-			get
-			{
-				return this._PhongID;
-			}
-			set
-			{
-				if ((this._PhongID != value))
-				{
-					this._PhongID = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoPhong", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
-		public string SoPhong
-		{
-			get
-			{
-				return this._SoPhong;
-			}
-			set
-			{
-				if ((this._SoPhong != value))
-				{
-					this._SoPhong = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenLoaiPhong", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
-		public string TenLoaiPhong
-		{
-			get
-			{
-				return this._TenLoaiPhong;
-			}
-			set
-			{
-				if ((this._TenLoaiPhong != value))
-				{
-					this._TenLoaiPhong = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GiaMoiDem", DbType="Decimal(18,2) NOT NULL")]
-		public decimal GiaMoiDem
-		{
-			get
-			{
-				return this._GiaMoiDem;
-			}
-			set
-			{
-				if ((this._GiaMoiDem != value))
-				{
-					this._GiaMoiDem = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SucChuaToiDa", DbType="Int")]
-		public System.Nullable<int> SucChuaToiDa
-		{
-			get
-			{
-				return this._SucChuaToiDa;
-			}
-			set
-			{
-				if ((this._SucChuaToiDa != value))
-				{
-					this._SucChuaToiDa = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TrangThai", DbType="NVarChar(50)")]
-		public string TrangThai
-		{
-			get
-			{
-				return this._TrangThai;
-			}
-			set
-			{
-				if ((this._TrangThai != value))
-				{
-					this._TrangThai = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MoTa", DbType="NVarChar(4000)")]
-		public string MoTa
-		{
-			get
-			{
-				return this._MoTa;
-			}
-			set
-			{
-				if ((this._MoTa != value))
-				{
-					this._MoTa = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HinhAnh", DbType="VarChar(MAX)")]
-		public string HinhAnh
-		{
-			get
-			{
-				return this._HinhAnh;
-			}
-			set
-			{
-				if ((this._HinhAnh != value))
-				{
-					this._HinhAnh = value;
-				}
-			}
-		}
-	}
-	
-	public partial class sp_TimPhongTrongResult1
-	{
-		
-		private int _PhongID;
-		
-		private string _SoPhong;
-		
-		private string _TenLoaiPhong;
-		
-		private decimal _GiaMoiDem;
-		
-		private System.Nullable<int> _SucChuaToiDa;
-		
-		private string _TrangThai;
-		
-		private string _MoTa;
-		
-		private string _HinhAnh;
-		
-		public sp_TimPhongTrongResult1()
 		{
 		}
 		

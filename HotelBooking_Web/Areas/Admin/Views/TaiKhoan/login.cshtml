@@ -38,7 +38,7 @@
     $("#login").click(function () {
         var form = $('#form-act')[0];
         var formdata = new FormData(form);
-        console.log(formdata);
+        
 
         $.ajax({
             type: "POST",
@@ -54,6 +54,7 @@
                 
             },
             error: function (data) {
+                console.log(2)
                 console.log(data);
             }
         });
