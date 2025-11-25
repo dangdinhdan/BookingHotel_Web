@@ -1,0 +1,34 @@
+﻿@{
+    ViewBag.Title = "Đăng nhập";
+}
+
+<div class="container">
+    <div class="auth-box">
+        <h2 class="auth-title">Đăng nhập</h2>
+
+        <form method="post">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email" class="form-input" placeholder="Nhập Email" required />
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" name="password" class="form-input" placeholder="Nhập mật khẩu" required />
+            </div>
+
+            <button type="submit" class="btn-submit">Đăng nhập</button>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert-error">
+                    @ViewBag.Error
+                </div>
+            }
+        </form>
+
+        <div class="auth-footer">
+            Chưa có tài khoản? <a href="/TaiKhoan/Register">Đăng ký ngay</a>
+        </div>
+    </div>
+</div>

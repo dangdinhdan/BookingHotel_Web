@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Xóa tài khoản";
+    var username = Session["username"] as string ?? "Người dùng";
+}
+
+<div class="delete-card-wrap">
+
+    <div class="delete-card">
+        @if (TempData["DeleteError"] != null)
+        {
+            <div class="cp-message-box error">@TempData["DeleteError"]</div>
+        }
+
+        @if (TempData["DeleteSuccess"] != null)
+        {
+            <div class="cp-message-box success">@TempData["DeleteSuccess"]</div>
+        }
+        <h2 class="delete-title">Xóa tài khoản</h2>
+
+        <p class="delete-warning-text">
+            Việc xóa tài khoản là <strong>không thể khôi phục</strong>.
+            Tất cả thông tin, lịch sử đặt phòng và dữ liệu của bạn sẽ bị xóa vĩnh viễn.
+        </p>
+
+        <form method="post">
+
+            <div class="delete-field">
+                <label for="reason">Lý do bạn muốn rời đi (không bắt buộc)</label>
+                <textarea id="reason" name="reason" placeholder="Nhập lý do của bạn..."></textarea>
+            </div>
+
+            <div class="delete-confirm">
+                <input type="checkbox" id="confirm" name="confirm" required />
+                <label for="confirm">Tôi xác nhận muốn xóa tài khoản của mình</label>
+            </div>
+
+            <div class="delete-actions">
+                <button type="submit" class="btn-danger-full">Xóa tài khoản</button>
+                <a href="/TaiKhoan/Profile" class="btn-cancel">Hủy bỏ</a>
+            </div>
+        </form>
+    </div>
+
+</div>
