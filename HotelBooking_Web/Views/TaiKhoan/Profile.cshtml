@@ -1,4 +1,4 @@
-﻿[cite_start]@* [cite: 59, 60, 61] *@
+﻿<!--[cite_start]-->@* [cite: 59, 60, 61] *@
 @{
     ViewBag.Title = "Hồ sơ cá nhân";
 
@@ -31,7 +31,7 @@
                     </div>
                     <div class="profile-user-info">
                         <h3>@displayName</h3>
-                        <p>@userEmail</p>
+                        <p title="@userEmail" >@userEmail</p>
                     </div>
                 </div>
 
@@ -105,7 +105,7 @@
                     </div>
                 </div>
 
-                <div class="profile-card danger-card">
+                @*<div class="profile-card danger-card">
                     <div class="profile-card-header">
                         <div>
                             <h3>Xóa Tài khoản</h3>
@@ -113,7 +113,7 @@
                         </div>
                         <a href="/TaiKhoan/DeleteAccount" class="btn-danger">Xóa Tài khoản</a>
                     </div>
-                </div>
+                </div>*@
 
             </section>
         </div>
