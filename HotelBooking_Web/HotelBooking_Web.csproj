@@ -338,12 +338,13 @@
     <Content Include="Views\TaiKhoan\ChangePassword.cshtml" />
     <Content Include="Views\TaiKhoan\TransactionHistory.cshtml" />
     <Content Include="Views\TaiKhoan\TransactionDetail.cshtml" />
-    <Content Include="Views\Favourite\Index.cshtml" />
     <Content Include="Views\TaiKhoan\EditProfile.cshtml" />
     <Content Include="Views\TaiKhoan\DeleteAccount.cshtml" />
     <Content Include="Views\Customer\Register.cshtml" />
     <Content Include="Views\Customer\RegisterSuccess.cshtml" />
     <Content Include="Views\Customer\RegisterConfirmEmail.cshtml" />
+    <Content Include="Views\TaiKhoan\BookingList.cshtml" />
+    <Content Include="Views\TaiKhoan\Favourite.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
