@@ -143,9 +143,16 @@ namespace HotelBooking_Web.Controllers
   
         public ActionResult BookingList()
         {
-            
-
-           return View();
+            if (Session["UserEmail"] == null) return RedirectToAction("Login");
+            return View();
+        }
+        public ActionResult TransactionHistory()
+        {
+            if (Session["UserEmail"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            return View();
         }
     }
 }

@@ -49,6 +49,7 @@
 
     <script src="~/Scripts/No1JavaScript/script01.js" defer></script>
     @RenderSection("Scripts", required: false)
+    @RenderSection("styles", required: false)
 </head>
 <body id="top">
 
@@ -147,6 +148,14 @@
     </header>
 
     <main class="container">
+        <div class="container">
+            @if (TempData["DeleteSuccess"] != null)
+            {
+                <div class="alert alert-success" style="padding: 15px; background: #d4edda; color: #155724; margin-bottom: 20px; border-radius: 4px;">
+                    @TempData["DeleteSuccess"]
+                </div>
+            }
+        </div>
         @RenderBody()
     </main>
 
