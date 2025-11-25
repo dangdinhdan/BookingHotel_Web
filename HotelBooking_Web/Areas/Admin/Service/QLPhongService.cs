@@ -54,7 +54,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
                         old_obj.GiaMoiDem = GiaMoiDem;
                         old_obj.SucChuaToiDa = SucChuaToiDa;
                         old_obj.MoTa = MoTa ?? old_obj.MoTa;
-                        old_obj.HinhAnh = HinhAnh ?? old_obj.HinhAnh;
+                        old_obj.HinhAnh = HinhAnh ?? null;
                         old_obj.Update_at = null;
                         old_obj.Create_at = DateTime.Now;
                         old_obj.isDelete = false;

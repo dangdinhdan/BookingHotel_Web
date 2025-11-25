@@ -75,10 +75,11 @@
                                             <td>@item.Email</td>
                                             <td>@item.SoDienThoai</td>
                                             <td>@item.VaiTro</td>
-                                            
+
                                             <td>
                                                 <a href="/admin/TaiKhoan/Sua/@item.TaiKhoanID" class="btn btn-sm btn-primary">Sửa</a>
-                                                <a href="#" data-id="@item.TaiKhoanID" class="btn btn-sm btn-danger btnDelete">Xóa</a>
+                                                <a href="#" id="btn_Delete" data-id="@item.TaiKhoanID" class="btn btn-sm btn-danger btnDelete">Xóa</a>
+                                                @*<button type="button"  onclick="Del_confirm(@item.TaiKhoanID)" class="btn btn-sm btn-primary">Xóa</button>*@
                                             </td>
                                         </tr>
                                         i++;
@@ -110,6 +111,46 @@
     </div>
 </div>
 
+@*<script>
+        function Del_confirm(id) {
+            if (confirm("Bạn có chắc chắn muốn xóa dữ liệu có id=" + id + " này không?")) {
+                //gọi API xóa.
+                var formData = new FormData();
+                formData.append('id', id);
+                //formData.append('id', JSON.stringify(id));
+
+                $.ajax({
+                    type: "POST",
+                    data: formData,
+                    //data: JSON.stringify(lst),
+
+                    url: window.location.origin + '/Admin/TaiKhoan/Delete',
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    success: function (response) {
+                        var rs = JSON.parse(response);
+                        if (rs.ErrCode == 1) {
+
+
+                            window.location.href = window.location.origin + '/Admin/TaiKhoan'
+                            alert(rs.ErrDesc);
+                        }
+                        else {
+
+                            alert(rs.ErrDesc);
+                        }
+
+                    },
+                    error: function (data) {
+                        console.log(data);
+                    }
+                });
+            }
+        }
+    </script>*@
+
+
 <script>
     $(document).ready(function () {
         $('body').on('click', '.btnDelete', function () {
@@ -117,14 +158,14 @@
             var conf = confirm("bạn có muốn xóa bản ghi này không?");
             if (conf == true) {
                 $.ajax({
-                    url: window.location.origin + '/TaiKhoan/Delete',
+                    url: window.location.origin + '/Admin/TaiKhoan/Delete',
                     type: 'POST',
                     data: { id: id },
                     success: function (response) {
                         var rs = JSON.parse(response);
                         if (rs.ErrCode == 1) {
 
-                            //$('#trow_' + id).remove();
+
                             window.location.href = window.location.origin + '/Admin/TaiKhoan'
                             alert(rs.ErrDesc);
                         }
@@ -144,9 +185,58 @@
     });
 </script>
 
-<script>
+
+@*<script>
+        $("#btn_Delete").click(function () {
+            var id = $(this).data("id")
+            var conf = confirm("bạn có muốn xóa bản ghi này không?");
+            if (conf == true) {
+                window.location.href = "/Admin/TaiKhoan/Delete?id=" + encodeURIComponent(id);
+                alert("Xóa tài khoản thành công")
+                window.location.href= window.location.origin + '/Admin/TaiKhoan'
+            }
+        });
+    </script>*@
+
+@*<script>
     $("#btn_timkiem").click(function () {
         var query = $("#txt_query").val();
         window.location.href = "/Admin/TaiKhoan/Index?query=" + encodeURIComponent(query);
+    });
+</script>*@
+
+<script>
+    $("#btn_timkiem").click(function () {
+        var query = $("#txt_query").val();
+        var formData = new FormData();
+        formData.append('query', query);
+
+        $.ajax({
+            type: "POST",
+            data: formData,
+            //data: JSON.stringify(lst),
+
+            url: window.location.origin + '/Admin/TaiKhoan',
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (response) {
+                var rs = JSON.parse(response);
+                if (rs.ErrCode == 1) {
+
+
+                    window.location.href = window.location.origin + '/Admin/TaiKhoan'
+                    alert(rs.ErrDesc);
+                }
+                else {
+
+                    alert(rs.ErrDesc);
+                }
+
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
     });
 </script>

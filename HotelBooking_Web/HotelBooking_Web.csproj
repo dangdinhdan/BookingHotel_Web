@@ -165,6 +165,7 @@
     <Compile Include="Areas\Admin\Controllers\QLLPhongController.cs" />
     <Compile Include="Areas\Admin\Controllers\QLPhongController.cs" />
     <Compile Include="Areas\Admin\Controllers\TaiKhoanController.cs" />
+    <Compile Include="Areas\Admin\Service\QLDPSevice.cs" />
     <Compile Include="Areas\Admin\Service\TaiKhoanService.cs" />
     <Compile Include="Areas\Admin\Service\QLLPhongService.cs" />
     <Compile Include="Areas\Admin\Service\QLPhongService.cs" />

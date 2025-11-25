@@ -38,7 +38,7 @@
     $("#login").click(function () {
         var form = $('#form-act')[0];
         var formdata = new FormData(form);
-        
+        console.log()
 
         $.ajax({
             type: "POST",
@@ -46,7 +46,7 @@
             contentType: false,
             processData: false,
             cache: false,
-            url: window.location.origin + '/TaiKhoan/Login_admin',
+            url: window.location.origin + '/Admin/TaiKhoan/Login_admin',
             success: function (response) {
                 console.log(response);
                 window.location.href = window.location.origin + '/admin';

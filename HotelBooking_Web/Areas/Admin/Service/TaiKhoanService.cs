@@ -160,13 +160,13 @@ namespace HotelBooking_Web.Areas.Admin.Service
         }
 
 
-        public FunctResult<tbl_TaiKhoan> Xoa(int id)
+        public FunctResult<tbl_TaiKhoan> Xoa(string id)
         {
             FunctResult<tbl_TaiKhoan> rs = new FunctResult<tbl_TaiKhoan>();
             try
             {
                 //cố gắng lấy ra tài khoản có email là 
-                var qr = db.tbl_TaiKhoans.Where(o => o.TaiKhoanID == id && (o.isDelete == null || o.isDelete == false));
+                var qr = db.tbl_TaiKhoans.Where(o => o.TaiKhoanID == int.Parse(id) && (o.isDelete == null || o.isDelete == false));
                 if (qr.Any())
                 {
                     tbl_TaiKhoan del_obj = qr.SingleOrDefault();
