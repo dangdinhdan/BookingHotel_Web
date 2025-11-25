@@ -645,13 +645,6 @@ footer {
     gap: 15px;
 }
 
-.btn-primary {
-    padding: 12px 20px;
-    background: #1d3557;
-    color: #fff;
-    border-radius: 8px;
-    text-decoration: none;
-}
 
 .btn-secondary {
     padding: 12px 20px;
@@ -949,7 +942,7 @@ footer {
     border: none;
     cursor: pointer;
     transition: background-color 0.15s ease-in-out;
-    font-weight: 600;
+    font-weight: 700;
 }
 
     .user-avatar-button:hover {
@@ -1076,20 +1069,6 @@ form-control{
     display: block;
 }
 
-.btn {
-    text-decoration: none;
-    padding: 0.75rem 1.25rem;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
-    border: none;
-    text-align: center;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
 
 .btn--form-full {
     width: 100%;
@@ -1465,17 +1444,6 @@ body {
         margin: 0;
     }
 
-.btn-ghost {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--primary-color); 
-    text-decoration: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.2s;
-}
 
     .btn-ghost:hover {
         background-color: #f0f0f0; 
