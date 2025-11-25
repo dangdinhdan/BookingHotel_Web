@@ -35,7 +35,7 @@
                     <div class="card-header">
                         
                         <div class="card-tools">
-                            <a href="../admin/QLPhong/Them" class="btn btn-primary">Thêm phòng</a>
+                            <a href="~/admin/QLPhong/Them" class="btn btn-primary">Thêm phòng</a>
                         </div>
                         
                             <div class="row ">
@@ -125,7 +125,7 @@
                         var rs = JSON.parse(response);
                         if (rs.ErrCode == 1) {
 
-                            $('#trow_' + id).remove();
+                            window.location.href = window.location.origin + '/Admin/QLPhong'
                             alert(rs.ErrDesc);
                         }
                         else {

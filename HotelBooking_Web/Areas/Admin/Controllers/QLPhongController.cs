@@ -16,7 +16,7 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
     {
         // GET: Admin/QLPhong
         private DataClasses1DataContext db = new DataClasses1DataContext();
-        private QLPhongService service = QLPhongService.Instance;
+        private QLPhongService service = new QLPhongService();
 
         public ActionResult Index(string query, int? page)
         {
@@ -25,8 +25,7 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
 
             var rooms = service.Search(query);
 
-            var items = rooms
-                .OrderByDescending(x => x.PhongID).ToPagedList(pageIndex, pageSize);
+            var items = rooms.OrderByDescending(x => x.PhongID).ToPagedList(pageIndex, pageSize);
 
             return View(items);
         }

@@ -29,6 +29,9 @@
       <Column Name="TongTien" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
       <Column Name="TrangThai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="GhiChu" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="isDelete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Cancelled_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="Delete_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
       <Association Name="tbl_DatPhong_tbl_ChiTietDatPhong" Member="tbl_ChiTietDatPhongs" ThisKey="DatPhongID" OtherKey="DatPhongID" Type="tbl_ChiTietDatPhong" />
       <Association Name="tbl_DatPhong_tbl_GiaoDich" Member="tbl_GiaoDiches" ThisKey="DatPhongID" OtherKey="DatPhongID" Type="tbl_GiaoDich" />
       <Association Name="tbl_TaiKhoan_tbl_DatPhong" Member="tbl_TaiKhoan" ThisKey="TaiKhoanID" OtherKey="TaiKhoanID" Type="tbl_TaiKhoan" IsForeignKey="true" />
@@ -41,6 +44,9 @@
       <Column Name="NgayThanhToan" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
       <Column Name="SoTien" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
       <Column Name="TrangThai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Create_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="Update_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
+      <Column Name="Delete_at" Type="System.DateTime" DbType="DateTime2" CanBeNull="true" />
       <Association Name="tbl_DatPhong_tbl_GiaoDich" Member="tbl_DatPhong" ThisKey="DatPhongID" OtherKey="DatPhongID" Type="tbl_DatPhong" IsForeignKey="true" />
     </Type>
   </Table>
@@ -106,6 +112,7 @@
       <Column Name="PhongID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="TaiKhoanID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="MaTK" Type="System.String" DbType="VarChar(5)" CanBeNull="true" />
+      <Column Name="isDelete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.vw_ThongKeDoanhThu" Member="vw_ThongKeDoanhThus">
@@ -135,6 +142,21 @@
     <Parameter Name="NgayTraPhong" Parameter="ngayTraPhong" Type="System.DateTime" DbType="DateTime2" />
     <Parameter Name="SucChuaToiDa" Parameter="sucChuaToiDa" Type="System.Int32" DbType="Int" />
     <ElementType Name="sp_TimPhongTrongResult">
+      <Column Name="PhongID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SoPhong" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="TenLoaiPhong" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="GiaMoiDem" Type="System.Decimal" DbType="Decimal(18,2) NOT NULL" CanBeNull="false" />
+      <Column Name="SucChuaToiDa" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TrangThai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="MoTa" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="HinhAnh" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_TimPhongTrong" Method="sp_TimPhongTrong1">
+    <Parameter Name="NgayNhanPhong" Parameter="ngayNhanPhong" Type="System.DateTime" DbType="DateTime2" />
+    <Parameter Name="NgayTraPhong" Parameter="ngayTraPhong" Type="System.DateTime" DbType="DateTime2" />
+    <Parameter Name="SucChuaToiDa" Parameter="sucChuaToiDa" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_TimPhongTrongResult1">
       <Column Name="PhongID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="SoPhong" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
       <Column Name="TenLoaiPhong" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />

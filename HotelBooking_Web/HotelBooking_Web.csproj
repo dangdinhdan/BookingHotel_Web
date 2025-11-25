@@ -291,6 +291,7 @@
     <Content Include="Areas\Admin\Views\QLDP\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Areas\Admin\Views\TaiKhoan\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\QLDP\Detail.cshtml" />
     <None Include="Models\DataClasses1.dbml.layout">
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </None>
@@ -326,8 +327,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Areas\Admin\Scripts\js\adminlte.js.map" />
-    <Content Include="Areas\Admin\Scripts\js\adminlte.min.js.map" />
     <Content Include="Views\Rooms\SearchRooms.cshtml" />
     <Content Include="Views\Rooms\Detail.cshtml" />
     <Content Include="Views\Booking\Booking.cshtml" />
@@ -348,7 +347,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Content\" />
     <Folder Include="Filters\" />
     <Folder Include="Views\IdentityConfig\" />
     <Folder Include="Views\User\" />
