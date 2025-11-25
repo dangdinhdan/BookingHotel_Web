@@ -169,7 +169,6 @@
     <Compile Include="Areas\Admin\Service\QLPhongService.cs" />
     <Compile Include="Areas\Admin\ViewModel\TaiKhoanViewModel.cs" />
     <Compile Include="Controllers\BookingController.cs" />
-    <Compile Include="Controllers\DetailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RoomsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -317,8 +316,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Areas\Admin\Scripts\js\adminlte.js.map" />
-    <Content Include="Areas\Admin\Scripts\js\adminlte.min.js.map" />
     <Content Include="Views\Rooms\SearchRooms.cshtml" />
     <Content Include="Views\Rooms\Detail.cshtml" />
     <Content Include="Views\Booking\Booking.cshtml" />
@@ -326,7 +323,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Filters\" />
-    <Folder Include="Views\Detail\" />
     <Folder Include="Views\IdentityConfig\" />
   </ItemGroup>
   <ItemGroup>

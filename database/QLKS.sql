@@ -62,7 +62,10 @@ CREATE TABLE tbl_DatPhong(
 	TongTien DECIMAL(18,2),
 	TrangThai NVARCHAR(50),
 	GhiChu NVARCHAR(2000),
-	CONSTRAINT CHK_NgayTraPhong CHECK (NgayTraPhong > NgayNhanPhong)
+	CONSTRAINT CHK_NgayTraPhong CHECK (NgayTraPhong > NgayNhanPhong),
+	isDelete BIT DEFAULT 0, -- nhớ phải check trạng thái đặt phòng
+	Cancelled_at DATETIME2 NULL,
+	Delete_at DATETIME2 NULL
 );
 
 CREATE TABLE tbl_ChiTietDatPhong(
@@ -77,7 +80,10 @@ CREATE TABLE tbl_GiaoDich(
 	DatPhongID INT NOT NULL REFERENCES tbl_DatPhong(DatPhongID),
 	NgayThanhToan DATETIME2,
 	SoTien DECIMAL(18,2),
-	TrangThai NVARCHAR(50)
+	TrangThai NVARCHAR(50),
+	Create_at DATETIME2 DEFAULT SYSUTCDATETIME(),
+	Update_at DATETIME2 NULL,
+	Delete_at DATETIME2 NULL
 );
 go
 
@@ -95,12 +101,14 @@ SELECT DP.DatPhongID,
 	P.SoPhong,
 	P.PhongID,
 	DP.TaiKhoanID,
-	TK.MaTK
+	TK.MaTK,
+	DP.isDelete
 
 FROM tbl_DatPhong DP
 JOIN tbl_ChiTietDatPhong CTDP ON DP.DatPhongID=CTDP.DatPhongID
 JOIN tbl_Phong P on P.PhongID= CTDP.PhongID
-JOIN tbl_TaiKhoan TK on DP.TaiKhoanID =TK.TaiKhoanID 
+JOIN tbl_TaiKhoan TK on DP.TaiKhoanID =TK.TaiKhoanID
+ORDER BY 
 GO
 
 
@@ -140,63 +148,7 @@ BEGIN
 END;
 go
 
-/*CREATE PROCEDURE sp_ThanhToan
-    @DatPhongID INT,
-    @PhuongThuc NVARCHAR(100)
-AS
-BEGIN
-    SET NOCOUNT ON;
-    
-    DECLARE @SoTienThanhToan DECIMAL(18,2);
-    DECLARE @TrangThaiHienTai NVARCHAR(50);
 
-    -- Lấy thông tin đơn đặt phòng
-    SELECT 
-        @SoTienThanhToan = TongTien,
-        @TrangThaiHienTai = TrangThai
-    FROM tbl_DatPhong
-    WHERE DatPhongID = @DatPhongID;
-
-    -- Kiểm tra xem đơn có tồn tại không
-    IF @SoTienThanhToan IS NULL
-    BEGIN
-        RAISERROR(N'Không tìm thấy đơn đặt phòng.', 16, 1);
-        RETURN;
-    END;
-
-    -- Kiểm tra xem đơn đã thanh toán chưa
-    IF @TrangThaiHienTai = N'Đã thanh toán'
-    BEGIN
-        RAISERROR(N'Đơn này đã được thanh toán trước đó.', 16, 1);
-        RETURN;
-    END;
-
-    BEGIN TRANSACTION;
-    BEGIN TRY
-        -- 1. Thêm vào bảng giao dịch với số tiền lấy từ đơn đặt
-        INSERT INTO tbl_GiaoDich (DatPhongID, NgayThanhToan, SoTien, TrangThai)
-        VALUES (@DatPhongID, SYSUTCDATETIME(), @SoTienThanhToan, N'ThanhCong');
-
-        -- 2. Cập nhật trạng thái đơn đặt phòng
-        UPDATE tbl_DatPhong
-        SET TrangThai = N'Đã thanh toán'
-        WHERE DatPhongID = @DatPhongID;
-        
-        UPDATE p
-        SET p.TrangThai = N'Trống'
-        FROM tbl_Phong p
-        JOIN tbl_ChiTietDatPhong ctdp ON p.PhongID = ctdp.PhongID
-        WHERE ctdp.DatPhongID = @DatPhongID;
-
-        COMMIT TRANSACTION;
-    END TRY
-    BEGIN CATCH
-        ROLLBACK TRANSACTION;
-        THROW; 
-    END CATCH
-END;
-GO
-*/
 
 
 CREATE FUNCTION fn_TinhTongTien(@DatPhongID INT)
@@ -233,13 +185,11 @@ BEGIN
     WHERE 
         p.isDelete = 0
         AND lp.isDelete = 0
-        -- Chỉ loại bỏ các phòng không thể phục vụ (ví dụ: đang bảo trì)
-        AND p.TrangThai != N'Bảo trì' 
+        -- Chỉ loại bỏ các phòng không thể phục vụ (ví dụ: đang bảo trì) 
         
-        -- Lọc tùy chọn (logic này đã đúng)
+        -- Lọc tùy chọn 
         AND (@SucChuaToiDa IS NULL OR p.SucChuaToiDa >= @SucChuaToiDa)
 
-        -- Dùng NOT EXISTS thay cho NOT IN để có hiệu năng tốt hơn
         -- Kiểm tra xem có tồn tại bất kỳ đơn đặt phòng nào trùng lặp không
         AND NOT EXISTS (
             SELECT 1
@@ -247,9 +197,9 @@ BEGIN
             JOIN tbl_DatPhong dp ON ctdp.DatPhongID = dp.DatPhongID
             WHERE 
                 ctdp.PhongID = p.PhongID -- Chỉ kiểm tra cho phòng hiện tại
-                AND dp.TrangThai IN (N'Đã đặt', N'Đang ở') -- Các trạng thái đặt phòng hợp lệ
+                AND dp.TrangThai IN (N'Đã đặt', N'Đã checkin') -- Các trạng thái đặt phòng hợp lệ
                 AND (
-                    -- Logic kiểm tra trùng lặp thời gian (đã đúng)
+                    -- Logic kiểm tra trùng lặp thời gian
                     @NgayNhanPhong < dp.NgayTraPhong AND
                     @NgayTraPhong > dp.NgayNhanPhong
                 )
