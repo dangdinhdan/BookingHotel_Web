@@ -108,7 +108,7 @@
                         var rs = JSON.parse(response);
                         if (rs.ErrCode == 1) {
 
-                            window.location.href= '../QLLPhong'
+                            window.location.href = window.location.origin + '/Admin/QLLPhong'
                             alert(rs.ErrDesc);
                         }
                         else {

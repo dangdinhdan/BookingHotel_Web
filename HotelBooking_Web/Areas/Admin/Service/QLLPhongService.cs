@@ -45,7 +45,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
                         db.SubmitChanges();
                         rs.ErrCode = EnumErrCode.Success;
                         rs.ErrDesc = "thành công";
-                        rs.Data = old_obj;
+                        
 
 
                     }

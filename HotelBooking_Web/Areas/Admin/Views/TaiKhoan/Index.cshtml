@@ -77,7 +77,7 @@
                                             <td>@item.VaiTro</td>
                                             
                                             <td>
-                                                <a href="/admin/QLTKhoan/Sua/@item.TaiKhoanID" class="btn btn-sm btn-primary">Sửa</a>
+                                                <a href="/admin/TaiKhoan/Sua/@item.TaiKhoanID" class="btn btn-sm btn-primary">Sửa</a>
                                                 <a href="#" data-id="@item.TaiKhoanID" class="btn btn-sm btn-danger btnDelete">Xóa</a>
                                             </td>
                                         </tr>
@@ -125,7 +125,7 @@
                         if (rs.ErrCode == 1) {
 
                             //$('#trow_' + id).remove();
-                             
+                            window.location.href = window.location.origin + '/Admin/TaiKhoan'
                             alert(rs.ErrDesc);
                         }
                         else {

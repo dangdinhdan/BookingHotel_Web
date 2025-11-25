@@ -22,7 +22,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
             try
             {
                 //cố gắng lấy ra tài khoản có email là 
-                var qr = db.tbl_TaiKhoans.Where(o => o.Email == Email && (o.isDelete == null || o.isDelete == false));
+                var qr = db.tbl_TaiKhoans.Where(o => o.Email == Email);
 
                 if (!qr.Any())
                 {
@@ -64,7 +64,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
                         db.SubmitChanges();
                         rs.ErrCode = EnumErrCode.Success;
                         rs.ErrDesc = "thành công";
-                        rs.Data = old_obj;
+                        
 
 
                     }
