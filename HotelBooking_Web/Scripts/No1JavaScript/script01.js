@@ -90,25 +90,7 @@ const ROOMS = [
 //    });
 
 
-document.getElementById("searchBtn").addEventListener("click", () => {
-    //// 1. Lấy giá trị
-    //const guests = document.getElementById("guests").value;
-    //const checkin = document.getElementById("checkin").value;
-    //const checkout = document.getElementById("checkout").value;
 
-    //// 2. Kiểm tra (validate) ngày - Rất tốt!
-    //if (checkin && checkout && new Date(checkin) > new Date(checkout)) {
-    //    alert("Ngày nhận phải trước ngày trả.");
-    //    return; // Dừng lại nếu ngày sai
-    //}
-
-    //// 3. Xây dựng URL đích
-    ////    Chúng ta không lọc (filter) ở đây
-    //const targetUrl = `/Rooms/SearchRooms?checkin=${checkin}&checkout=${checkout}&guests=${guests}`;
-
-    //// 4. Điều hướng sang trang mới
-    window.location.href = "/Rooms/SearchRooms";
-});
 
 /* --- SCROLL MƯỢT THÔNG MINH CHO MVC --- */
 document.querySelectorAll('a[href*="#"]').forEach(anchor => {
