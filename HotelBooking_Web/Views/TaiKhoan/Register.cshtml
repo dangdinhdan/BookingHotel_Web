@@ -1,4 +1,5 @@
-﻿@{
+﻿@model HotelBooking_Web.Models.Customer﻿
+@{
     ViewBag.Title = "Đăng ký";
 }
 
@@ -6,33 +7,39 @@
     <div class="auth-box">
         <h2 class="auth-title">Đăng ký</h2>
 
-        <form method="post">
-            
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" class="form-input" placeholder="Nhập email" required />
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+
+            <form method="post">
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-input" placeholder="Nhập email" required />
+                    @Html.ValidationMessageFor(m => m.Email)
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" name="password" class="form-input" placeholder="Nhập mật khẩu" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Xác nhận mật khẩu</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" placeholder="Nhập lại mật khẩu" required />
+                </div>
+
+                <button type="submit" class="btn-submit">Đăng ký</button>
+
+                @if (TempData["msg"] != null)
+                {
+                    <div class="alert-success">@TempData["msg"]</div>
+                }
+            </form>
+        }
+            <div class="auth-footer">
+                Đã có tài khoản? <a href="/TaiKhoan/Login">Đăng nhập</a>
             </div>
-
-            <div class="form-group">
-                <label for="password">Mật khẩu</label>
-                <input type="password" id="password" name="password" class="form-input" placeholder="Nhập mật khẩu" required />
-            </div>
-
-            <div class="form-group">
-                <label for="confirmPassword">Xác nhận mật khẩu</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" placeholder="Nhập lại mật khẩu" required />
-            </div>
-
-            <button type="submit" class="btn-submit">Đăng ký</button>
-
-            @if (TempData["msg"] != null)
-            {
-                <div class="alert-success">@TempData["msg"]</div>
-            }
-        </form>
-
-        <div class="auth-footer">
-            Đã có tài khoản? <a href="/TaiKhoan/Login">Đăng nhập</a>
         </div>
-    </div>
 </div>

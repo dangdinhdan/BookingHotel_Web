@@ -1,6 +1,8 @@
 ﻿/*Danh sách đơn đặt phòng*/
 
-/*DANH SÁCH ĐƠN ĐẶT PHÒNG*/
+/* =========================================
+   STYLE CHO TRANG DANH SÁCH ĐƠN ĐẶT PHÒNG
+   ========================================= */
 /* Danh sách các thẻ đơn hàng */
 .booking-list {
     display: flex;
@@ -136,4 +138,78 @@
         width: 100%;
         height: 160px;
     }
+}
+/* =========================================
+   STYLE CHO TRANG LỊCH SỬ GIAO DỊCH
+   ========================================= */
+
+/* Khung bao quanh bảng để tạo bo góc và đổ bóng */
+.transaction-box {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    overflow-x: auto; /* Cho phép cuộn ngang trên mobile */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+}
+
+/* Bảng hiển thị */
+.t-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px; /* Đảm bảo không bị co quá nhỏ trên mobile */
+}
+
+    .t-table th {
+        text-align: left;
+        padding: 16px 20px;
+        background: #f8f8f8;
+        color: #666;
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        border-bottom: 1px solid #eee;
+    }
+
+    .t-table td {
+        padding: 16px 20px;
+        border-bottom: 1px solid #eee;
+        color: #111;
+        font-size: 14px;
+        vertical-align: middle;
+    }
+
+    /* Bỏ gạch chân dòng cuối cùng */
+    .t-table tr:last-child td {
+        border-bottom: none;
+    }
+
+/* Style riêng cho các cột quan trọng */
+.t-id {
+    font-family: monospace; /* Font chữ kiểu mã code */
+    color: #888;
+}
+
+.t-amount {
+    font-weight: 700;
+    font-size: 15px;
+}
+    /* Màu tiền: Trừ tiền (đen) / Cộng tiền (xanh) - tuỳ logic */
+    .t-amount.minus {
+        color: #111;
+    }
+
+    .t-amount.plus {
+        color: #188038;
+    }
+
+.t-date {
+    color: #555;
+    font-size: 13px;
+}
+
+.t-desc {
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Cắt bớt chữ nếu quá dài */
 }

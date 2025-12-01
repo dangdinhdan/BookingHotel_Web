@@ -23,14 +23,14 @@
         </p>
 
         <form method="post">
-
+            @Html.AntiForgeryToken()
             <div class="delete-field">
                 <label for="reason">Lý do bạn muốn rời đi (không bắt buộc)</label>
                 <textarea id="reason" name="reason" placeholder="Nhập lý do của bạn..."></textarea>
             </div>
 
             <div class="delete-confirm">
-                <input type="checkbox" id="confirm" name="confirm" required />
+                <input type="checkbox" id="confirm" name="confirm" value="true" required />
                 <label for="confirm">Tôi xác nhận muốn xóa tài khoản của mình</label>
             </div>
 
