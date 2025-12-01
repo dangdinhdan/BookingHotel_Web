@@ -62,7 +62,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
                         old_obj.Delete_at = null;
 
                         db.SubmitChanges();
-                        rs.ErrCode = EnumErrCode.Success;
+                        rs.ErrCode = EnumErrCode.Existent;
                         rs.ErrDesc = "thành công";
                         
 
@@ -70,7 +70,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
                     }
                     else
                     {
-                        rs.ErrCode = EnumErrCode.Existent;
+                        rs.ErrCode = EnumErrCode.Error;
                         rs.ErrDesc = "Thêm mới thất bại do đã tồn tại Email = " + Email;
                         rs.Data = null;
                     }
@@ -196,7 +196,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
 
         public List<tbl_TaiKhoan> Search(string query)
         {
-            var list = db.tbl_TaiKhoans.Where(x => x.isDelete == null || x.isDelete == false);
+            var list = db.tbl_TaiKhoans.Where(x =>x.VaiTro=="customer" &&(x.isDelete == null || x.isDelete == false));
 
             if (!string.IsNullOrEmpty(query))
             {

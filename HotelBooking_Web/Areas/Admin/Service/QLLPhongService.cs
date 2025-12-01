@@ -37,13 +37,13 @@ namespace HotelBooking_Web.Areas.Admin.Service
                         tbl_LoaiPhong old_obj = qr.SingleOrDefault();
                         old_obj.TenLoaiPhong = TenLoaiPhong ?? old_obj.TenLoaiPhong;
                         old_obj.MoTa = MoTa ?? old_obj.MoTa;
-                        old_obj.Update_at = null;
+                        old_obj.Update_at = DateTime.Now;
                         old_obj.Create_at = DateTime.Now;
                         old_obj.isDelete = false;
                         old_obj.Delete_at = null;
 
                         db.SubmitChanges();
-                        rs.ErrCode = EnumErrCode.Success;
+                        rs.ErrCode = EnumErrCode.Existent;
                         rs.ErrDesc = "thành công";
                         
 
@@ -51,7 +51,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
                     }
                     else 
                     {
-                        rs.ErrCode = EnumErrCode.Existent;
+                        rs.ErrCode = EnumErrCode.Error;
                         rs.ErrDesc = "Thêm mới loại phòng thất bại do đã tồn tại loại phòng có mã = " + TenLoaiPhong;
                         rs.Data = null;
                     }

@@ -129,6 +129,9 @@
                     window.location.href = '../QLPhong/Index';
                     alert(rs.ErrDesc);
                 }
+                if (rs.ErrCode == 4) {
+                    alert("Mã phòng này đã được khôi phục và sửa đổi")
+                }
                 else {
 
                     alert(rs.ErrDesc);

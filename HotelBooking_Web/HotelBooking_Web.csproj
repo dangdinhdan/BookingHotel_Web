@@ -293,6 +293,9 @@
     <Content Include="Areas\Admin\Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Areas\Admin\Views\TaiKhoan\Login.cshtml" />
     <Content Include="Areas\Admin\Views\QLDP\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\QLDP\Checkin.cshtml" />
+    <Content Include="Areas\Admin\Views\QLDP\Checkout.cshtml" />
+    <Content Include="Areas\Admin\Views\QLDP\Checkin_Comf.cshtml" />
     <None Include="Models\DataClasses1.dbml.layout">
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </None>

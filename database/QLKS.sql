@@ -52,6 +52,12 @@ CREATE TABLE tbl_Phong(
 	Delete_at DATETIME2 NULL
 );
 
+CREATE TABLE tbl_PhongImages(
+	PhongImages INT PRIMARY KEY IDENTITY(1,1),
+	PhongID INT NOT NULL REFERENCES tbl_Phong(PhongID),
+	Url VARCHAR(MAX),
+);
+
 CREATE TABLE tbl_DatPhong(
 	DatPhongID INT PRIMARY KEY IDENTITY(1,1),
 	TaiKhoanID INT NOT NULL REFERENCES tbl_TaiKhoan(TaiKhoanID),

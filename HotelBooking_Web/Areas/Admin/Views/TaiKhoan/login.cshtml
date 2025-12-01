@@ -49,12 +49,20 @@
             url: window.location.origin + '/Admin/TaiKhoan/Login_admin',
             success: function (response) {
                 console.log(response);
-                window.location.href = window.location.origin + '/admin';
+                var rs = JSON.parse(response);
 
+                if (rs.ErrCode == 1) {
+                    window.location.href = window.location.origin + '/admin';
+                    
+                }
+                else {
+
+                    alert(rs.ErrDesc);
+                }
                 
             },
             error: function (data) {
-                console.log(2)
+                
                 console.log(data);
             }
         });

@@ -20,12 +20,12 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
         private DataClasses1DataContext db = new DataClasses1DataContext();
         private TaiKhoanService service = new TaiKhoanService();
         // GET: Admin/QLTKhoan
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page,string query)
         {
             var pageSize = 10;
             int pageIndex = page ?? 1;
 
-            string query = Request["query"];
+            //string query = Request["query"];
 
             var list = service.Search(query);
 

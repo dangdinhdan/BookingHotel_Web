@@ -132,6 +132,9 @@
                     window.location.href = '../TaiKhoan/Index';
                     alert(rs.ErrDesc);
                 }
+                if (rs.ErrCode == 4) {
+                    alert("Tài khoản có Email: " +txt_Email+"đã được khôi phục và sửa đổi")
+                }
                 else {
 
                     alert(rs.ErrDesc);

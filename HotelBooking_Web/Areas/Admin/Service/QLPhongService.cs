@@ -61,7 +61,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
                         old_obj.Delete_at = null;
 
                         db.SubmitChanges();
-                        rs.ErrCode = EnumErrCode.Success;
+                        rs.ErrCode = EnumErrCode.Existent;
                         rs.ErrDesc = "thành công";
                         
 
@@ -69,7 +69,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
                     }
                     else
                     {
-                        rs.ErrCode = EnumErrCode.Existent;
+                        rs.ErrCode = EnumErrCode.Error;
                         rs.ErrDesc = "Thêm mới phòng thất bại do đã tồn tại lớp quản lý có mã = " + SoPhong;
                         rs.Data = null;
                     }
