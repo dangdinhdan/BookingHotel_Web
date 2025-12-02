@@ -4,5 +4,67 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Checkin_Comf</h2>
+<div class="row justify-content-center">
+    
+    <div class="col-md-6">
+        <div class="card">
 
+            <div class="card-header ">
+            <h4 class="text-center">Phiếu đặt phòng</h4>
+            </div>
+            
+            <div class="card-body">
+                <input type="hidden" name="DatPhongID" id="DatPhongID" value="@Model.DatPhongID" />
+                <p><strong>Mã đặt phòng:</strong> @Model.DatPhongID</p>
+                <p><strong>Khách hàng:</strong> @Model.MaTK</p>
+                <p><strong>Tên khách hàng:</strong> @Model.HoTen</p>
+                <p><strong>Phòng:</strong> @Model.SoPhong</p>
+                <p><strong>Ngày nhận:</strong> @Model.NgayNhanPhong</p>
+                <p><strong>Ngày trả:</strong> @Model.NgayTraPhong</p>
+                <form>
+                    <button type="button" id="btn_xacnhan" class="btn btn-success w-100">Xác nhận</button>
+                    <div class="w-100" style="padding-top:10px ">
+                        <a href="/Admin/QLDP/Checkin" class="btn btn-secondary w-100">
+                            Quay lại
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $("#btn_xacnhan").click(function () {
+        console.log(2)
+        var datPhongID = $("#DatPhongID").val().trim();
+
+        $.ajax({
+            url: window.location.origin + '/Admin/QLDP/Checkin_Action',
+            type: 'POST',
+            data: { DatPhongID: datPhongID },
+            success: function (response) {
+                var rs = JSON.parse(response);
+                if (rs.ErrCode == 1)
+                {
+                    alert(rs.ErrDesc)
+                    window.location.href = window.location.origin + '/Admin/QLDP';
+                }
+                else {
+
+                    alert(rs.ErrDesc)
+                    //$("#msg").html(
+                    //    `<div class="alert alert-danger mt-3">${rs.ErrDesc}</div>`
+                    //);
+                }
+            },
+            error: function (rs) {
+                rs = "có lỗi trong quá trình checkin";
+            }
+
+        });
+
+    });
+</script>

@@ -20,9 +20,9 @@ namespace HotelBooking_Web.Models
 	using System.Linq.Expressions;
 	using System.ComponentModel;
 	using System;
-	
-	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="QLKS")]
+    using System.ComponentModel.DataAnnotations;
+
+    [global::System.Data.Linq.Mapping.DatabaseAttribute(Name="QLKS")]
 	public partial class DataClasses1DataContext : System.Data.Linq.DataContext
 	{
 		
@@ -53,7 +53,7 @@ namespace HotelBooking_Web.Models
     partial void Deletetbl_TaiKhoan(tbl_TaiKhoan instance);
         #endregion
         public DataClasses1DataContext() :
-                base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QLKSConnectionString"].ConnectionString, mappingSource)
+                base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QLKSConnectionString2"].ConnectionString, mappingSource)
         {
             OnCreated();
         }
@@ -161,18 +161,18 @@ namespace HotelBooking_Web.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_BaoCaoDoanhThuTheoThang")]
-		public ISingleResult<sp_BaoCaoDoanhThuTheoThangResult> sp_BaoCaoDoanhThuTheoThang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nam", DbType="Int")] System.Nullable<int> nam)
-		{
-			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nam);
-			return ((ISingleResult<sp_BaoCaoDoanhThuTheoThangResult>)(result.ReturnValue));
-		}
-		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_TimPhongTrong")]
 		public ISingleResult<sp_TimPhongTrongResult> sp_TimPhongTrong([global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayNhanPhong", DbType="DateTime2")] System.Nullable<System.DateTime> ngayNhanPhong, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayTraPhong", DbType="DateTime2")] System.Nullable<System.DateTime> ngayTraPhong, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SucChuaToiDa", DbType="Int")] System.Nullable<int> sucChuaToiDa)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ngayNhanPhong, ngayTraPhong, sucChuaToiDa);
 			return ((ISingleResult<sp_TimPhongTrongResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_BaoCaoDoanhThuTheoThang")]
+		public ISingleResult<sp_BaoCaoDoanhThuTheoThangResult> sp_BaoCaoDoanhThuTheoThang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nam", DbType="Int")] System.Nullable<int> nam)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nam);
+			return ((ISingleResult<sp_BaoCaoDoanhThuTheoThangResult>)(result.ReturnValue));
 		}
 		
 		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_CapNhatTrangThaiPhong")]
@@ -1896,6 +1896,7 @@ namespace HotelBooking_Web.Models
 		
 		private string _HoTen;
 		
+
 		private string _Email;
 		
 		private string _MatKhau;
@@ -2016,7 +2017,8 @@ namespace HotelBooking_Web.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string Email
+        
+        public string Email
 		{
 			get
 			{
@@ -2810,50 +2812,6 @@ namespace HotelBooking_Web.Models
 		}
 	}
 	
-	public partial class sp_BaoCaoDoanhThuTheoThangResult
-	{
-		
-		private int _Thang;
-		
-		private decimal _TongDoanhThu;
-		
-		public sp_BaoCaoDoanhThuTheoThangResult()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Thang", DbType="Int NOT NULL")]
-		public int Thang
-		{
-			get
-			{
-				return this._Thang;
-			}
-			set
-			{
-				if ((this._Thang != value))
-				{
-					this._Thang = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongDoanhThu", DbType="Decimal(38,2) NOT NULL")]
-		public decimal TongDoanhThu
-		{
-			get
-			{
-				return this._TongDoanhThu;
-			}
-			set
-			{
-				if ((this._TongDoanhThu != value))
-				{
-					this._TongDoanhThu = value;
-				}
-			}
-		}
-	}
-	
 	public partial class sp_TimPhongTrongResult
 	{
 		
@@ -3001,6 +2959,50 @@ namespace HotelBooking_Web.Models
 				if ((this._HinhAnh != value))
 				{
 					this._HinhAnh = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_BaoCaoDoanhThuTheoThangResult
+	{
+		
+		private int _Thang;
+		
+		private decimal _TongDoanhThu;
+		
+		public sp_BaoCaoDoanhThuTheoThangResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Thang", DbType="Int NOT NULL")]
+		public int Thang
+		{
+			get
+			{
+				return this._Thang;
+			}
+			set
+			{
+				if ((this._Thang != value))
+				{
+					this._Thang = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongDoanhThu", DbType="Decimal(38,2) NOT NULL")]
+		public decimal TongDoanhThu
+		{
+			get
+			{
+				return this._TongDoanhThu;
+			}
+			set
+			{
+				if ((this._TongDoanhThu != value))
+				{
+					this._TongDoanhThu = value;
 				}
 			}
 		}

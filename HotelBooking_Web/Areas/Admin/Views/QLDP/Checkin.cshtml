@@ -4,5 +4,54 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Checkin</h2>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header text-center">
+                <h4>Checkin - Nhập mã đặt phòng</h4>
+            </div>
+            <div class="card-body">
+                <form id="form-act">
+                    <div class="mb-3">
+                        <label for="booking_code" class="form-label">Mã đặt phòng</label>
+                        <input type="text" class="form-control" id="txt_DatPhongID" name="DatPhongID" required>
+                    </div>
+                    <div id="msg"></div>
+                    <button type="submit" id="btn_checkin" class="btn btn-primary w-100">Check In</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#form-act").submit(function (e) {
+            e.preventDefault();
+
+            var datPhongID = $("#txt_DatPhongID").val().trim();
+
+
+            // Gọi Ajax
+            $.ajax({
+                url: '/Admin/QLDP/Checkin_search',
+                type: 'GET',
+                data: { DatPhongID: datPhongID },
+                success: function (res) {
+                    if (res.status) {
+                        window.location.href = '/Admin/QLDP/Checkin_Comf?DatPhongID=' + encodeURIComponent(datPhongID);
+                    } else {
+                        $("#msg").html(
+                            `<div class="alert alert-danger mt-3">${res.message}</div>`
+                        );
+                    }
+                },
+                error: function (rs) {
+                    rs = "có lỗi trong quá trình checkin";
+                }
+                
+            });
+        });
+    });
+</script>
 

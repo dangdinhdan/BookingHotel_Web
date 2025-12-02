@@ -138,13 +138,6 @@
       <Column Name="TenLoaiPhong" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
-  <Function Name="dbo.sp_BaoCaoDoanhThuTheoThang" Method="sp_BaoCaoDoanhThuTheoThang">
-    <Parameter Name="Nam" Parameter="nam" Type="System.Int32" DbType="Int" />
-    <ElementType Name="sp_BaoCaoDoanhThuTheoThangResult">
-      <Column Name="Thang" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="TongDoanhThu" Type="System.Decimal" DbType="Decimal(38,2) NOT NULL" CanBeNull="false" />
-    </ElementType>
-  </Function>
   <Function Name="dbo.sp_TimPhongTrong" Method="sp_TimPhongTrong">
     <Parameter Name="NgayNhanPhong" Parameter="ngayNhanPhong" Type="System.DateTime" DbType="DateTime2" />
     <Parameter Name="NgayTraPhong" Parameter="ngayTraPhong" Type="System.DateTime" DbType="DateTime2" />
@@ -158,6 +151,13 @@
       <Column Name="TrangThai" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="MoTa" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
       <Column Name="HinhAnh" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.sp_BaoCaoDoanhThuTheoThang" Method="sp_BaoCaoDoanhThuTheoThang">
+    <Parameter Name="Nam" Parameter="nam" Type="System.Int32" DbType="Int" />
+    <ElementType Name="sp_BaoCaoDoanhThuTheoThangResult">
+      <Column Name="Thang" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TongDoanhThu" Type="System.Decimal" DbType="Decimal(38,2) NOT NULL" CanBeNull="false" />
     </ElementType>
   </Function>
   <Function Name="dbo.sp_CapNhatTrangThaiPhong" Method="sp_CapNhatTrangThaiPhong">

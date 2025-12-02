@@ -251,7 +251,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
             catch (Exception ex) 
             {
                 rs.ErrCode=EnumErrCode.Error;
-                rs.ErrDesc="Có lôi xảy ra trong quá trình đăng nhập" + ex.Message;
+                rs.ErrDesc="Có lôi xảy ra trong quá trình đăng nhập " + ex.Message;
 
             }
             return rs;

@@ -16,7 +16,7 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
     public class QLDPController : Controller
     {
         public DataClasses1DataContext db = new DataClasses1DataContext();
-        public QLDPSevice service = new QLDPSevice();
+        public QLDPService service = new QLDPService();
 
         // GET: Admin/QLDP
         public ActionResult Index(int? page, string query, string status)
@@ -35,11 +35,33 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
         }
         public ActionResult Checkin()
         {
-            return View();
+            return View(); 
+
         }
-        public ActionResult Checkin_Comf()
+
+        public JsonResult Checkin_search(int DatPhongID)
         {
-            return View();
+            var DatPhong = service.Search_DatPhong(DatPhongID);
+
+            if (DatPhong.Any())
+            {
+                return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { status = false, message = "Mã đặt phòng không tồn tại!" }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Checkin_Comf(int DatPhongID)
+        {
+            
+            var item = db.vw_DanhSachDatPhongs.SingleOrDefault(o=>o.DatPhongID==DatPhongID);
+            
+            return View(item);
+        }
+        public string Checkin_Action(int DatPhongID)
+        {
+            var qr = service.Checkin(DatPhongID);
+            return JsonConvert.SerializeObject(qr);
         }
         public ActionResult Checkout()
         {

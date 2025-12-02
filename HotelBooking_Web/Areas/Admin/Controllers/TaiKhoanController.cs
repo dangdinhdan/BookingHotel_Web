@@ -113,6 +113,7 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
 
             if (rs.ErrCode == Models.EnumErrCode.Success)
             {
+                Session["User"] = rs.Data;
                 Session["MaTK"] = rs.Data.MaTK;
                 Session["HoTen"] = rs.Data.HoTen;
                 Session["VaiTro"] = rs.Data.VaiTro;
