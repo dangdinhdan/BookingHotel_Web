@@ -253,6 +253,26 @@ select {
     box-shadow: var(--shadow);
 }
 
+/*slider*/
+#slider {
+    width: 100%;
+    padding-top: 50%;
+    background: url('/Assets/img/Slider/so1.jpg') bottom center / cover no-repeat;
+    position: relative;
+}
+
+#slider .text-content {
+    position: absolute;
+    color: white;
+    text-align: center;
+    bottom: 40px;
+    width:100%;
+    
+}
+
+#slider .text-heading {
+    font-size: 18px;
+}
 /* ROOMS */
 .section {
     margin-top: 40px;
