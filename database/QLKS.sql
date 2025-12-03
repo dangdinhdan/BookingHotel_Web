@@ -115,12 +115,10 @@ SELECT DP.DatPhongID,
 	Tk.HoTen,
 	DP.isDelete,
 	CTDP.GiaTaiThoiDiemDat
-
 FROM tbl_DatPhong DP
 JOIN tbl_ChiTietDatPhong CTDP ON DP.DatPhongID=CTDP.DatPhongID
 JOIN tbl_Phong P on P.PhongID= CTDP.PhongID
 JOIN tbl_TaiKhoan TK on DP.TaiKhoanID =TK.TaiKhoanID
-
 GO
 
 
