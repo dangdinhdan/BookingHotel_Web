@@ -2102,7 +2102,9 @@ progress {
   padding-bottom: calc(0.25rem + var(--bs-border-width));
   font-size: 0.875rem;
 }
-
+.text-value {
+    font-weight:600
+}
 .form-text {
   margin-top: 0.25rem;
   font-size: 0.875em;

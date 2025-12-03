@@ -86,10 +86,15 @@ CREATE TABLE tbl_GiaoDich(
 	DatPhongID INT NOT NULL REFERENCES tbl_DatPhong(DatPhongID),
 	SoTien DECIMAL(18,2),
 	TrangThai NVARCHAR(50),
+	PhuongThuc NVARCHAR(50),
 	Create_at DATETIME2 DEFAULT SYSUTCDATETIME(),
 	Update_at DATETIME2 NULL,
 	Delete_at DATETIME2 NULL
 );
+go
+
+INSERT INTO tbl_VaiTro(VaiTro) values ('admin' ,'customer')
+
 go
 
 
@@ -108,7 +113,8 @@ SELECT DP.DatPhongID,
 	DP.TaiKhoanID,
 	TK.MaTK,
 	Tk.HoTen,
-	DP.isDelete
+	DP.isDelete,
+	CTDP.GiaTaiThoiDiemDat
 
 FROM tbl_DatPhong DP
 JOIN tbl_ChiTietDatPhong CTDP ON DP.DatPhongID=CTDP.DatPhongID
@@ -142,18 +148,6 @@ SELECT
 FROM tbl_GiaoDich gd
 GROUP BY YEAR(gd.NgayThanhToan), MONTH(gd.NgayThanhToan);
 go
-
-CREATE or alter PROCEDURE sp_CapNhatTrangThaiPhong
-    @PhongID INT,
-    @TrangThai NVARCHAR(50)
-AS
-BEGIN
-    UPDATE tbl_Phong
-    SET TrangThai = @TrangThai
-    WHERE PhongID = @PhongID;
-END;
-go
-
 
 
 

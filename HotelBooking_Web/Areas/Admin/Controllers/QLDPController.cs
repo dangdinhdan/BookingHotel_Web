@@ -30,7 +30,7 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
         }
         public ActionResult Detail(int id)
         {
-            var item = db.vw_DanhSachDatPhongs.Where(o => o.DatPhongID == id && (o.isDelete == null||o.isDelete== false));
+            var item = db.vw_DanhSachDatPhongs.SingleOrDefault(o => o.DatPhongID == id && (o.isDelete == null||o.isDelete== false));
             return View(item);
         }
         public ActionResult Checkin()
@@ -61,11 +61,34 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
         public string Checkin_Action(int DatPhongID)
         {
             var qr = service.Checkin(DatPhongID);
+            
             return JsonConvert.SerializeObject(qr);
         }
-        public ActionResult Checkout()
+
+
+
+        public ActionResult Checkout(int id)
         {
-            return View();
+            var item = db.vw_DanhSachDatPhongs.SingleOrDefault(o => o.DatPhongID == id);
+            return View(item);
+        }
+        public string Checkout_Action()
+        {
+            int DatPhongID = int.Parse(Request["txt_DatPhongID"]);
+            string txt_PhuongThuc = Request["slc_PhuongThuc"];
+            string PhuongThuc = null;
+            if (txt_PhuongThuc == "TienMat")
+            {
+                PhuongThuc = "Tiền mặt";
+            }
+            else
+            {
+                PhuongThuc = "Chuyển khoản";
+            }
+
+
+            var rs = service.checkout(DatPhongID, PhuongThuc);
+            return JsonConvert.SerializeObject(rs);
         }
     }
 }
