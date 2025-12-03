@@ -291,6 +291,9 @@
     <Content Include="Areas\Admin\Views\QLDP\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Areas\Admin\Views\TaiKhoan\Login.cshtml" />
+    <Content Include="Assets\img\Slider\so1.jpg" />
+    <Content Include="Assets\img\Slider\so2.webp" />
+    <Content Include="Assets\img\Slider\so3.webp" />
     <None Include="Models\DataClasses1.dbml.layout">
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </None>
