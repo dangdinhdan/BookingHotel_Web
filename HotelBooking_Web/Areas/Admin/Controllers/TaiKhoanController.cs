@@ -20,10 +20,12 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
         private DataClasses1DataContext db = new DataClasses1DataContext();
         private TaiKhoanService service = new TaiKhoanService();
         // GET: Admin/QLTKhoan
-        public ActionResult Index(string query,int? page)
+        public ActionResult Index(int? page,string query)
         {
             var pageSize = 10;
             int pageIndex = page ?? 1;
+
+            //string query = Request["query"];
 
             var list = service.Search(query);
 
@@ -62,9 +64,16 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
             return JsonConvert.SerializeObject(qr);
         }
 
-        public string Delete(int id)
-        {
+        //public string Delete(string id)
+        //{
 
+        //    var qr = service.Xoa(id);
+
+        //    return JsonConvert.SerializeObject(qr);
+        //}
+        public string Delete()
+        {
+            string id = Request["id"];
             var qr = service.Xoa(id);
 
             return JsonConvert.SerializeObject(qr);
@@ -100,10 +109,11 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
         {
             string Email = Request["txt_Email"];
             string password = Request["txt_Password"];
-            var rs =service.Login_action(Email, password);
+            var rs = service.Login_action(Email, password);
 
             if (rs.ErrCode == Models.EnumErrCode.Success)
             {
+                Session["User"] = rs.Data;
                 Session["MaTK"] = rs.Data.MaTK;
                 Session["HoTen"] = rs.Data.HoTen;
                 Session["VaiTro"] = rs.Data.VaiTro;

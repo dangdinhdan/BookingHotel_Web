@@ -20,9 +20,9 @@ namespace HotelBooking_Web.Models
 	using System.Linq.Expressions;
 	using System.ComponentModel;
 	using System;
-	
-	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="QLKS")]
+    using System.ComponentModel.DataAnnotations;
+
+    [global::System.Data.Linq.Mapping.DatabaseAttribute(Name="QLKS")]
 	public partial class DataClasses1DataContext : System.Data.Linq.DataContext
 	{
 		
@@ -51,9 +51,13 @@ namespace HotelBooking_Web.Models
     partial void Inserttbl_TaiKhoan(tbl_TaiKhoan instance);
     partial void Updatetbl_TaiKhoan(tbl_TaiKhoan instance);
     partial void Deletetbl_TaiKhoan(tbl_TaiKhoan instance);
-    #endregion
-		
-		public DataClasses1DataContext(string connection) : 
+        #endregion
+        public DataClasses1DataContext() :
+                base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QLKSConnectionString2"].ConnectionString, mappingSource)
+        {
+            OnCreated();
+        }
+        public DataClasses1DataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
@@ -64,13 +68,8 @@ namespace HotelBooking_Web.Models
 		{
 			OnCreated();
 		}
-        public DataClasses1DataContext() :
-                base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QLKSConnectionString"].ConnectionString, mappingSource)
-        {
-            OnCreated();
-        }
-
-        public DataClasses1DataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		
+		public DataClasses1DataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
@@ -167,6 +166,20 @@ namespace HotelBooking_Web.Models
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ngayNhanPhong, ngayTraPhong, sucChuaToiDa);
 			return ((ISingleResult<sp_TimPhongTrongResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_BaoCaoDoanhThuTheoThang")]
+		public ISingleResult<sp_BaoCaoDoanhThuTheoThangResult> sp_BaoCaoDoanhThuTheoThang([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Nam", DbType="Int")] System.Nullable<int> nam)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), nam);
+			return ((ISingleResult<sp_BaoCaoDoanhThuTheoThangResult>)(result.ReturnValue));
+		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_CapNhatTrangThaiPhong")]
+		public int sp_CapNhatTrangThaiPhong([global::System.Data.Linq.Mapping.ParameterAttribute(Name="PhongID", DbType="Int")] System.Nullable<int> phongID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="TrangThai", DbType="NVarChar(50)")] string trangThai)
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), phongID, trangThai);
+			return ((int)(result.ReturnValue));
 		}
 	}
 	
@@ -572,6 +585,12 @@ namespace HotelBooking_Web.Models
 		
 		private string _GhiChu;
 		
+		private System.Nullable<bool> _isDelete;
+		
+		private System.Nullable<System.DateTime> _Cancelled_at;
+		
+		private System.Nullable<System.DateTime> _Delete_at;
+		
 		private EntitySet<tbl_ChiTietDatPhong> _tbl_ChiTietDatPhongs;
 		
 		private EntitySet<tbl_GiaoDich> _tbl_GiaoDiches;
@@ -600,6 +619,12 @@ namespace HotelBooking_Web.Models
     partial void OnTrangThaiChanged();
     partial void OnGhiChuChanging(string value);
     partial void OnGhiChuChanged();
+    partial void OnisDeleteChanging(System.Nullable<bool> value);
+    partial void OnisDeleteChanged();
+    partial void OnCancelled_atChanging(System.Nullable<System.DateTime> value);
+    partial void OnCancelled_atChanged();
+    partial void OnDelete_atChanging(System.Nullable<System.DateTime> value);
+    partial void OnDelete_atChanged();
     #endregion
 		
 		public tbl_DatPhong()
@@ -794,6 +819,66 @@ namespace HotelBooking_Web.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isDelete", DbType="Bit")]
+		public System.Nullable<bool> isDelete
+		{
+			get
+			{
+				return this._isDelete;
+			}
+			set
+			{
+				if ((this._isDelete != value))
+				{
+					this.OnisDeleteChanging(value);
+					this.SendPropertyChanging();
+					this._isDelete = value;
+					this.SendPropertyChanged("isDelete");
+					this.OnisDeleteChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cancelled_at", DbType="DateTime2")]
+		public System.Nullable<System.DateTime> Cancelled_at
+		{
+			get
+			{
+				return this._Cancelled_at;
+			}
+			set
+			{
+				if ((this._Cancelled_at != value))
+				{
+					this.OnCancelled_atChanging(value);
+					this.SendPropertyChanging();
+					this._Cancelled_at = value;
+					this.SendPropertyChanged("Cancelled_at");
+					this.OnCancelled_atChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Delete_at", DbType="DateTime2")]
+		public System.Nullable<System.DateTime> Delete_at
+		{
+			get
+			{
+				return this._Delete_at;
+			}
+			set
+			{
+				if ((this._Delete_at != value))
+				{
+					this.OnDelete_atChanging(value);
+					this.SendPropertyChanging();
+					this._Delete_at = value;
+					this.SendPropertyChanged("Delete_at");
+					this.OnDelete_atChanged();
+				}
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tbl_DatPhong_tbl_ChiTietDatPhong", Storage="_tbl_ChiTietDatPhongs", ThisKey="DatPhongID", OtherKey="DatPhongID")]
 		public EntitySet<tbl_ChiTietDatPhong> tbl_ChiTietDatPhongs
 		{
@@ -915,6 +1000,12 @@ namespace HotelBooking_Web.Models
 		
 		private string _TrangThai;
 		
+		private System.Nullable<System.DateTime> _Create_at;
+		
+		private System.Nullable<System.DateTime> _Update_at;
+		
+		private System.Nullable<System.DateTime> _Delete_at;
+		
 		private EntityRef<tbl_DatPhong> _tbl_DatPhong;
 		
     #region Extensibility Method Definitions
@@ -931,6 +1022,12 @@ namespace HotelBooking_Web.Models
     partial void OnSoTienChanged();
     partial void OnTrangThaiChanging(string value);
     partial void OnTrangThaiChanged();
+    partial void OnCreate_atChanging(System.Nullable<System.DateTime> value);
+    partial void OnCreate_atChanged();
+    partial void OnUpdate_atChanging(System.Nullable<System.DateTime> value);
+    partial void OnUpdate_atChanged();
+    partial void OnDelete_atChanging(System.Nullable<System.DateTime> value);
+    partial void OnDelete_atChanged();
     #endregion
 		
 		public tbl_GiaoDich()
@@ -1039,6 +1136,66 @@ namespace HotelBooking_Web.Models
 					this._TrangThai = value;
 					this.SendPropertyChanged("TrangThai");
 					this.OnTrangThaiChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Create_at", DbType="DateTime2")]
+		public System.Nullable<System.DateTime> Create_at
+		{
+			get
+			{
+				return this._Create_at;
+			}
+			set
+			{
+				if ((this._Create_at != value))
+				{
+					this.OnCreate_atChanging(value);
+					this.SendPropertyChanging();
+					this._Create_at = value;
+					this.SendPropertyChanged("Create_at");
+					this.OnCreate_atChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Update_at", DbType="DateTime2")]
+		public System.Nullable<System.DateTime> Update_at
+		{
+			get
+			{
+				return this._Update_at;
+			}
+			set
+			{
+				if ((this._Update_at != value))
+				{
+					this.OnUpdate_atChanging(value);
+					this.SendPropertyChanging();
+					this._Update_at = value;
+					this.SendPropertyChanged("Update_at");
+					this.OnUpdate_atChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Delete_at", DbType="DateTime2")]
+		public System.Nullable<System.DateTime> Delete_at
+		{
+			get
+			{
+				return this._Delete_at;
+			}
+			set
+			{
+				if ((this._Delete_at != value))
+				{
+					this.OnDelete_atChanging(value);
+					this.SendPropertyChanging();
+					this._Delete_at = value;
+					this.SendPropertyChanged("Delete_at");
+					this.OnDelete_atChanged();
 				}
 			}
 		}
@@ -1739,6 +1896,7 @@ namespace HotelBooking_Web.Models
 		
 		private string _HoTen;
 		
+
 		private string _Email;
 		
 		private string _MatKhau;
@@ -1859,7 +2017,8 @@ namespace HotelBooking_Web.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string Email
+        
+        public string Email
 		{
 			get
 			{
@@ -2150,6 +2309,10 @@ namespace HotelBooking_Web.Models
 		
 		private string _MaTK;
 		
+		private string _HoTen;
+		
+		private System.Nullable<bool> _isDelete;
+		
 		public vw_DanhSachDatPhong()
 		{
 		}
@@ -2342,6 +2505,38 @@ namespace HotelBooking_Web.Models
 				if ((this._MaTK != value))
 				{
 					this._MaTK = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HoTen", DbType="NVarChar(100) NOT NULL", CanBeNull=false)]
+		public string HoTen
+		{
+			get
+			{
+				return this._HoTen;
+			}
+			set
+			{
+				if ((this._HoTen != value))
+				{
+					this._HoTen = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isDelete", DbType="Bit")]
+		public System.Nullable<bool> isDelete
+		{
+			get
+			{
+				return this._isDelete;
+			}
+			set
+			{
+				if ((this._isDelete != value))
+				{
+					this._isDelete = value;
 				}
 			}
 		}
@@ -2764,6 +2959,50 @@ namespace HotelBooking_Web.Models
 				if ((this._HinhAnh != value))
 				{
 					this._HinhAnh = value;
+				}
+			}
+		}
+	}
+	
+	public partial class sp_BaoCaoDoanhThuTheoThangResult
+	{
+		
+		private int _Thang;
+		
+		private decimal _TongDoanhThu;
+		
+		public sp_BaoCaoDoanhThuTheoThangResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Thang", DbType="Int NOT NULL")]
+		public int Thang
+		{
+			get
+			{
+				return this._Thang;
+			}
+			set
+			{
+				if ((this._Thang != value))
+				{
+					this._Thang = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TongDoanhThu", DbType="Decimal(38,2) NOT NULL")]
+		public decimal TongDoanhThu
+		{
+			get
+			{
+				return this._TongDoanhThu;
+			}
+			set
+			{
+				if ((this._TongDoanhThu != value))
+				{
+					this._TongDoanhThu = value;
 				}
 			}
 		}

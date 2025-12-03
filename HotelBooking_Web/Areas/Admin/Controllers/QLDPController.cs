@@ -1,23 +1,69 @@
-﻿using System;
+﻿using HotelBooking_Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
+using Newtonsoft.Json;
+using System.IO;
+using System.Net.NetworkInformation;
+using HotelBooking_Web.Areas.Admin.Service;
+
 
 namespace HotelBooking_Web.Areas.Admin.Controllers
 {
     public class QLDPController : Controller
     {
+        public DataClasses1DataContext db = new DataClasses1DataContext();
+        public QLDPService service = new QLDPService();
+
         // GET: Admin/QLDP
-        public ActionResult Index()
+        public ActionResult Index(int? page, string query, string status)
         {
-            return View();
+            int pageIndex = page ?? 1;
+            var pageSize = 10;
+            var list = service.Search(query, status);
+            var items = list.OrderByDescending(x => x.NgayNhanPhong).ToPagedList(pageIndex, pageSize);
+            return View(items);
+            
         }
-        public ActionResult CheckIn()
+        public ActionResult Detail(int id)
         {
-            return View();
+            var item = db.vw_DanhSachDatPhongs.Where(o => o.DatPhongID == id && (o.isDelete == null||o.isDelete== false));
+            return View(item);
         }
-        public ActionResult CheckOut()
+        public ActionResult Checkin()
+        {
+            return View(); 
+
+        }
+
+        public JsonResult Checkin_search(int DatPhongID)
+        {
+            var DatPhong = service.Search_DatPhong(DatPhongID);
+
+            if (DatPhong.Any())
+            {
+                return Json(new { status = true }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { status = false, message = "Mã đặt phòng không tồn tại!" }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Checkin_Comf(int DatPhongID)
+        {
+            
+            var item = db.vw_DanhSachDatPhongs.SingleOrDefault(o=>o.DatPhongID==DatPhongID);
+            
+            return View(item);
+        }
+        public string Checkin_Action(int DatPhongID)
+        {
+            var qr = service.Checkin(DatPhongID);
+            return JsonConvert.SerializeObject(qr);
+        }
+        public ActionResult Checkout()
         {
             return View();
         }

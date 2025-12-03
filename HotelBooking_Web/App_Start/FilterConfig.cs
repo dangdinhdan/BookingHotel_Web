@@ -11,22 +11,5 @@ namespace HotelBooking_Web
         }
     }
 
-    namespace HotelManagementSystem.Filters
-    {
-        public class SessionAuthorizeAttribute : AuthorizeAttribute
-        {
-            public override void OnAuthorization(AuthorizationContext filterContext)
-            {
-                // Kiểm tra session
-                if (HttpContext.Current.Session["USER"] == null)
-                {
-                    // Nếu chưa login -> redirect
-                    filterContext.Result = new RedirectResult("~/TaiKhoan/Login");
-                    return;
-                }
-
-                base.OnAuthorization(filterContext);
-            }
-        }
-    }
+   
 }

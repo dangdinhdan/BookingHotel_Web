@@ -12,31 +12,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
 
     public class QLPhongService
     {
-        private static QLPhongService _instance;
-        private static readonly object _lock = new object();
-
-        // Constructor private ngăn tạo mới
-        private QLPhongService() { }
-
-        // Thuộc tính truy cập duy nhất
-        public static QLPhongService Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    lock (_lock)
-                    {
-                        if (_instance == null)
-                        {
-                            _instance = new QLPhongService();
-                        }
-                    }
-                }
-                return _instance;
-            }
-        }
-
+       
         private DataClasses1DataContext db = new DataClasses1DataContext();
         public FunctResult<tbl_Phong> Them(string SoPhong, int LoaiPhongID, decimal GiaMoiDem, int SucChuaToiDa, string MoTa, string HinhAnh)
         {
@@ -78,22 +54,22 @@ namespace HotelBooking_Web.Areas.Admin.Service
                         old_obj.GiaMoiDem = GiaMoiDem;
                         old_obj.SucChuaToiDa = SucChuaToiDa;
                         old_obj.MoTa = MoTa ?? old_obj.MoTa;
-                        old_obj.HinhAnh = HinhAnh ?? old_obj.HinhAnh;
+                        old_obj.HinhAnh = HinhAnh ?? null;
                         old_obj.Update_at = null;
                         old_obj.Create_at = DateTime.Now;
                         old_obj.isDelete = false;
                         old_obj.Delete_at = null;
 
                         db.SubmitChanges();
-                        rs.ErrCode = EnumErrCode.Success;
+                        rs.ErrCode = EnumErrCode.Existent;
                         rs.ErrDesc = "thành công";
-                        rs.Data = old_obj;
+                        
 
 
                     }
                     else
                     {
-                        rs.ErrCode = EnumErrCode.Existent;
+                        rs.ErrCode = EnumErrCode.Error;
                         rs.ErrDesc = "Thêm mới phòng thất bại do đã tồn tại lớp quản lý có mã = " + SoPhong;
                         rs.Data = null;
                     }

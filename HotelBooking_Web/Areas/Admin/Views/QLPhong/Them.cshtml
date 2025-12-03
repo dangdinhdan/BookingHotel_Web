@@ -116,7 +116,7 @@
             data: formData,
             //data: JSON.stringify(lst),
             contentType: "application/json; charset=utf-8",
-            url: window.location.origin + '/QLPhong/Insert',
+            url: window.location.origin + '/Admin/QLPhong/Insert',
             processData: false,
             contentType: false,
             cache: false,
@@ -128,6 +128,9 @@
                 if (rs.ErrCode == 1) {
                     window.location.href = '../QLPhong/Index';
                     alert(rs.ErrDesc);
+                }
+                if (rs.ErrCode == 4) {
+                    alert("Mã phòng này đã được khôi phục và sửa đổi")
                 }
                 else {
 

@@ -8,11 +8,11 @@
     <p class="login-box-msg">Sign in to start your session</p>
     <form action="../index3.html" id="form-act">
         <div class="input-group mb-3">
-            <input type="email" class="form-control" id="txt_Email" name="txt_Email" placeholder="Email" />
+            <input type="email" class="form-control" id="txt_Email" name="txt_Email" placeholder="Email" required />
             <div class="input-group-text"><span class="bi bi-envelope"></span></div>
         </div>
         <div class="input-group mb-3">
-            <input type="password" class="form-control" placeholder="Password" id="txt_Password" name="txt_Password"/>
+            <input type="password" class="form-control" placeholder="Password" id="txt_Password" name="txt_Password" required/>
             <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
         </div>
         <!--begin::Row-->
@@ -38,7 +38,7 @@
     $("#login").click(function () {
         var form = $('#form-act')[0];
         var formdata = new FormData(form);
-        console.log(formdata);
+        console.log()
 
         $.ajax({
             type: "POST",
@@ -46,13 +46,23 @@
             contentType: false,
             processData: false,
             cache: false,
-            url: window.location.origin + '/TaiKhoan/Login_admin',
+            url: window.location.origin + '/Admin/TaiKhoan/Login_admin',
             success: function (response) {
                 console.log(response);
-                window.location.href = window.location.origin + '/admin';
+                var rs = JSON.parse(response);
+
+                if (rs.ErrCode == 1) {
+                    window.location.href = window.location.origin + '/admin';
+                    
+                }
+                else {
+
+                    alert(rs.ErrDesc);
+                }
                 
             },
             error: function (data) {
+                
                 console.log(data);
             }
         });

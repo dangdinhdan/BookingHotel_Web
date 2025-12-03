@@ -63,7 +63,7 @@
                             <div class="col-md-12">
                                 <label for="slc_VaiTro" class="form-label">chọn vai trò</label>
                                 <select id="slc_VaiTro" name="slc_VaiTro" class="form-control">
-                                    <option value="@Model.taikhoan">@Model.taikhoan</option>
+                                    <option value="@Model.taikhoan.VaiTro">@Model.taikhoan.VaiTro</option>
                                     @if (Model != null && Model.DSVT.Any())
                                     {
 
@@ -110,8 +110,8 @@
             type: "POST",
             data: formData,
             //data: JSON.stringify(lst),
-            contentType: "application/json; charset=utf-8",
-            url: window.location.origin + '/TaiKhoan/Edit',
+           
+            url: window.location.origin + 'Admin/TaiKhoan/Edit',
             processData: false,
             contentType: false,
             cache: false,

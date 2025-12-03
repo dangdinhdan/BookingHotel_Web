@@ -65,56 +65,6 @@
 ///* --- Gắn năm hiện tại vào footer --- */
 //document.getElementById("year").textContent = new Date().getFullYear();
 
-/* --- Hàm hiển thị danh sách phòng --- */
-const roomsGrid = document.getElementById("roomsGrid");
-const resultsInfo = document.getElementById("resultsInfo");
-
-function formatCurrency(num) {
-    return new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-        maximumFractionDigits: 0,
-    }).format(num);
-}
-
-function renderRooms(list) {
-    roomsGrid.innerHTML = "";
-
-    if (list.length === 0) {
-        roomsGrid.innerHTML =
-            '<div style="grid-column:1/-1;padding:24px;background:white;border-radius:10px;text-align:center">Không tìm thấy phòng phù hợp.</div>';
-        resultsInfo.textContent = "0 kết quả";
-        return;
-    }
-
-    resultsInfo.textContent = `${list.length} loại phòng`;
-
-    list.forEach((room) => {
-        const card = document.createElement("article");
-        card.className = "card";
-        card.innerHTML = `
-      <div class="thumb" style="background-image:url('${room.img}')"></div>
-      <div class="card-body">
-        <div class="room-title">${room.title}</div>
-        <div class="room-meta">${room.beds} beds • ${room.guests} khách • ⭐ ${room.rating}</div>
-        <div>${room.amenities
-                .slice(0, 3)
-                .map((a) => `<span class="pill">${a}</span>`)
-                .join("")}</div>
-        <div class="room-bottom">
-          <div class="price">${formatCurrency(room.price)} / đêm</div>
-          <div style="display:flex;gap:8px">
-            <button class="btn btn-ghost" data-id="${room.id}" data-action="view">Xem</button>
-            <button class="btn btn-primary" data-id="${room.id}" data-action="book">Đặt</button>
-          </div>
-        </div>
-      </div>`;
-        roomsGrid.appendChild(card);
-    });
-}
-
-/* --- Hiển thị phòng mặc định --- */
-renderRooms(ROOMS);
 
 /* --- Tìm kiếm --- */
 //document.getElementById("searchBtn").addEventListener("click", () => {
@@ -140,25 +90,7 @@ renderRooms(ROOMS);
 //    });
 
 
-document.getElementById("searchBtn").addEventListener("click", () => {
-    //// 1. Lấy giá trị
-    //const guests = document.getElementById("guests").value;
-    //const checkin = document.getElementById("checkin").value;
-    //const checkout = document.getElementById("checkout").value;
 
-    //// 2. Kiểm tra (validate) ngày - Rất tốt!
-    //if (checkin && checkout && new Date(checkin) > new Date(checkout)) {
-    //    alert("Ngày nhận phải trước ngày trả.");
-    //    return; // Dừng lại nếu ngày sai
-    //}
-
-    //// 3. Xây dựng URL đích
-    ////    Chúng ta không lọc (filter) ở đây
-    //const targetUrl = `/Rooms/SearchRooms?checkin=${checkin}&checkout=${checkout}&guests=${guests}`;
-
-    //// 4. Điều hướng sang trang mới
-    window.location.href = "/Rooms/SearchRooms";
-});
 
 /* --- SCROLL MƯỢT THÔNG MINH CHO MVC --- */
 document.querySelectorAll('a[href*="#"]').forEach(anchor => {
@@ -198,16 +130,6 @@ document.querySelectorAll('a[href*="#"]').forEach(anchor => {
 
 /* --- Modal hiển thị chi tiết phòng + form đặt --- */
 const modalRoot = document.getElementById("modalRoot");
-
-roomsGrid.addEventListener("click", (e) => {
-    const btn = e.target.closest("button");
-    if (!btn) return;
-    const action = btn.dataset.action;
-    const id = Number(btn.dataset.id);
-
-    if (action === "view") openRoomModal(id, false);
-    if (action === "book") openRoomModal(id, true);
-});
 
 function openRoomModal(id, autoOpenBooking) {
     const room = ROOMS.find((r) => r.id === id);

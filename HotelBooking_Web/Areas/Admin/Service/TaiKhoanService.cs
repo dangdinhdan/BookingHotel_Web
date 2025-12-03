@@ -22,7 +22,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
             try
             {
                 //cố gắng lấy ra tài khoản có email là 
-                var qr = db.tbl_TaiKhoans.Where(o => o.Email == Email && (o.isDelete == null || o.isDelete == false));
+                var qr = db.tbl_TaiKhoans.Where(o => o.Email == Email);
 
                 if (!qr.Any())
                 {
@@ -62,15 +62,15 @@ namespace HotelBooking_Web.Areas.Admin.Service
                         old_obj.Delete_at = null;
 
                         db.SubmitChanges();
-                        rs.ErrCode = EnumErrCode.Success;
+                        rs.ErrCode = EnumErrCode.Existent;
                         rs.ErrDesc = "thành công";
-                        rs.Data = old_obj;
+                        
 
 
                     }
                     else
                     {
-                        rs.ErrCode = EnumErrCode.Existent;
+                        rs.ErrCode = EnumErrCode.Error;
                         rs.ErrDesc = "Thêm mới thất bại do đã tồn tại Email = " + Email;
                         rs.Data = null;
                     }
@@ -160,13 +160,13 @@ namespace HotelBooking_Web.Areas.Admin.Service
         }
 
 
-        public FunctResult<tbl_TaiKhoan> Xoa(int id)
+        public FunctResult<tbl_TaiKhoan> Xoa(string id)
         {
             FunctResult<tbl_TaiKhoan> rs = new FunctResult<tbl_TaiKhoan>();
             try
             {
                 //cố gắng lấy ra tài khoản có email là 
-                var qr = db.tbl_TaiKhoans.Where(o => o.TaiKhoanID == id && (o.isDelete == null || o.isDelete == false));
+                var qr = db.tbl_TaiKhoans.Where(o => o.TaiKhoanID == int.Parse(id) && (o.isDelete == null || o.isDelete == false));
                 if (qr.Any())
                 {
                     tbl_TaiKhoan del_obj = qr.SingleOrDefault();
@@ -196,7 +196,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
 
         public List<tbl_TaiKhoan> Search(string query)
         {
-            var list = db.tbl_TaiKhoans.Where(x => x.isDelete == null || x.isDelete == false);
+            var list = db.tbl_TaiKhoans.Where(x =>x.VaiTro=="customer" &&(x.isDelete == null || x.isDelete == false));
 
             if (!string.IsNullOrEmpty(query))
             {
@@ -251,7 +251,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
             catch (Exception ex) 
             {
                 rs.ErrCode=EnumErrCode.Error;
-                rs.ErrDesc="Có lôi xảy ra trong quá trình đăng nhập" + ex.Message;
+                rs.ErrDesc="Có lôi xảy ra trong quá trình đăng nhập " + ex.Message;
 
             }
             return rs;

@@ -118,8 +118,8 @@
             type: "POST",
             data: formData,
             //data: JSON.stringify(lst),
-            contentType: "application/json; charset=utf-8",
-            url: window.location.origin + '/TaiKhoan/Insert',
+            
+            url: window.location.origin + '/Admin/TaiKhoan/Insert',
             processData: false,
             contentType: false,
             cache: false,
@@ -131,6 +131,9 @@
                 if (rs.ErrCode == 1) {
                     window.location.href = '../TaiKhoan/Index';
                     alert(rs.ErrDesc);
+                }
+                if (rs.ErrCode == 4) {
+                    alert("Tài khoản có Email: " +txt_Email+"đã được khôi phục và sửa đổi")
                 }
                 else {
 

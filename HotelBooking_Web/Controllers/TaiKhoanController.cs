@@ -40,7 +40,7 @@ namespace HotelBooking_Web.Controllers
             {
                 // 1. Lưu Email làm định danh chính (Key: UserEmail)
                 Session["UserEmail"] = email;
-                
+
                 // 2. Tạo tên hiển thị giả (Lấy phần trước @ làm tên)
                 string displayName = email.Split('@')[0];
                 Session["DisplayName"] = displayName;
@@ -66,7 +66,7 @@ namespace HotelBooking_Web.Controllers
             Session["DisplayName"] = username; // Username lúc đăng ký đóng vai trò là Họ Tên
 
             TempData["msg"] = "Đăng ký thành công! Đã tự động đăng nhập.";
-            
+
             // Về trang chủ luôn cho tiện (giống Booking.com)
             return RedirectToAction("Index", "Home");
         }
@@ -94,18 +94,18 @@ namespace HotelBooking_Web.Controllers
             var model = GetMockUserProfile();
             return View(model);
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EditProfile(EditProfileViewModel model)
         {
-             // Giả lập lưu: Cập nhật lại Session tên hiển thị
-             if(ModelState.IsValid)
-             {
-                 Session["DisplayName"] = model.TenNguoiDung;
-                 TempData["Success"] = "Cập nhật hồ sơ thành công!";
-             }
-             return View(model);
+            // Giả lập lưu: Cập nhật lại Session tên hiển thị
+            if (ModelState.IsValid)
+            {
+                Session["DisplayName"] = model.TenNguoiDung;
+                TempData["Success"] = "Cập nhật hồ sơ thành công!";
+            }
+            return View(model);
         }
 
         public ActionResult ChangePassword()
@@ -139,6 +139,20 @@ namespace HotelBooking_Web.Controllers
 
             TempData["DeleteSuccess"] = $"Tài khoản '{deletedUser}' đã được xóa thành công.";
             return RedirectToAction("Index", "Home");
+        }
+  
+        public ActionResult BookingList()
+        {
+            if (Session["UserEmail"] == null) return RedirectToAction("Login");
+            return View();
+        }
+        public ActionResult TransactionHistory()
+        {
+            if (Session["UserEmail"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+            return View();
         }
     }
 }

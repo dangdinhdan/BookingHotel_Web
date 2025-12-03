@@ -165,6 +165,7 @@
     <Compile Include="Areas\Admin\Controllers\QLLPhongController.cs" />
     <Compile Include="Areas\Admin\Controllers\QLPhongController.cs" />
     <Compile Include="Areas\Admin\Controllers\TaiKhoanController.cs" />
+    <Compile Include="Areas\Admin\Service\QLDPService.cs" />
     <Compile Include="Areas\Admin\Service\TaiKhoanService.cs" />
     <Compile Include="Areas\Admin\Service\QLLPhongService.cs" />
     <Compile Include="Areas\Admin\Service\QLPhongService.cs" />
@@ -294,6 +295,10 @@
     <Content Include="Assets\img\Slider\so1.jpg" />
     <Content Include="Assets\img\Slider\so2.webp" />
     <Content Include="Assets\img\Slider\so3.webp" />
+    <Content Include="Areas\Admin\Views\QLDP\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\QLDP\Checkin.cshtml" />
+    <Content Include="Areas\Admin\Views\QLDP\Checkout.cshtml" />
+    <Content Include="Areas\Admin\Views\QLDP\Checkin_Comf.cshtml" />
     <None Include="Models\DataClasses1.dbml.layout">
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </None>
@@ -329,8 +334,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Areas\Admin\Scripts\js\adminlte.js.map" />
-    <Content Include="Areas\Admin\Scripts\js\adminlte.min.js.map" />
     <Content Include="Views\Rooms\SearchRooms.cshtml" />
     <Content Include="Views\Rooms\Detail.cshtml" />
     <Content Include="Views\Booking\Booking.cshtml" />
@@ -340,18 +343,16 @@
     <Content Include="Views\TaiKhoan\Profile.cshtml" />
     <Content Include="Views\TaiKhoan\ChangePassword.cshtml" />
     <Content Include="Views\TaiKhoan\TransactionHistory.cshtml" />
-    <Content Include="Views\TaiKhoan\TransactionDetail.cshtml" />
-    <Content Include="Views\Favourite\Index.cshtml" />
     <Content Include="Views\TaiKhoan\EditProfile.cshtml" />
     <Content Include="Views\TaiKhoan\DeleteAccount.cshtml" />
     <Content Include="Views\Customer\Register.cshtml" />
     <Content Include="Views\Customer\RegisterSuccess.cshtml" />
     <Content Include="Views\Customer\RegisterConfirmEmail.cshtml" />
+    <Content Include="Views\TaiKhoan\BookingList.cshtml" />
+    <Content Include="Views\TaiKhoan\Favourite.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Content\" />
-    <Folder Include="Filters\" />
     <Folder Include="Views\IdentityConfig\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
