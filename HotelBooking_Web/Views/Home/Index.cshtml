@@ -2,50 +2,10 @@
     ViewData["Title"] = "Trang chủ";
 }
 
-@*<section class="hero">
-    <div class="hero-inner">
-        <div class="hero-left">
-            <div class="hotel-title">Khách sạn Sunset Bay</div>
-            <div class="hotel-sub">
-                Trải nghiệm nghỉ dưỡng thoải mái bên bờ biển — phòng tiện nghi, dịch vụ chu đáo.
-            </div>
-
-            <div class="search-card">
-                <div class="form-control" style="flex:1">
-              <label class="label">Ngày nhận / trả</label>
-                    <div style="display:flex;gap:8px">
-                        <input id="checkin" type="date">
-                        <input id="checkout" type="date">
-                    </div>
-                </div>
-
-                <div class="form-control" style="width:140px">
-                    <label class="label">Khách</label>
-                    <select id="guests">
-                        <option value="1">1 khách</option>
-                        <option value="2" selected>2 khách</option>
-                        <option value="3">3 khách</option>
-                        <option value="4">4 khách</option>
-                    </select>
-                </div>
-
-                <div class="search-actions">
-                    <button id="searchBtn" class="btn btn-primary">Tìm phòng</button>
-                </div>
-            </div>
-
-            <div class="note">Đây chỉ là giao diện frontend demo. Chưa kết nối backend.</div>
-        </div>
-
-        <div class="hero-right">
-            <div class="hero-image"></div>
-        </div>
-    </div>
-</section>*@
-<main class="container"></main>
+<main></main>
     <!-- HERO -->
-    <section class="hero">
-        <div class="hero-inner">
+<section class="hero">
+    @*<div class="hero-inner">
             <div class="hero-left">
                 <div class="hotel-title">Khách sạn 4anhemdatai</div>
                 <div class="hotel-sub">Trải nghiệm nghỉ dưỡng thoải mái bên bờ biển — phòng tiện nghi, dịch vụ chu đáo.
@@ -60,8 +20,25 @@
 
                 </div>
             </div>
+        </div>*@
+    <div class="slider-background">
+        <div class="slider-track" id="sliderTrack">
+            <!-- Thứ tự: 1 -> 2 -> 3 -> 1-->
+            <div class="slide slide-1"></div>
+            <div class="slide slide-2"></div>
+            <div class="slide slide-3"></div>
+            <div class="slide slide-1"></div>
         </div>
+    </div>
 
+    <div class="hero-fixed-content">
+        <div class="hotel-title">Khách sạn 4anhemdatai</div>
+        <div class="hotel-sub">
+            Trải nghiệm nghỉ dưỡng thoải mái bên bờ biển — phòng tiện nghi, dịch vụ chu đáo.
+        </div>
+    </div>
+
+    <div class="hero-inner-container">
         <div class="search-card">
             <div class="form-control" style="flex:1; padding-right: 20px ">
                 <label class="label">Ngày nhận / trả</label>
@@ -73,7 +50,7 @@
 
             <div class="form-control" style="width:140px">
                 <label class="label">Khách</label>
-                <select id="guests" ; style="display:flex;gap:8px">
+                <select id="guests" style="display:flex;gap:8px">
                     <option value="1" selected>1 khách</option>
                     <option value="2">2 khách</option>
                     <option value="3">3 khách</option>
@@ -88,17 +65,13 @@
                         Tìm phòng
                     </a>
 
-                </div>            
+                </div>
             </div>
         </div>
-    </section>
-
-<<<<<<< HEAD
-=======
-   
+    </div>
+</section>
 
     <!-- ABOUT -->
->>>>>>> 7de77aceb30a1101a2067f818556371616e37f0c
     <section id="about" class="section">
         <div class="about-wrap">
             <div>

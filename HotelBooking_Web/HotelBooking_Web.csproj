@@ -293,8 +293,8 @@
     <Content Include="Areas\Admin\Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Areas\Admin\Views\TaiKhoan\Login.cshtml" />
     <Content Include="Assets\img\Slider\so1.jpg" />
-    <Content Include="Assets\img\Slider\so2.webp" />
-    <Content Include="Assets\img\Slider\so3.webp" />
+    <Content Include="Assets\img\Slider\so2.jpg" />
+    <Content Include="Assets\img\Slider\so3.jpg" />
     <Content Include="Areas\Admin\Views\QLDP\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\QLDP\Checkin.cshtml" />
     <Content Include="Areas\Admin\Views\QLDP\Checkout.cshtml" />

@@ -147,7 +147,9 @@ nav {
     }
 
 /* HERO SECTION */
-.hero {
+
+
+/*.hero {
     margin-top: 20px;
     padding: 40px 0;
     display: flex;
@@ -155,6 +157,37 @@ nav {
     align-items: center;
     justify-content: center;
     gap: 24px;
+}*/
+
+.hero {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    height: 85vh; 
+    padding: 0; 
+    padding-bottom: 50px;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* Đảm bảo nội dung bên trong hero (như search card) không bị tràn quá rộng */
+.hero-inner-container {
+    width: 100%;
+    max-width: 1200px;
+    position: relative;
+    z-index: 10;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
 }
 
     .hero .search-card {
@@ -175,14 +208,34 @@ nav {
 
 }
 
+.hero-fixed-content {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    text-align: center;
+    color: white;
+    width: 80%;
+}
+
 .hotel-title {
     font-size: 28px;
     font-weight: 700;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 .hotel-sub {
     color: var(--muted);
     margin-bottom: 16px;
+    font-size: 16px;
+    font-weight: bold;
+    max-width: 600px;
+    margin: 0 auto;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 
 .search-card {
@@ -254,25 +307,52 @@ select {
 }
 
 /*slider*/
-#slider {
+.slider-background {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    padding-top: 50%;
-    background: url('/Assets/img/Slider/so1.jpg') bottom center / cover no-repeat;
+    height: 100%;
+    z-index: 0;
+}
+
+.slider-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.slide {
+    min-width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     position: relative;
 }
 
-#slider .text-content {
-    position: absolute;
-    color: white;
-    text-align: center;
-    bottom: 40px;
-    width:100%;
-    
+    .slide::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+.slide-1 {
+    background-image: url('/Assets/img/Slider/so1.jpg');
 }
 
-#slider .text-heading {
-    font-size: 18px;
+.slide-2 {
+    background-image: url('../../img/slider/so2.jpg');
 }
+
+.slide-3 {
+    background-image: url('../../img/slider/so3.jpg');
+}
+
 /* ROOMS */
 .section {
     margin-top: 40px;
