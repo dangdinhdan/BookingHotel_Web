@@ -2,16 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace HotelBooking_Web.Controllers
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
-    using System.Web.Mvc;
-
-    namespace HotelBooking_Web.Controllers
     {
         public class RoomsController : Controller
         {
@@ -32,4 +25,3 @@ namespace HotelBooking_Web.Controllers
            
         }
     }
-}

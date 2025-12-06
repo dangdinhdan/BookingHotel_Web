@@ -16,7 +16,7 @@ CREATE TABLE tbl_TaiKhoan(
 	TaiKhoanID INT PRIMARY KEY IDENTITY(1,1),
 	MaTK AS ('TK' + RIGHT('000000' + CAST(TaiKhoanID AS VARCHAR(10)), 3)) PERSISTED,
 	HoTen NVARCHAR(100) NOT NULL,
-	Email VARCHAR(100) NOT NULL ,
+	Email VARCHAR(100) NOT NULL UNIQUE,
 	MatKhau VARCHAR(255),
 	SoDienThoai VARCHAR(10),
 	DiaChi NVARCHAR(255),
@@ -93,7 +93,7 @@ CREATE TABLE tbl_GiaoDich(
 );
 go
 
-INSERT INTO tbl_VaiTro(VaiTro) values ('admin' ,'customer')
+INSERT INTO tbl_VaiTro(VaiTro) values ('admin') ,('customer')
 
 go
 

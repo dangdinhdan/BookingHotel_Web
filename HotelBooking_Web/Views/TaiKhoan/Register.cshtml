@@ -1,4 +1,4 @@
-﻿@model HotelBooking_Web.Models.Customer﻿
+﻿@model HotelBooking_Web.Models.TaiKhoanModel
 @{
     ViewBag.Title = "Đăng ký";
 }
@@ -7,39 +7,85 @@
     <div class="auth-box">
         <h2 class="auth-title">Đăng ký</h2>
 
-        @using (Html.BeginForm())
+        @if (ViewBag.ValidationErrors != null)
+        {
+            <div class="alert-error" style="background: #f8d7da; color: #721c24; padding: 10px; border-radius: 4px; margin-bottom: 15px;">
+                <strong>Lỗi Validation:</strong><br />
+                @Html.Raw(ViewBag.ValidationErrors)
+            </div>
+        }
+
+        @using (Html.BeginForm("Register", "TaiKhoan", FormMethod.Post, new { novalidate = "novalidate" }))
         {
             @Html.AntiForgeryToken()
 
-
-            <form method="post">
-
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" class="form-input" placeholder="Nhập email" required />
-                    @Html.ValidationMessageFor(m => m.Email)
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Mật khẩu</label>
-                    <input type="password" id="password" name="password" class="form-input" placeholder="Nhập mật khẩu" required />
-                </div>
-
-                <div class="form-group">
-                    <label for="confirmPassword">Xác nhận mật khẩu</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" placeholder="Nhập lại mật khẩu" required />
-                </div>
-
-                <button type="submit" class="btn-submit">Đăng ký</button>
-
-                @if (TempData["msg"] != null)
+            <div class="form-group">
+                <label for="FullName">Họ và Tên</label>
+                @Html.TextBoxFor(m => m.HoTen, new
                 {
-                    <div class="alert-success">@TempData["msg"]</div>
-                }
-            </form>
-        }
-            <div class="auth-footer">
-                Đã có tài khoản? <a href="/TaiKhoan/Login">Đăng nhập</a>
+                    @class = "form-input",
+                    placeholder = "Nhập Họ và Tên của bạn",
+                    id = "FullName"
+                })
+                @Html.ValidationMessageFor(m => m.HoTen, "", new { @class = "text-danger", style = "color:red; font-size: 13px;" })
             </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                @Html.TextBoxFor(m => m.Email, new
+                {
+                    @class = "form-input",
+                    placeholder = "Nhập email",
+                    id = "email",
+                    type = "email"
+                })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger", style = "color:red; font-size: 13px;" })
+            </div>
+
+            <div class="form-group">
+                <label for="SoDienThoai">Số điện thoại</label>
+                @Html.TextBoxFor(m => m.SoDienThoai, new
+                {
+                    @class = "form-input",
+                    placeholder = "Nhập Số điện thoại",
+                    id = "SoDienThoai",
+                    type = "tel"
+                })
+                @Html.ValidationMessageFor(m => m.SoDienThoai, "", new { @class = "text-danger", style = "color:red; font-size: 13px;" })
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mật khẩu</label>
+                @Html.PasswordFor(m => m.MatKhau, new
+                {
+                    @class = "form-input",
+                    placeholder = "Nhập mật khẩu",
+                    id = "password"
+                })
+                @Html.ValidationMessageFor(m => m.MatKhau, "", new { @class = "text-danger", style = "color:red; font-size: 13px;" })
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Xác nhận mật khẩu</label>
+                @Html.PasswordFor(m => m.ConfirmPassword, new
+                    {
+                        @class = "form-input",
+                        placeholder = "Nhập lại mật khẩu",
+                        id = "ConfirmPassword"
+                    })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger", style = "color:red; font-size: 13px;" })
+            </div>
+
+            <button type="submit" class="btn-submit">Đăng ký</button>
+
+            if (TempData["msg"] != null)
+            {
+                <div class="alert-success">@TempData["msg"]</div>
+            }
+        }
+
+        <div class="auth-footer">
+            Đã có tài khoản? <a href="/TaiKhoan/Login">Đăng nhập ngay</a>
         </div>
+    </div>
 </div>

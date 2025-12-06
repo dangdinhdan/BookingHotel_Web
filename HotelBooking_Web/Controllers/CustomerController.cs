@@ -17,22 +17,27 @@ namespace HotelBooking_Web.Controllers
         // POST: Customer/Register
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(Customer model, string password, string confirmPassword)
+        // [FIX LỖI L22]: BỎ THAM SỐ "string password" vì nó bị trùng với model.MatKhau
+        public ActionResult Register(TaiKhoanModel model, string confirmPassword)
         {
             if (_service.IsEmailExist(model.Email))
             {
                 ModelState.AddModelError("Email", "Email đã tồn tại!");
             }
 
-            if (password != confirmPassword)
+            // [FIX LỖI]: Dùng model.MatKhau (Mật khẩu thô từ form) để so sánh
+            if (model.MatKhau != confirmPassword)
             {
-                ModelState.AddModelError("Password", "Mật khẩu xác nhận không khớp!");
+                ModelState.AddModelError("MatKhau", "Mật khẩu xác nhận không khớp!");
             }
 
             if (ModelState.IsValid)
             {
-                _service.RegisterCustomer(model, password);
-                ViewBag.Message = "Đăng ký thành công! Vui lòng kiểm tra email để xác nhận.";
+                // GỌI SERVICE: Truyền model và mật khẩu thô (model.MatKhau)
+                // Service sẽ tự HASH và lưu vào DB
+                _service.RegisterCustomer(model, model.MatKhau);
+
+                ViewBag.Message = "Đăng ký thành công!";
                 return View("RegisterSuccess");
             }
 
@@ -40,17 +45,17 @@ namespace HotelBooking_Web.Controllers
         }
 
         // GET: Customer/ConfirmEmail
-        public ActionResult ConfirmEmail(string token)
-        {
-            if (_service.ConfirmEmail(token))
-            {
-                ViewBag.Message = "Xác nhận email thành công!";
-            }
-            else
-            {
-                ViewBag.Message = "Link xác nhận không hợp lệ hoặc đã hết hạn.";
-            }
-            return View();
-        }
+        //public ActionResult ConfirmEmail(string token)
+        //{
+        //    if (_service.ConfirmEmail(token))
+        //    {
+        //        ViewBag.Message = "Xác nhận email thành công!";
+        //    }
+        //    else
+        //    {
+        //        ViewBag.Message = "Link xác nhận không hợp lệ hoặc đã hết hạn.";
+        //    }
+        //    return View();
+        //}
     }
 }

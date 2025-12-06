@@ -3,24 +3,20 @@ using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Net.Mail;
 
 namespace HotelBooking_Web.Services
 {
     public class CustomerService
     {
         private readonly HotelDbContext _db;
-
         public CustomerService()
         {
             _db = new HotelDbContext();
         }
-
         public bool IsEmailExist(string email)
         {
-            return _db.Customers.Any(c => c.Email == email);
+            return _db.TaiKhoans.Any(c => c.Email == email);
         }
-
         public string HashPassword(string password)
         {
             using (SHA256 sha = SHA256.Create())
@@ -30,49 +26,110 @@ namespace HotelBooking_Web.Services
             }
         }
 
-        public string GenerateEmailToken()
+        public void RegisterCustomer(TaiKhoanModel customer, string password) 
         {
-            return Guid.NewGuid().ToString();
-        }
+            customer.MatKhau = HashPassword(password);
+            customer.ConfirmPassword = customer.MatKhau;
+            customer.VaiTro = "customer";
+            customer.Create_at = DateTime.Now;
+            customer.isDelete = false;
 
-        public void RegisterCustomer(Customer customer, string password)
-        {
-            customer.PasswordHash = HashPassword(password);
-            customer.EmailConfirmationToken = GenerateEmailToken();
-            _db.Customers.Add(customer);
-            _db.SaveChanges();
-
-            SendConfirmationEmail(customer.Email, customer.EmailConfirmationToken);
-        }
-
-        public void SendConfirmationEmail(string email, string token)
-        {
-            string confirmationLink = $"https://localhost:44300/Customer/ConfirmEmail?token={token}";
-
-            MailMessage message = new MailMessage();
-            message.To.Add(email);
-            message.Subject = "Xác nhận Email";
-            message.Body = $"Nhấn vào link để xác nhận email: {confirmationLink}";
-            message.IsBodyHtml = true;
-
-            SmtpClient smtp = new SmtpClient("smtp.gmail.com");
-            smtp.Port = 587;
-            smtp.Credentials = new System.Net.NetworkCredential("youremail@gmail.com", "password"); // đổi email thật
-            smtp.EnableSsl = true;
-            smtp.Send(message);
-        }
-
-        public bool ConfirmEmail(string token)
-        {
-            var customer = _db.Customers.FirstOrDefault(c => c.EmailConfirmationToken == token);
-            if (customer != null)
+            if (string.IsNullOrEmpty(customer.SoDienThoai))
             {
-                customer.IsEmailConfirmed = true;
-                customer.EmailConfirmationToken = null;
-                _db.SaveChanges();
-                return true;
+                customer.SoDienThoai = "0000000000";
             }
-            return false;
+
+            if (string.IsNullOrEmpty(customer.DiaChi))
+            {
+                customer.DiaChi = "Chưa cập nhật";
+            }
+
+            _db.TaiKhoans.Add(customer);
+            _db.SaveChanges();
         }
+
+        public TaiKhoanModel GetCustomerByEmail(string email)
+        {
+            return _db.TaiKhoans.FirstOrDefault(u => u.Email == email);
+        }
+
+        public void UpdateProfile(string email, EditProfileViewModel model)
+        {
+            var user = _db.TaiKhoans.FirstOrDefault(u => u.Email == email);
+            if (user != null)
+            {
+                user.HoTen = model.TenNguoiDung;     
+                user.SoDienThoai = model.SoDienThoai;
+                user.DiaChi = model.Address;         
+
+                user.Update_at = DateTime.Now;
+
+                user.ConfirmPassword = user.MatKhau;
+
+                _db.SaveChanges(); 
+            }
+        }
+        public bool ChangePassword(string email, string oldPassword, string newPassword, out string error)
+        {
+            error = "";
+            var user = _db.TaiKhoans.FirstOrDefault(u => u.Email == email);
+            if (user == null) return false;
+
+            // 1. Kiểm tra mật khẩu cũ (Phải Hash xong mới so sánh được)
+            string hashedOld = HashPassword(oldPassword);
+            if (user.MatKhau != hashedOld)
+            {
+                error = "Mật khẩu hiện tại không đúng.";
+                return false;
+            }
+
+            user.MatKhau = HashPassword(newPassword);
+
+            user.ConfirmPassword = user.MatKhau;
+
+            user.Update_at = DateTime.Now;
+
+            _db.SaveChanges();
+            return true;
+        }
+        public void DeleteAccount(string email)
+        {
+            var user = _db.TaiKhoans.FirstOrDefault(u => u.Email == email);
+            if (user != null)
+            {
+                user.isDelete = true;
+                user.Delete_at = DateTime.Now;
+
+                user.ConfirmPassword = user.MatKhau;
+
+                _db.SaveChanges();
+            }
+        }
+        public void RestoreCustomer(TaiKhoanModel newInfo, string password)
+        {
+            var user = _db.TaiKhoans.FirstOrDefault(u => u.Email == newInfo.Email);
+
+            if (user != null)
+            {
+                user.HoTen = newInfo.HoTen;
+                user.SoDienThoai = newInfo.SoDienThoai;
+                user.DiaChi = newInfo.DiaChi ?? "Chưa cập nhật";
+
+                user.MatKhau = HashPassword(password);
+                user.ConfirmPassword = user.MatKhau; 
+
+                user.isDelete = false;
+                user.Delete_at = null;
+                user.Update_at = DateTime.Now;
+
+                _db.SaveChanges();
+            }
+        }
+        public TaiKhoanModel GetAccountIncludeDeleted(string email)
+        {
+            return _db.TaiKhoans.FirstOrDefault(u => u.Email == email);
+        }
+
+
     }
 }

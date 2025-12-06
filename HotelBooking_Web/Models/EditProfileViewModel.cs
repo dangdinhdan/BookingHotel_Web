@@ -21,5 +21,6 @@ namespace HotelBooking_Web.Models
         [Display(Name = "Số điện thoại")]
         [RegularExpression(@"^\+?\d{9,15}$", ErrorMessage = "Số điện thoại không hợp lệ.")]
         public string SoDienThoai { get; set; }
+        public string Address { get; set; }
     }
 }
