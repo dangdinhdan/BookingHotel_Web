@@ -44,7 +44,7 @@ CREATE TABLE tbl_Phong(
 	GiaMoiDem DECIMAL(18,2) NOT NULL CHECK(GiaMoiDem >= 0) DEFAULT 0,
 	SucChuaToiDa INT CHECK(SucChuaToiDa > 0) DEFAULT 1,
 	MoTa NVARCHAR(4000),
-	TrangThai NVARCHAR(50) DEFAULT 'Trong',
+	TrangThai NVARCHAR(50) DEFAULT 'Available',
 	HinhAnh VARCHAR(MAX),
 	Create_at DATETIME2 DEFAULT SYSUTCDATETIME(),
 	isDelete BIT DEFAULT 0,
@@ -61,6 +61,7 @@ CREATE TABLE tbl_PhongImages(
 CREATE TABLE tbl_DatPhong(
 	DatPhongID INT PRIMARY KEY IDENTITY(1,1),
 	TaiKhoanID INT NOT NULL REFERENCES tbl_TaiKhoan(TaiKhoanID),
+	PhongID INT NOT NULL REFERENCES tbl_Phong(PhongID),
 	NgayDat DATETIME2 DEFAULT SYSUTCDATETIME(),
 	NgayNhanPhong DATETIME2 NOT NULL,
 	NgayTraPhong DATETIME2 NOT NULL ,
@@ -74,12 +75,6 @@ CREATE TABLE tbl_DatPhong(
 	Delete_at DATETIME2 NULL
 );
 
-CREATE TABLE tbl_ChiTietDatPhong(
-	ChiTietDatPhongID INT PRIMARY KEY IDENTITY(1,1),
-	DatPhongID INT NOT NULL REFERENCES tbl_DatPhong(DatPhongID),
-	PhongID INT NOT NULL REFERENCES tbl_Phong(PhongID),
-	GiaTaiThoiDiemDat DECIMAL(18,2)
-);
 
 CREATE TABLE tbl_GiaoDich(
 	GiaoDichID INT PRIMARY KEY IDENTITY(1,1),
@@ -94,13 +89,75 @@ CREATE TABLE tbl_GiaoDich(
 go
 
 
-INSERT INTO tbl_VaiTro(VaiTro) values ('admin')
+INSERT INTO tbl_VaiTro(VaiTro) values ('admin'),('customer')	
 go
-INSERT INTO tbl_VaiTro(VaiTro) values ('customer')
-go
-INSERT INTO tbl_TaiKhoan(HoTen,Email,MatKhau,SoDienThoai,DiaChi,VaiTro) 
-values ('Admin','admin@gmail.com','1','0888888888','hn','admin');
 
+INSERT INTO tbl_TaiKhoan(HoTen,Email,MatKhau,SoDienThoai,DiaChi,VaiTro) values
+('Admin','admin@gmail.com','1','0888888888','hn','admin'),
+('Nguyen Van A', 'user1@gmail.com', '1', '0911122233', N'Hà Nội', 'customer'),
+('Tran Thi B', 'thib@gmail.com', '123456', '0933445566', N'Hồ Chí Minh', 'customer'),
+('Le Van C', 'vanc@gmail.com', '123456', '0988877665', N'Đà Nẵng', 'customer'),
+('Pham Thi D', 'thid@gmail.com', '123456', '0909090909', N'Hải Phòng', 'customer');
+go
+
+INSERT INTO tbl_LoaiPhong(TenLoaiPhong, MoTa) VALUES
+(N'Phòng đơn', N'Phòng 1 giường đơn, phù hợp cho 1 người.'),
+(N'Phòng đôi', N'Phòng 1 giường đôi hoặc 2 giường đơn cho 2 người.'),
+(N'Phòng gia đình', N'Phòng rộng cho gia đình 3-4 người.'),
+(N'Phòng VIP', N'Phòng cao cấp, đầy đủ tiện nghi, view đẹp.');
+go
+
+INSERT INTO tbl_Phong(SoPhong, LoaiPhongID, GiaMoiDem, SucChuaToiDa, MoTa, TrangThai, HinhAnh) VALUES
+('101', 1, 500000, 1, N'Phòng đơn tiêu chuẩn', 'Available', NULL),
+('102', 1, 520000, 1, N'Phòng đơn có cửa sổ', 'Available', NULL),
+('201', 2, 750000, 2, N'Phòng đôi tiêu chuẩn', 'Available', NULL),
+('202', 2, 780000, 2, N'Phòng đôi hướng phố', 'Available', NULL),
+('301', 3, 1100000, 4, N'Phòng gia đình 4 người', 'Available', NULL),
+('401', 4, 2000000, 2, N'Phòng VIP view biển', 'Available', NULL);
+go
+INSERT INTO tbl_PhongImages(PhongID, Url) VALUES
+(1, 'room101_1.jpg'),
+(1, 'room101_2.jpg'),
+(3, 'room201_1.jpg'),
+(5, 'room301_1.jpg'),
+(6, 'room401_1.jpg'),
+(6, 'room401_2.jpg');
+go
+INSERT INTO tbl_DatPhong(TaiKhoanID, PhongID, NgayNhanPhong, NgayTraPhong, SoLuongNguoi, TongTien, TrangThai, GhiChu) VALUES
+(2, 1, '2025-12-12', '2025-12-14', 1, 1000000, N'Pending', N'Customer requested low floor'),
+(3, 2, '2025-12-09', '2025-12-12', 2, 1500000, N'Checkin', NULL),
+(4, 3, '2025-12-20', '2025-12-22', 3, 2200000, N'Pending', NULL),
+(5, 4, '2025-12-05', '2025-12-06', 2, 2000000, N'Checkout', N'Paid online'),
+
+(2, 1, '2025-12-12', '2025-12-13', 1, 600000, 'Pending', NULL),
+(3, 2, '2025-12-14', '2025-12-16', 2, 1200000, 'Pending', NULL),
+(4, 3, '2025-12-15', '2025-12-17', 3, 1800000, 'Pending', NULL),
+(5, 4, '2025-12-18', '2025-12-19', 2, 700000, 'Pending', NULL),
+(2, 1, '2025-12-20', '2025-12-22', 1, 1300000, 'Pending', NULL),
+
+(3, 2, '2025-12-22', '2025-12-23', 2, 800000, 'Pending', NULL),
+(4, 3, '2025-12-24', '2025-12-26', 3, 1600000, 'Pending', NULL),
+(5, 4, '2025-12-25', '2025-12-26', 1, 550000, 'Pending', NULL),
+(2, 1, '2025-12-27', '2025-12-29', 2, 1400000, 'Pending', NULL),
+(3, 2, '2025-12-28', '2025-12-30', 1, 650000, 'Pending', NULL),
+
+(4, 3, '2026-01-02', '2026-01-04', 2, 1500000, 'Pending', NULL),
+(5, 4, '2026-01-03', '2026-01-05', 1, 600000, 'Pending', NULL),
+(2, 1, '2026-01-06', '2026-01-08', 3, 2000000, 'Pending', NULL),
+(3, 2, '2026-01-08', '2026-01-09', 2, 750000, 'Pending', NULL),
+(4, 3, '2026-01-10', '2026-01-11', 2, 720000, 'Pending', NULL),
+
+(5, 4, '2026-01-12', '2026-01-14', 3, 1700000, 'Pending', NULL),
+(2, 1, '2026-01-14', '2026-01-15', 1, 600000, 'Pending', NULL),
+(3, 2, '2026-01-16', '2026-01-18', 2, 1300000, 'Pending', NULL),
+(4, 3, '2026-01-18', '2026-01-19', 1, 580000, 'Pending', NULL),
+(5, 4, '2026-01-19', '2026-01-20', 2, 950000, 'Pending', NULL);
+go
+INSERT INTO tbl_GiaoDich(DatPhongID, SoTien, TrangThai, PhuongThuc) VALUES
+(1, 500000, N'Unpaid', N'Tiền mặt'),
+(2, 750000, N'Unpaid', N'Chuyển khoản'),
+(3, 1100000, N'Unpaid', N'MoMo'),
+(4, 2000000, N'Paid', N'VNPAY');
 go
 
 
@@ -119,11 +176,9 @@ SELECT DP.DatPhongID,
 	DP.TaiKhoanID,
 	TK.MaTK,
 	Tk.HoTen,
-	DP.isDelete,
-	CTDP.GiaTaiThoiDiemDat
+	DP.isDelete
 FROM tbl_DatPhong DP
-JOIN tbl_ChiTietDatPhong CTDP ON DP.DatPhongID=CTDP.DatPhongID
-JOIN tbl_Phong P on P.PhongID= CTDP.PhongID
+JOIN tbl_Phong P on P.PhongID= DP.PhongID
 JOIN tbl_TaiKhoan TK on DP.TaiKhoanID =TK.TaiKhoanID
 GO
 
@@ -153,7 +208,9 @@ FROM tbl_GiaoDich gd
 GROUP BY YEAR(gd.Create_at), MONTH(gd.Create_at);
 go
 
-CREATE OR ALTER PROCEDURE sp_TimPhongTrong
+
+
+CREATE OR ALTER PROCEDURE sp_TimPhong
     @NgayNhanPhong DATETIME2,
     @NgayTraPhong DATETIME2,
     @SucChuaToiDa INT = NULL      -- Tùy chọn: sức chứa
@@ -183,10 +240,9 @@ BEGIN
         -- Kiểm tra xem có tồn tại bất kỳ đơn đặt phòng nào trùng lặp không
         AND NOT EXISTS (
             SELECT 1
-            FROM tbl_ChiTietDatPhong ctdp
-            JOIN tbl_DatPhong dp ON ctdp.DatPhongID = dp.DatPhongID
+            FROM tbl_DatPhong dp
             WHERE 
-                ctdp.PhongID = p.PhongID -- Chỉ kiểm tra cho phòng hiện tại
+                dp.PhongID = p.PhongID -- Chỉ kiểm tra cho phòng hiện tại
                 AND dp.TrangThai IN (N'Pending', N'Checkin') -- Các trạng thái đặt phòng hợp lệ
                 AND (
                     -- Logic kiểm tra trùng lặp thời gian
