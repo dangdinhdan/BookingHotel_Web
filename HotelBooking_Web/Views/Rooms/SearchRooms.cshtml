@@ -1,13 +1,38 @@
-﻿@{
+﻿@model IEnumerable<HotelBooking_Web.Models.sp_TimPhongTrongResult>
+
+@{
     ViewData["Title"] = "Tim phong";
+    var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN"); //chuyen tien vi en top 1 the gioi
 }
 
 <section class="section">
-    <h2>Danh sách phòng</h2>
-    <div class="muted" id="searchSummary"></div>
+    <h2>Found result</h2>
+    <div class="muted" id="searchSummary">Tim thay <strong> @Model.Count()</strong> phong trong phu hop</div>
 
-    <div class="search-card" style="margin-top:16px">
-       
+    <form action="@Url.Action("SearchRooms", "Rooms")" method="get" class="search-form-container">
+        <div class="search-group">
+            <label class="label">Ngay nhan/ tra</label>
+            <div class="search-inputs-row">
+                <input type="date" name="checkin" value="@ViewBag.CheckIn" required class="form-input">
+                <input type="date" name="checkout" value="@ViewBag.CheckOut" required class="form-input">
+            </div>
+        </div>
+
+        <div class="search-group short">
+            <label class=" label">So khach</label>
+            <select name="guests" class="form-input">
+                <option value="0" @(ViewBag.Guests ==1 ? "selected" : "")>1 khach</option>
+                <option value="2" @(ViewBag.Guests ==2 ? "selected" : "")>2 khach</option>
+                <option value="3" @(ViewBag.Guests ==3 ? "selected" : "")>3 khach</option>
+                <option value="4" @(ViewBag.Guests ==4 ? "selected" : "")>4 khach</option>
+            </select>
+        </div>
+
+        <button type="submit" class=" btn btn-primary btn-filter"> Loc phong </button>
+    </form>
+</section>
+    <!--<div class="search-card" style="margin-top:16px">
+
 
         <div class="form-control" style="flex:1; padding-right: 20px ; width: 450px ">
             <label class="label">Ngày nhận / trả</label>
@@ -31,25 +56,59 @@
         <div class="search-actions">
             <button id="searchBtn" class="btn btn-primary">Lọc phòng</button>
         </div>
-    </div>
+    </div>-->
 
     @*<div style="height:12px"></div>
-    <div id="roomsGrid" class="grid"></div>*@
-</section>
+        <div id="roomsGrid" class="grid"></div>*@
+<!--</section>-->
 
 <section id="rooms" class="section">
     <div class="section-head">
         <h2>Các loại phòng</h2>
-        <div class="muted" id="resultsInfo">Tất cả phòng</div>
     </div>
-    <div class="grid" id="roomsGrid"></div>
 
-    <div>
-        <a href="https://localhost:44365/Rooms/Detail"> view detail </a>
-    </div>
+    <div class="rooms-grid">
+
+        @if (Model == null || !Model.Any())
+        {
+
+            <div class="emty-message">
+                <p>khong co phong trong nao trong khoang thoi gian nay</p>
+                <p>Hay chon khoang thoi gian khac!</p>
+            </div>
+        }
+        else
+        { 
+            foreach (var room in Model) {
+                string roomImage = string.IsNullOrEmpty(room.HinhAnh) ? "/Images/room-placeholder.png" : room.HinhAnh;
+
+                    <div class="room-card-new">
+                        <div class="room-img-wrapper">
+                            <img src="@roomImage" alt="@room.TenLoaiPhong ">
+
+                        </div>
+
+                        <div class="room-info-new">
+                            <h3 class="room-title">@room.TenLoaiPhong - @room.SoPhong</h3>
+
+                            <p class="room-desc-new">
+                                @(room.MoTa ?? "phong day du tien nghi, view dep, thoang mat bla bla bla..." )
+                            </p>
+
+                            <div class="room-action-new">
+                                <div class="price-container">
+                                    <span>Gia: </span>
+                                    <span>@room.GiaMoiDem.ToString("C0", culture) / dem</span>
+                                </div>
+                            </div>
+                            <a href="@Url.Action("Detail", "Rooms", new { id = room.PhongID })" class=" btn-book">Chon phong</a>
+                        </div>
+                    </div>
+                }
+        }
+
 </section>
 
 @section Scripts {
     <script src="~/Scripts/No1JavaScript/SearchRooms.js?v=@DateTime.Now.Ticks"></script>
 }
-w
