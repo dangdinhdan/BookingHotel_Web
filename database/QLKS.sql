@@ -61,6 +61,7 @@ CREATE TABLE tbl_PhongImages(
 CREATE TABLE tbl_DatPhong(
 	DatPhongID INT PRIMARY KEY IDENTITY(1,1),
 	TaiKhoanID INT NOT NULL REFERENCES tbl_TaiKhoan(TaiKhoanID),
+	PhongID INT NOT NULL REFERENCES tbl_Phong(PhongID),
 	NgayDat DATETIME2 DEFAULT SYSUTCDATETIME(),
 	NgayNhanPhong DATETIME2 NOT NULL,
 	NgayTraPhong DATETIME2 NOT NULL ,
@@ -74,12 +75,6 @@ CREATE TABLE tbl_DatPhong(
 	Delete_at DATETIME2 NULL
 );
 
-CREATE TABLE tbl_ChiTietDatPhong(
-	ChiTietDatPhongID INT PRIMARY KEY IDENTITY(1,1),
-	DatPhongID INT NOT NULL REFERENCES tbl_DatPhong(DatPhongID),
-	PhongID INT NOT NULL REFERENCES tbl_Phong(PhongID),
-	GiaTaiThoiDiemDat DECIMAL(18,2)
-);
 
 CREATE TABLE tbl_GiaoDich(
 	GiaoDichID INT PRIMARY KEY IDENTITY(1,1),
@@ -129,41 +124,39 @@ INSERT INTO tbl_PhongImages(PhongID, Url) VALUES
 (6, 'room401_1.jpg'),
 (6, 'room401_2.jpg');
 go
-INSERT INTO tbl_DatPhong(TaiKhoanID, NgayNhanPhong, NgayTraPhong, SoLuongNguoi, TongTien, TrangThai, GhiChu) VALUES
-(2, '2025-12-12 14:00:00', '2025-12-13 12:00:00', 1, 1000000, N'Pending', N'Customer requested low floor');
-(3, '09/12/2025', '12/12/2025', 2, 1500000, N'Checkin', NULL),
-(4, '20/12/2025', '22/12/2025', 3, 2200000, N'Pending', NULL),
-(5, '05/12/2025', '06/12/2025', 2, 2000000, N'Checkout', N'Paid online'),
-(2, '12/12/2025', '13/12/2025', 1, 600000, 'Pending', NULL),
-(3, '14/12/2025', '16/12/2025', 2, 1200000, 'Pending', NULL),
-(4, '15/12/2025', '17/12/2025', 3, 1800000, 'Pending', NULL),
-(5, '18/12/2025', '19/12/2025', 2, 700000, 'Pending', NULL),
-(2, '20/12/2025', '22/12/2025', 1, 1300000, 'Pending', NULL),
+INSERT INTO tbl_DatPhong(TaiKhoanID, PhongID, NgayNhanPhong, NgayTraPhong, SoLuongNguoi, TongTien, TrangThai, GhiChu) VALUES
+(2, 1, '2025-12-12', '2025-12-14', 1, 1000000, N'Pending', N'Customer requested low floor'),
+(3, 2, '2025-12-09', '2025-12-12', 2, 1500000, N'Checkin', NULL),
+(4, 3, '2025-12-20', '2025-12-22', 3, 2200000, N'Pending', NULL),
+(5, 4, '2025-12-05', '2025-12-06', 2, 2000000, N'Checkout', N'Paid online'),
 
-(3, '22/12/2025', '23/12/2025', 2, 800000, 'Pending', NULL),
-(4, '24/12/2025', '26/12/2025', 3, 1600000, 'Pending', NULL),
-(5, '25/12/2025', '26/12/2025', 1, 550000, 'Pending', NULL),
-(2, '27/12/2025', '29/12/2025', 2, 1400000, 'Pending', NULL),
-(3, '28/12/2025', '30/12/2025', 1, 650000, 'Pending', NULL),
+(2, 1, '2025-12-12', '2025-12-13', 1, 600000, 'Pending', NULL),
+(3, 2, '2025-12-14', '2025-12-16', 2, 1200000, 'Pending', NULL),
+(4, 3, '2025-12-15', '2025-12-17', 3, 1800000, 'Pending', NULL),
+(5, 4, '2025-12-18', '2025-12-19', 2, 700000, 'Pending', NULL),
+(2, 1, '2025-12-20', '2025-12-22', 1, 1300000, 'Pending', NULL),
 
-(4, '02/01/2026', '04/01/2026', 2, 1500000, 'Pending', NULL),
-(5, '03/01/2026', '05/01/2026', 1, 600000, 'Pending', NULL),
-(2, '06/01/2026', '08/01/2026', 3, 2000000, 'Pending', NULL),
-(3, '08/01/2026', '09/01/2026', 2, 750000, 'Pending', NULL),
-(4, '10/01/2026', '11/01/2026', 2, 720000, 'Pending', NULL),
+(3, 2, '2025-12-22', '2025-12-23', 2, 800000, 'Pending', NULL),
+(4, 3, '2025-12-24', '2025-12-26', 3, 1600000, 'Pending', NULL),
+(5, 4, '2025-12-25', '2025-12-26', 1, 550000, 'Pending', NULL),
+(2, 1, '2025-12-27', '2025-12-29', 2, 1400000, 'Pending', NULL),
+(3, 2, '2025-12-28', '2025-12-30', 1, 650000, 'Pending', NULL),
 
-(5, '12/01/2026', '14/01/2026', 3, 1700000, 'Pending', NULL),
-(2, '14/01/2026', '15/01/2026', 1, 600000, 'Pending', NULL),
-(3, '16/01/2026', '18/01/2026', 2, 1300000, 'Pending', NULL),
-(4, '18/01/2026', '19/01/2026', 1, 580000, 'Pending', NULL),
-(5, '19/01/2026', '20/01/2026', 2, 950000, 'Pending', NULL);
+(4, 3, '2026-01-02', '2026-01-04', 2, 1500000, 'Pending', NULL),
+(5, 4, '2026-01-03', '2026-01-05', 1, 600000, 'Pending', NULL),
+(2, 1, '2026-01-06', '2026-01-08', 3, 2000000, 'Pending', NULL),
+(3, 2, '2026-01-08', '2026-01-09', 2, 750000, 'Pending', NULL),
+(4, 3, '2026-01-10', '2026-01-11', 2, 720000, 'Pending', NULL),
+
+(5, 4, '2026-01-12', '2026-01-14', 3, 1700000, 'Pending', NULL),
+(2, 1, '2026-01-14', '2026-01-15', 1, 600000, 'Pending', NULL),
+(3, 2, '2026-01-16', '2026-01-18', 2, 1300000, 'Pending', NULL),
+(4, 3, '2026-01-18', '2026-01-19', 1, 580000, 'Pending', NULL),
+(5, 4, '2026-01-19', '2026-01-20', 2, 950000, 'Pending', NULL);
 
 
-INSERT INTO tbl_ChiTietDatPhong(DatPhongID, PhongID, GiaTaiThoiDiemDat) VALUES
-(1, 1, 500000),
-(2, 3, 750000),
-(3, 5, 1100000),
-(4, 6, 2000000);
+
+
 
 INSERT INTO tbl_GiaoDich(DatPhongID, SoTien, TrangThai, PhuongThuc) VALUES
 (1, 500000, N'Unpaid', N'Tiền mặt'),
@@ -188,11 +181,9 @@ SELECT DP.DatPhongID,
 	DP.TaiKhoanID,
 	TK.MaTK,
 	Tk.HoTen,
-	DP.isDelete,
-	CTDP.GiaTaiThoiDiemDat
+	DP.isDelete
 FROM tbl_DatPhong DP
-JOIN tbl_ChiTietDatPhong CTDP ON DP.DatPhongID=CTDP.DatPhongID
-JOIN tbl_Phong P on P.PhongID= CTDP.PhongID
+JOIN tbl_Phong P on P.PhongID= DP.PhongID
 JOIN tbl_TaiKhoan TK on DP.TaiKhoanID =TK.TaiKhoanID
 GO
 
