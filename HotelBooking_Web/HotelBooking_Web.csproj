@@ -165,6 +165,7 @@
     <Compile Include="Areas\Admin\Controllers\QLLPhongController.cs" />
     <Compile Include="Areas\Admin\Controllers\QLPhongController.cs" />
     <Compile Include="Areas\Admin\Controllers\TaiKhoanController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ThongKeController.cs" />
     <Compile Include="Areas\Admin\Service\QLDPService.cs" />
     <Compile Include="Areas\Admin\Service\TaiKhoanService.cs" />
     <Compile Include="Areas\Admin\Service\QLLPhongService.cs" />
@@ -296,6 +297,7 @@
     <Content Include="Areas\Admin\Views\QLDP\Checkin.cshtml" />
     <Content Include="Areas\Admin\Views\QLDP\Checkout.cshtml" />
     <Content Include="Areas\Admin\Views\QLDP\Checkin_Comf.cshtml" />
+    <Content Include="Areas\Admin\Views\ThongKe\Index.cshtml" />
     <None Include="Models\DataClasses1.dbml.layout">
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </None>

@@ -51,6 +51,8 @@ namespace HotelBooking_Web.Areas.Admin.Service
                     newGiaoDich.DatPhongID = DatPhongID;
                     newGiaoDich.SoTien = qr_ctdp.GiaTaiThoiDiemDat;
                     newGiaoDich.TrangThai = "Unpaid";
+                    newGiaoDich.Create_at = DateTime.Now;
+
                     qr_p.TrangThai = "Occupied";
                     qr_dp.TrangThai = "Checkin";
                     db.tbl_GiaoDiches.InsertOnSubmit(newGiaoDich);
@@ -102,9 +104,11 @@ namespace HotelBooking_Web.Areas.Admin.Service
                     
                     
                     qr_gd.TrangThai = "Paid";
+                    qr_gd.Update_at = DateTime.Now;
                     qr_dp.TrangThai = "Checkout";
                     qr_p.TrangThai = "Available";
                     qr_gd.PhuongThuc = PhuongThuc;
+
                     db.SubmitChanges();
 
                     rs.ErrDesc = "Check out thành công";

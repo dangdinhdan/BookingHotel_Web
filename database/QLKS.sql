@@ -93,8 +93,12 @@ CREATE TABLE tbl_GiaoDich(
 );
 go
 
-INSERT INTO tbl_VaiTro(VaiTro) values ('admin' ,'customer')
-
+INSERT INTO tbl_VaiTro(VaiTro) values ('admin')
+go
+INSERT INTO tbl_VaiTro(VaiTro) values ('customer')
+go
+INSERT INTO tbl_TaiKhoan(HoTen,Email,MatKhau,SoDienThoai,DiaChi,VaiTro) values ('Admin','admin@gmail.com','1','0888888888','hn','admin'
+);
 go
 
 
@@ -140,26 +144,13 @@ JOIN tbl_LoaiPhong LP ON P.LoaiPhongID= LP.LoaiPhongID
 GO
 CREATE or alter VIEW vw_ThongKeDoanhThu AS
 SELECT 
-    YEAR(gd.NgayThanhToan) AS Nam,
-    MONTH(gd.NgayThanhToan) AS Thang,
+    YEAR(gd.Create_at) AS Nam,
+    MONTH(gd.Create_at) AS Thang,
     SUM(gd.SoTien) AS TongDoanhThu
 FROM tbl_GiaoDich gd
-GROUP BY YEAR(gd.NgayThanhToan), MONTH(gd.NgayThanhToan);
+GROUP BY YEAR(gd.Create_at), MONTH(gd.Create_at);
 go
 
-
-
-CREATE FUNCTION fn_TinhTongTien(@DatPhongID INT)
-RETURNS DECIMAL(18,2)
-AS
-BEGIN
-    DECLARE @TongTien DECIMAL(18,2);
-    SELECT @TongTien = SUM(GiaTaiThoiDiemDat)
-    FROM tbl_ChiTietDatPhong
-    WHERE DatPhongID = @DatPhongID;
-    RETURN ISNULL(@TongTien, 0);
-END;
-go
 
 CREATE OR ALTER PROCEDURE sp_TimPhongTrong
     @NgayNhanPhong DATETIME2,
@@ -235,15 +226,15 @@ BEGIN
     -- CTE thứ hai để tính toán doanh thu thực tế theo tháng
     DoanhThuThucTe AS (
         SELECT 
-            MONTH(NgayThanhToan) AS Thang,
+            MONTH(Create_at) AS Thang,
             SUM(SoTien) AS TongDoanhThu
         FROM 
             tbl_GiaoDich
         WHERE 
             TrangThai = N'ThanhCong' -- Chỉ tính giao dịch thành công
-            AND YEAR(NgayThanhToan) = @Nam -- Lọc theo năm
+            AND YEAR(Create_at) = @Nam -- Lọc theo năm
         GROUP BY 
-            MONTH(NgayThanhToan)
+            MONTH(Create_at)
     )
     -- Tham gia 2 bảng CTE để có kết quả cuối cùng
     SELECT 
