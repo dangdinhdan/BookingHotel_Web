@@ -24,7 +24,7 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
             int pageIndex = page ?? 1;
             var pageSize = 10;
             var list = service.Search(query, status);
-            var items = list.OrderByDescending(x => x.NgayNhanPhong).ToPagedList(pageIndex, pageSize);
+            var items = list.OrderByDescending(x => x.DatPhongID).ToPagedList(pageIndex, pageSize);
             return View(items);
             
         }

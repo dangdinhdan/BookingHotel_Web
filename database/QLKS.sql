@@ -89,10 +89,9 @@ CREATE TABLE tbl_GiaoDich(
 go
 
 
-INSERT INTO tbl_VaiTro(VaiTro) values ('admin')
+INSERT INTO tbl_VaiTro(VaiTro) values ('admin'),('customer')
 go
-INSERT INTO tbl_VaiTro(VaiTro) values ('customer')
-go
+
 INSERT INTO tbl_TaiKhoan(HoTen,Email,MatKhau,SoDienThoai,DiaChi,VaiTro) values
 ('Admin','admin@gmail.com','1','0888888888','hn','admin'),
 ('Nguyen Van A', 'user1@gmail.com', '1', '0911122233', N'Hà Nội', 'customer'),
@@ -153,11 +152,7 @@ INSERT INTO tbl_DatPhong(TaiKhoanID, PhongID, NgayNhanPhong, NgayTraPhong, SoLuo
 (3, 2, '2026-01-16', '2026-01-18', 2, 1300000, 'Pending', NULL),
 (4, 3, '2026-01-18', '2026-01-19', 1, 580000, 'Pending', NULL),
 (5, 4, '2026-01-19', '2026-01-20', 2, 950000, 'Pending', NULL);
-
-
-
-
-
+go
 INSERT INTO tbl_GiaoDich(DatPhongID, SoTien, TrangThai, PhuongThuc) VALUES
 (1, 500000, N'Unpaid', N'Tiền mặt'),
 (2, 750000, N'Unpaid', N'Chuyển khoản'),
@@ -214,7 +209,7 @@ GROUP BY YEAR(gd.Create_at), MONTH(gd.Create_at);
 go
 
 
-CREATE OR ALTER PROCEDURE sp_TimPhongTrong
+CREATE OR ALTER PROCEDURE sp_TimPhong
     @NgayNhanPhong DATETIME2,
     @NgayTraPhong DATETIME2,
     @SucChuaToiDa INT = NULL      -- Tùy chọn: sức chứa
@@ -244,10 +239,9 @@ BEGIN
         -- Kiểm tra xem có tồn tại bất kỳ đơn đặt phòng nào trùng lặp không
         AND NOT EXISTS (
             SELECT 1
-            FROM tbl_ChiTietDatPhong ctdp
-            JOIN tbl_DatPhong dp ON ctdp.DatPhongID = dp.DatPhongID
+            FROM tbl_DatPhong dp
             WHERE 
-                ctdp.PhongID = p.PhongID -- Chỉ kiểm tra cho phòng hiện tại
+                dp.PhongID = p.PhongID -- Chỉ kiểm tra cho phòng hiện tại
                 AND dp.TrangThai IN (N'Pending', N'Checkin') -- Các trạng thái đặt phòng hợp lệ
                 AND (
                     -- Logic kiểm tra trùng lặp thời gian

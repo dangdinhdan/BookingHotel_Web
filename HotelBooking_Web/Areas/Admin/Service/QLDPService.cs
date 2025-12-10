@@ -42,14 +42,14 @@ namespace HotelBooking_Web.Areas.Admin.Service
             {
 
                 tbl_DatPhong qr_dp = db.tbl_DatPhongs.SingleOrDefault(o => o.DatPhongID == DatPhongID);
-                tbl_ChiTietDatPhong qr_ctdp = db.tbl_ChiTietDatPhongs.SingleOrDefault(o => o.DatPhongID == DatPhongID);
-                tbl_Phong qr_p = db.tbl_Phongs.SingleOrDefault(o => o.PhongID == qr_ctdp.PhongID);
+                
+                tbl_Phong qr_p = db.tbl_Phongs.SingleOrDefault(o => o.PhongID == qr_dp.PhongID);
                 
                 tbl_GiaoDich newGiaoDich = new tbl_GiaoDich();
                 if (qr_dp.NgayNhanPhong.Date == DateTime.Now.Date)
                 {
                     newGiaoDich.DatPhongID = DatPhongID;
-                    newGiaoDich.SoTien = qr_ctdp.GiaTaiThoiDiemDat;
+                    newGiaoDich.SoTien = qr_dp.TongTien;
                     newGiaoDich.TrangThai = "Unpaid";
                     newGiaoDich.Create_at = DateTime.Now;
 
@@ -97,8 +97,8 @@ namespace HotelBooking_Web.Areas.Admin.Service
             {
                 tbl_GiaoDich qr_gd = db.tbl_GiaoDiches.SingleOrDefault(o => o.DatPhongID == DatPhongID);
                 tbl_DatPhong qr_dp = db.tbl_DatPhongs.SingleOrDefault(o => o.DatPhongID == DatPhongID);
-                tbl_ChiTietDatPhong qr_ctdp = db.tbl_ChiTietDatPhongs.SingleOrDefault(o => o.DatPhongID == DatPhongID);
-                tbl_Phong qr_p = db.tbl_Phongs.SingleOrDefault(o => o.PhongID == qr_ctdp.PhongID);
+                
+                tbl_Phong qr_p = db.tbl_Phongs.SingleOrDefault(o => o.PhongID == qr_dp.PhongID);
                 if(qr_gd != null && qr_dp != null)
                 {
                     
