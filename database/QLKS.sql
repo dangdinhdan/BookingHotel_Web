@@ -44,7 +44,7 @@ CREATE TABLE tbl_Phong(
 	GiaMoiDem DECIMAL(18,2) NOT NULL CHECK(GiaMoiDem >= 0) DEFAULT 0,
 	SucChuaToiDa INT CHECK(SucChuaToiDa > 0) DEFAULT 1,
 	MoTa NVARCHAR(4000),
-	TrangThai NVARCHAR(50) DEFAULT 'Trong',
+	TrangThai NVARCHAR(50) DEFAULT 'Available',
 	HinhAnh VARCHAR(MAX),
 	Create_at DATETIME2 DEFAULT SYSUTCDATETIME(),
 	isDelete BIT DEFAULT 0,
@@ -98,9 +98,78 @@ INSERT INTO tbl_VaiTro(VaiTro) values ('admin')
 go
 INSERT INTO tbl_VaiTro(VaiTro) values ('customer')
 go
-INSERT INTO tbl_TaiKhoan(HoTen,Email,MatKhau,SoDienThoai,DiaChi,VaiTro) values ('Admin','admin@gmail.com','1','0888888888','hn','admin'
-);
+INSERT INTO tbl_TaiKhoan(HoTen,Email,MatKhau,SoDienThoai,DiaChi,VaiTro) values
+('Admin','admin@gmail.com','1','0888888888','hn','admin'),
+('Nguyen Van A', 'user1@gmail.com', '1', '0911122233', N'Hà Nội', 'customer'),
+('Tran Thi B', 'thib@gmail.com', '123456', '0933445566', N'Hồ Chí Minh', 'customer'),
+('Le Van C', 'vanc@gmail.com', '123456', '0988877665', N'Đà Nẵng', 'customer'),
+('Pham Thi D', 'thid@gmail.com', '123456', '0909090909', N'Hải Phòng', 'customer');
+go
 
+INSERT INTO tbl_LoaiPhong(TenLoaiPhong, MoTa) VALUES
+(N'Phòng đơn', N'Phòng 1 giường đơn, phù hợp cho 1 người.'),
+(N'Phòng đôi', N'Phòng 1 giường đôi hoặc 2 giường đơn cho 2 người.'),
+(N'Phòng gia đình', N'Phòng rộng cho gia đình 3-4 người.'),
+(N'Phòng VIP', N'Phòng cao cấp, đầy đủ tiện nghi, view đẹp.');
+go
+
+INSERT INTO tbl_Phong(SoPhong, LoaiPhongID, GiaMoiDem, SucChuaToiDa, MoTa, TrangThai, HinhAnh) VALUES
+('101', 1, 500000, 1, N'Phòng đơn tiêu chuẩn', 'Available', NULL),
+('102', 1, 520000, 1, N'Phòng đơn có cửa sổ', 'Available', NULL),
+('201', 2, 750000, 2, N'Phòng đôi tiêu chuẩn', 'Available', NULL),
+('202', 2, 780000, 2, N'Phòng đôi hướng phố', 'Available', NULL),
+('301', 3, 1100000, 4, N'Phòng gia đình 4 người', 'Available', NULL),
+('401', 4, 2000000, 2, N'Phòng VIP view biển', 'Available', NULL);
+go
+INSERT INTO tbl_PhongImages(PhongID, Url) VALUES
+(1, 'room101_1.jpg'),
+(1, 'room101_2.jpg'),
+(3, 'room201_1.jpg'),
+(5, 'room301_1.jpg'),
+(6, 'room401_1.jpg'),
+(6, 'room401_2.jpg');
+go
+INSERT INTO tbl_DatPhong(TaiKhoanID, NgayNhanPhong, NgayTraPhong, SoLuongNguoi, TongTien, TrangThai, GhiChu) VALUES
+(2, '2025-12-12 14:00:00', '2025-12-13 12:00:00', 1, 1000000, N'Pending', N'Customer requested low floor');
+(3, '09/12/2025', '12/12/2025', 2, 1500000, N'Checkin', NULL),
+(4, '20/12/2025', '22/12/2025', 3, 2200000, N'Pending', NULL),
+(5, '05/12/2025', '06/12/2025', 2, 2000000, N'Checkout', N'Paid online'),
+(2, '12/12/2025', '13/12/2025', 1, 600000, 'Pending', NULL),
+(3, '14/12/2025', '16/12/2025', 2, 1200000, 'Pending', NULL),
+(4, '15/12/2025', '17/12/2025', 3, 1800000, 'Pending', NULL),
+(5, '18/12/2025', '19/12/2025', 2, 700000, 'Pending', NULL),
+(2, '20/12/2025', '22/12/2025', 1, 1300000, 'Pending', NULL),
+
+(3, '22/12/2025', '23/12/2025', 2, 800000, 'Pending', NULL),
+(4, '24/12/2025', '26/12/2025', 3, 1600000, 'Pending', NULL),
+(5, '25/12/2025', '26/12/2025', 1, 550000, 'Pending', NULL),
+(2, '27/12/2025', '29/12/2025', 2, 1400000, 'Pending', NULL),
+(3, '28/12/2025', '30/12/2025', 1, 650000, 'Pending', NULL),
+
+(4, '02/01/2026', '04/01/2026', 2, 1500000, 'Pending', NULL),
+(5, '03/01/2026', '05/01/2026', 1, 600000, 'Pending', NULL),
+(2, '06/01/2026', '08/01/2026', 3, 2000000, 'Pending', NULL),
+(3, '08/01/2026', '09/01/2026', 2, 750000, 'Pending', NULL),
+(4, '10/01/2026', '11/01/2026', 2, 720000, 'Pending', NULL),
+
+(5, '12/01/2026', '14/01/2026', 3, 1700000, 'Pending', NULL),
+(2, '14/01/2026', '15/01/2026', 1, 600000, 'Pending', NULL),
+(3, '16/01/2026', '18/01/2026', 2, 1300000, 'Pending', NULL),
+(4, '18/01/2026', '19/01/2026', 1, 580000, 'Pending', NULL),
+(5, '19/01/2026', '20/01/2026', 2, 950000, 'Pending', NULL);
+
+
+INSERT INTO tbl_ChiTietDatPhong(DatPhongID, PhongID, GiaTaiThoiDiemDat) VALUES
+(1, 1, 500000),
+(2, 3, 750000),
+(3, 5, 1100000),
+(4, 6, 2000000);
+
+INSERT INTO tbl_GiaoDich(DatPhongID, SoTien, TrangThai, PhuongThuc) VALUES
+(1, 500000, N'Unpaid', N'Tiền mặt'),
+(2, 750000, N'Unpaid', N'Chuyển khoản'),
+(3, 1100000, N'Unpaid', N'MoMo'),
+(4, 2000000, N'Paid', N'VNPAY');
 go
 
 
