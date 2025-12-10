@@ -183,7 +183,6 @@
     <Compile Include="Models\DataClasses1.cs">
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DbContext.cs" />
     <Compile Include="Models\EditProfileViewModel.cs" />
     <Compile Include="Models\FunctResult.cs" />
@@ -344,11 +343,10 @@
     <Content Include="Views\TaiKhoan\TransactionHistory.cshtml" />
     <Content Include="Views\TaiKhoan\EditProfile.cshtml" />
     <Content Include="Views\TaiKhoan\DeleteAccount.cshtml" />
-    <Content Include="Views\Customer\Register.cshtml" />
-    <Content Include="Views\Customer\RegisterSuccess.cshtml" />
-    <Content Include="Views\Customer\RegisterConfirmEmail.cshtml" />
     <Content Include="Views\TaiKhoan\BookingList.cshtml" />
     <Content Include="Views\TaiKhoan\Favourite.cshtml" />
+    <Content Include="Views\Shared\_ProfileLayout.cshtml" />
+    <Content Include="Views\TaiKhoan\RegisterSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

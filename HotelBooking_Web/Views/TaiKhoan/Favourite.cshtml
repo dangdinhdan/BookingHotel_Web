@@ -1,7 +1,109 @@
-﻿
-@{
-    ViewBag.Title = "Đã lưu";
+﻿@{
+    ViewBag.Title = "Danh sách Đã lưu";
+    Layout = "~/Views/Shared/_ProfileLayout.cshtml";
+    ViewBag.ActivePage = "Favourite";
+
+    var mockFavourites = new List<dynamic>
+{
+        new {
+            Id = "R001",
+            RoomName = "Deluxe King Ocean View",
+            Image = "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&q=80&w=300&h=200",
+            Price = "3.500.000 VNĐ",
+            Rating = 5,
+            Type = "Phòng đôi • Hướng biển"
+        },
+        new {
+            Id = "R005",
+            RoomName = "Executive Suite Garden",
+            Image = "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&q=80&w=300&h=200",
+            Price = "4.200.000 VNĐ",
+            Rating = 4,
+            Type = "Suite • Hướng vườn"
+        },
+        new {
+            Id = "R002",
+            RoomName = "Standard Twin Beds",
+            Image = "https://images.unsplash.com/photo-1596394341908-11f3d646b9a8?auto=format&fit=crop&q=80&w=300&h=200",
+            Price = "1.500.000 VNĐ",
+            Rating = 3,
+            Type = "Phòng 2 giường • Hướng thành phố"
+        },
+        new {
+            Id = "R008",
+            RoomName = "Presidential Suite",
+            Image = "https://images.unsplash.com/photo-1629141042735-a134638363a2?auto=format&fit=crop&q=80&w=300&h=200",
+            Price = "12.000.000 VNĐ",
+            Rating = 5,
+            Type = "Suite Tổng thống • View núi"
+        },
+        new {
+            Id = "R003",
+            RoomName = "Family Room Pool Access",
+            Image = "https://images.unsplash.com/photo-1574516147424-69e1606a5e4d?auto=format&fit=crop&q=80&w=300&h=200",
+            Price = "5.800.000 VNĐ",
+            Rating = 4,
+            Type = "Phòng gia đình • Lối đi bể bơi"
+        }
+    };
 }
 
-<h2>Favourite</h2>
 
+<h2>@ViewBag.Title</h2>
+
+@if (mockFavourites.Count > 0)
+{
+    <div class="booking-list">
+        @foreach (var item in mockFavourites)
+        {
+            <div class="booking-card">
+                <img src="@item.Image" alt="@item.RoomName" class="booking-card-img" />
+
+                <div class="booking-card-body">
+                    <div>
+                        <div class="booking-header">
+                            <div>
+                                <a href="/Phong/Detail/@item.Id" class="booking-room-name">@item.RoomName</a>
+                                <div class="room-meta-fav">
+                                    <span>@item.Type</span>
+                                    <span class="star-rating">
+                                        @for (int i = 0; i < item.Rating; i++)
+                                        {<span>★</span>}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="booking-price">@item.Price <span style="font-size:12px; font-weight:normal; color:#888;">/ đêm</span></div>
+                        </div>
+
+                        <p style="font-size: 14px; color: #555; margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                            Trải nghiệm không gian sang trọng với đầy đủ tiện nghi, wifi tốc độ cao, bồn tắm nằm và view nhìn tuyệt đẹp.
+                        </p>
+                    </div>
+
+                    <div class="booking-footer" style="justify-content: space-between;">
+
+                        <a href="#" class="btn-remove" onclick="return confirm('Bạn có chắc muốn bỏ lưu phòng này?');">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path><line x1="2" y1="2" x2="22" y2="22"></line></svg>
+                            Bỏ lưu
+                        </a>
+
+                        <a href="/Booking/Index/@item.Id" class="btn btn-primary">
+                            Đặt phòng ngay
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="favourite-empty-state">
+        <div class="icon-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+        </div>
+        <h3 style="font-size: 18px; margin-bottom: 10px;">Chưa có phòng yêu thích</h3>
+        <p style="color: #666; margin-bottom: 20px;">Hãy lưu lại những căn phòng bạn ưng ý để dễ dàng tìm kiếm sau này.</p>
+        <a href="/Home/Index#rooms" class="btn btn-primary">Khám phá ngay</a>
+    </div>
+}

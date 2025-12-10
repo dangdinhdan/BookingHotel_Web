@@ -213,3 +213,125 @@
     overflow: hidden;
     text-overflow: ellipsis; /* Cắt bớt chữ nếu quá dài */
 }
+
+/* =========================================
+   STYLE CHO TRANG ĐÃ LƯU (FAVOURITE)
+   ========================================= */
+
+/* Các thông tin phụ (Loại phòng, Rating) trong thẻ Favorite Card */
+.room-meta-fav {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Màu vàng cho biểu tượng sao Rating */
+.star-rating {
+    color: #ffc107;
+}
+
+/* Style cho nút "Bỏ lưu" */
+.btn-remove {
+    color: #dc3545; /* Màu đỏ cho nút xóa */
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+    .btn-remove:hover {
+        background: #fff5f5;
+    }
+
+/* Style cho khung trống (Empty State) */
+.favourite-empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+
+    .favourite-empty-state .icon-wrapper {
+        width: 80px;
+        height: 80px;
+        background: #f8f9fa;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+    }
+/* =========================================
+   STYLE CHO TRANG THÔNG BÁO THÀNH CÔNG
+   ========================================= */
+
+/* Căn chỉnh khoảng cách cho trang */
+.success-page-wrapper {
+    padding-top: 60px;
+    padding-bottom: 80px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Tùy chỉnh hộp nội dung, ghi đè auth-box mặc định */
+.success-content {
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto; /* Căn giữa */
+}
+
+/* Icon thành công */
+.success-icon-wrap {
+    margin-bottom: 20px;
+    color: #28a745; /* Màu xanh lá chuẩn */
+    display: flex;
+    justify-content: center;
+}
+
+/* Tiêu đề */
+.success-title {
+    color: #28a745;
+    margin-bottom: 15px;
+}
+
+/* Đoạn văn mô tả */
+.success-desc {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+/* Khu vực chứa nút bấm */
+.success-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+/* Nút bấm rộng hơn chút cho đẹp */
+.btn-wide {
+    padding: 12px 30px;
+    text-decoration: none;
+    min-width: 140px;
+}
+
+/* Responsive cho mobile: Nút xếp dọc */
+@media (max-width: 480px) {
+    .success-actions {
+        flex-direction: column;
+    }
+
+    .btn-wide {
+        width: 100%;
+    }
+}
