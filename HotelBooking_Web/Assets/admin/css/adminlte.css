@@ -2102,7 +2102,9 @@ progress {
   padding-bottom: calc(0.25rem + var(--bs-border-width));
   font-size: 0.875rem;
 }
-
+.text-value {
+    font-weight:600
+}
 .form-text {
   margin-top: 0.25rem;
   font-size: 0.875em;
@@ -15588,6 +15590,24 @@ fieldset legend {
     font-size: 0.8em;
     content: " (" attr(href) ")";
   }
+}
+
+/*tự thêm*/
+.report-card {
+    border-radius: 12px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.08);
+}
+
+
+
+.revenue-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0d6efd;
+}
+
+.chart-area {
+    height: 350px;
 }
 
 /*# sourceMappingURL=adminlte.css.map */
