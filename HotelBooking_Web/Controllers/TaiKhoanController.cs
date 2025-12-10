@@ -11,6 +11,7 @@ namespace HotelBooking_Web.Controllers
     public class TaiKhoanController : Controller
     {
         private readonly CustomerService _service = new CustomerService();
+        private DataClasses1DataContext db = new DataClasses1DataContext();
 
         private EditProfileViewModel GetMockUserProfile()
         {
@@ -88,20 +89,19 @@ namespace HotelBooking_Web.Controllers
         {
             string hashedInputPassword = _service.HashPassword(password);
 
-            using (var db = new HotelDbContext())
-            {
-                var user = db.TaiKhoans.FirstOrDefault(u => u.Email == email && u.MatKhau == hashedInputPassword && u.isDelete == false);
+            
+                var user = db.tbl_TaiKhoans.FirstOrDefault(u => u.Email == email && u.MatKhau == password && u.isDelete == false);
 
                 if (user != null)
                 {
                     // THÀNH CÔNG
                     Session["UserEmail"] = user.Email;
                     Session["DisplayName"] = user.HoTen;
-                    Session["IsAdmin"] = (user.VaiTro == "Admin");
+                    Session["IsAdmin"] = (user.VaiTro == "admin");
 
                     return RedirectToAction("Index", "Home");
                 }
-            }
+            
 
             // THẤT BẠI
             ViewBag.Error = "Email hoặc mật khẩu không đúng. Vui lòng thử lại.";
