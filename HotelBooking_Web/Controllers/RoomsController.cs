@@ -42,8 +42,6 @@ namespace HotelBooking_Web.Controllers
 
            
         }
-<<<<<<< HEAD
+
 }
-=======
-    }
->>>>>>> bb1e209dfd184b8297e4b88a5b54b70f994512c2
+

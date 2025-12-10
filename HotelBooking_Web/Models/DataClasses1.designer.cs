@@ -54,11 +54,9 @@ namespace HotelBooking_Web.Models
     partial void Deletetbl_GiaoDich(tbl_GiaoDich instance);
         #endregion
         public DataClasses1DataContext() :
-<<<<<<< HEAD
+
                base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QLKSLenh"].ConnectionString, mappingSource)
-=======
-               base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QLKSConnectionString2"].ConnectionString, mappingSource)
->>>>>>> bb1e209dfd184b8297e4b88a5b54b70f994512c2
+
         {
             OnCreated();
         }
@@ -166,8 +164,11 @@ namespace HotelBooking_Web.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_TimPhongTrong")]
-		public ISingleResult<sp_TimPhongTrongResult> sp_TimPhongTrong([global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayNhanPhong", DbType="DateTime2")] System.Nullable<System.DateTime> ngayNhanPhong, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayTraPhong", DbType="DateTime2")] System.Nullable<System.DateTime> ngayTraPhong, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="SucChuaToiDa", DbType="Int")] System.Nullable<int> sucChuaToiDa)
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.sp_TimPhong")]
+		public ISingleResult<sp_TimPhongTrongResult> sp_TimPhongTrong(
+			[global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayNhanPhong", DbType="DateTime2")] System.Nullable<System.DateTime> ngayNhanPhong,
+			[global::System.Data.Linq.Mapping.ParameterAttribute(Name="NgayTraPhong", DbType="DateTime2")] System.Nullable<System.DateTime> ngayTraPhong, 
+			[global::System.Data.Linq.Mapping.ParameterAttribute(Name="SucChuaToiDa", DbType="Int")] System.Nullable<int> sucChuaToiDa)
 		{
 			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ngayNhanPhong, ngayTraPhong, sucChuaToiDa);
 			return ((ISingleResult<sp_TimPhongTrongResult>)(result.ReturnValue));

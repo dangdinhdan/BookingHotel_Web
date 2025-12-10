@@ -98,8 +98,8 @@ INSERT INTO tbl_VaiTro(VaiTro) values ('admin')
 go
 INSERT INTO tbl_VaiTro(VaiTro) values ('customer')
 go
-INSERT INTO tbl_TaiKhoan(HoTen,Email,MatKhau,SoDienThoai,DiaChi,VaiTro) values ('Admin','admin@gmail.com','1','0888888888','hn','admin'
-);
+INSERT INTO tbl_TaiKhoan(HoTen,Email,MatKhau,SoDienThoai,DiaChi,VaiTro) 
+values ('Admin','admin@gmail.com','1','0888888888','hn','admin');
 
 go
 
@@ -152,7 +152,6 @@ SELECT
 FROM tbl_GiaoDich gd
 GROUP BY YEAR(gd.Create_at), MONTH(gd.Create_at);
 go
-
 
 CREATE OR ALTER PROCEDURE sp_TimPhongTrong
     @NgayNhanPhong DATETIME2,
