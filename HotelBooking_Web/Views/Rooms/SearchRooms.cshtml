@@ -5,7 +5,7 @@
     var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN"); //chuyen tien vi en top 1 the gioi
 }
 
-<section class="section">
+<section class="section" style=" align-items:center">
     <h2>Found result</h2>
     <div class="muted" id="searchSummary">Tim thay <strong> @Model.Count()</strong> phong trong phu hop</div>
 
@@ -31,43 +31,14 @@
         <button type="submit" class=" btn btn-primary btn-filter"> Loc phong </button>
     </form>
 </section>
-    <!--<div class="search-card" style="margin-top:16px">
-
-
-        <div class="form-control" style="flex:1; padding-right: 20px ; width: 450px ">
-            <label class="label">Ngày nhận / trả</label>
-            <div>
-                <input id="checkin_search" type="date">
-                <input id="checkout_search" type="date">
-            </div>
-        </div>
-
-        <div class="form-control" style="width:160px;">
-            <label class="label">Số khách</label>
-            <select id="guests">
-                <option value="0">Tất cả</option>
-                <option value="1">1 khách</option>
-                <option value="2">2 khách</option>
-                <option value="3">3 khách</option>
-                <option value="4">4 khách</option>
-            </select>
-        </div>
-
-        <div class="search-actions">
-            <button id="searchBtn" class="btn btn-primary">Lọc phòng</button>
-        </div>
-    </div>-->
-
-    @*<div style="height:12px"></div>
-        <div id="roomsGrid" class="grid"></div>*@
-<!--</section>-->
+   
 
 <section id="rooms" class="section">
     <div class="section-head">
         <h2>Các loại phòng</h2>
     </div>
 
-    <div class="rooms-grid">
+    <div class="room-grid-new">
 
         @if (Model == null || !Model.Any())
         {
@@ -89,25 +60,29 @@
                         </div>
 
                         <div class="room-info-new">
-                            <h3 class="room-title">@room.TenLoaiPhong - @room.SoPhong</h3>
+                            <div>
+                                <h3 class="room-title">@room.TenLoaiPhong - @room.SoPhong</h3>
 
-                            <p class="room-desc-new">
-                                @(room.MoTa ?? "phong day du tien nghi, view dep, thoang mat bla bla bla..." )
-                            </p>
+                                <p class="room--desc-new">
+                                    @(room.MoTa ?? "phong day du tien nghi, view dep, thoang mat bla bla bla..." )
+                                </p>
+                            </div>
 
                             <div class="room-action-new">
                                 <div class="price-container">
                                     <span>Gia: </span>
                                     <span>@room.GiaMoiDem.ToString("C0", culture) / dem</span>
                                 </div>
+
+                                <a href="@Url.Action("Detail", "Rooms", new { id = room.PhongID })" class="btn-book">Chon phong</a>
+
                             </div>
-                            <a href="~/Rooms/Detail.cshtml" class="btn-book">chon phonng nay </a>
-                            <a href="@Url.Action("Detail", "Rooms", new { id = room.PhongID })" class=" btn-book">Chon phong</a>
+                           
                         </div>
                     </div>
                 }
         }
-
+    </div>
 </section>
 
 @section Scripts {
