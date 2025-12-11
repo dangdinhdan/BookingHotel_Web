@@ -15316,7 +15316,7 @@ html.maximized-card {
 .img-size-64,
 .img-size-50,
 .img-size-32 {
-  height: auto;
+    height: auto;
 }
 
 .img-size-64 {
@@ -15330,6 +15330,7 @@ html.maximized-card {
 .img-size-32 {
   width: 32px;
 }
+
 
 /* ==========================================================================
    AdminLTE Accessibility Styles - WCAG 2.1 AA Compliance

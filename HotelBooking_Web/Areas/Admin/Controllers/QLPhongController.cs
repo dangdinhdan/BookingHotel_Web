@@ -40,10 +40,16 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
         {
             var model = service.LayThongTinViewSua(id);
 
+            var item = new chitietphong
+            {
+                ThongTinPhong = model,
+                DSAnh = db.tbl_PhongImages.Where(o=>o.PhongID == id)
+            };
 
-            return View(model);
+            return View(item);
         }
 
+        
 
         //public string Insert()
         //{
@@ -106,13 +112,13 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
                 string fileName = Path.GetFileName(txt_HinhAnh.FileName);
 
                 // Đường dẫn lưu trên server
-                string path = Path.Combine(Server.MapPath("~/Assets/img/credit"), fileName);
+                string path = Path.Combine(Server.MapPath("~/Assets/img/rooms"), fileName);
 
                 // Lưu file vật lý
                 txt_HinhAnh.SaveAs(path);
 
                 // Lưu đường dẫn vào DB
-                HinhAnh_str = "/Assets/img/credit/" + fileName;
+                HinhAnh_str = "/Assets/img/rooms/" + fileName;
             }
 
             var qr = service.Sua(PhongID_int,SoPhong_str, LoaiPhong_int, GiaMoiDem_del, SucChuaToiDa_int, MoTa_str, HinhAnh_str);
@@ -126,6 +132,98 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
 
             return JsonConvert.SerializeObject(qr);
         }
+
+
+
+        [HttpPost]
+        public ActionResult UploadImages(int PhongID, IEnumerable<HttpPostedFileBase> files)
+        {
+            try
+            {
+                if (files == null || !files.Any())
+                {
+                    return Json(new { success = false, message = "Không có file nào được tải lên!" });
+                }
+
+                string folderPath = Server.MapPath("~/Assets/img/rooms");
+
+                // Tạo thư mục nếu chưa có
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                foreach (var file in files)
+                {
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        // Kiểm tra loại file cho an toàn
+                        var ext = Path.GetExtension(file.FileName).ToLower();
+
+                        string[] allowExt = { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+
+                        if (!allowExt.Contains(ext))
+                        {
+                            return Json(new
+                            {
+                                success = false,
+                                message = "File không hợp lệ! Chỉ chấp nhận jpg, png, gif."
+                            });
+                        }
+
+                        // Tạo tên file duy nhất
+                        string fileName = Guid.NewGuid().ToString() + ext;
+                        string path = Path.Combine(folderPath, fileName);
+
+                        // Lưu file vào thư mục
+                        file.SaveAs(path);
+
+                        // Lưu vào DB
+                        tbl_PhongImage img = new tbl_PhongImage
+                        {
+                            PhongID = PhongID,
+                            Url = "/Assets/img/rooms/" + fileName
+                        };
+
+                        db.tbl_PhongImages.InsertOnSubmit(img);
+                    }
+                }
+
+                db.SubmitChanges();
+
+                return Json(new { success = true, message = "Upload ảnh thành công!" });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Lỗi: " + ex.Message });
+            }
+        }
+
+
+        [HttpPost]
+        public JsonResult DeleteImage(int id)
+        {
+            var img = db.tbl_PhongImages.SingleOrDefault(x => x.PhongImages == id);
+
+            if (img == null)
+            {
+                return Json(new { status = false });
+            }
+
+            
+            string fullPath = Server.MapPath(img.Url);
+            if (System.IO.File.Exists(fullPath))
+            {
+                System.IO.File.Delete(fullPath);
+            }
+
+            
+            db.tbl_PhongImages.DeleteOnSubmit(img);
+            db.SubmitChanges();
+
+            return Json(new { status = true });
+        }
+
     }
 
 }

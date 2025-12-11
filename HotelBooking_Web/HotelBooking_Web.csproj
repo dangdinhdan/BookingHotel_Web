@@ -350,6 +350,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Assets\img\rooms\" />
     <Folder Include="Views\IdentityConfig\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
