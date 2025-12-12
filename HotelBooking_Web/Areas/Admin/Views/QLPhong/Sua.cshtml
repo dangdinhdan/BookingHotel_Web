@@ -25,17 +25,20 @@
 <div class="card">
     <div class="card-header p-2">
         <ul class="nav nav-pills">
-            <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>
+            @*<li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>
             <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
-            <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
+            <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>*@
+            <li class="nav-item"><a class="nav-link active" href="#DSPhong" data-toggle="tab">Danh sách phòng</a></li>
+            <li class="nav-item"><a class="nav-link" href="#Anhphong" data-toggle="tab">Ảnh</a></li>
         </ul>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
         <div class="tab-content">
-            <div class="active tab-pane" id="activity">
+            @*<div class="active tab-pane" id="activity">*@
+            <div class="tab-pane active" id="DSPhong">
                 <!-- Post -->
-                
+
                 <div class="app-content">
                     <!--begin::Container-->
                     <div class="container-fluid">
@@ -119,23 +122,24 @@
                     </div>
                     <!--end::Container-->
                 </div>
-                
+
                 <!-- /.post -->
             </div>
             <!-- /.tab-pane -->
-            <div class="tab-pane" id="timeline">
-                <!-- The timeline -->
-                <h3>đây là timeline</h3>
-            </div>
-            <!-- /.tab-pane -->
+            @*<div class="tab-pane" id="timeline">*@
+                <div class="tab-pane" id="Anhphong">
+                    <!-- The timeline -->
+                    <h3>đây là timeline</h3>
+                </div>
+                <!-- /.tab-pane -->
 
-            <div class="tab-pane" id="settings">
-                <form class="form-horizontal">
-                    <h3> đây là setting</h3>
-                </form>
+                <div class="tab-pane" id="settings">
+                    <form class="form-horizontal">
+                        <h3> đây là setting</h3>
+                    </form>
+                </div>
+                <!-- /.tab-pane -->
             </div>
-            <!-- /.tab-pane -->
-        </div>
         <!-- /.tab-content -->
     </div><!-- /.card-body -->
 </div>

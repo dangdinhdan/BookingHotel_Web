@@ -487,6 +487,8 @@ select {
     gap: 20px;
     margin-top: 20px;
     width: 80%;
+    max-width: 1200px;
+    margin: 20px auto;
 }
 
 .room-card-new {
@@ -498,7 +500,7 @@ select {
     display: flex;
     flex-direction: row;
     transition: transform 0.2s, box-shadow 0.2s;
-    min-height: 200px;
+    min-height: 236px;
 }
 
     .room-card-new:hover {
@@ -507,7 +509,7 @@ select {
     }
 
 .room-img-wrapper {
-    height: auto;
+    aspect-ratio: 1.36/1;
     overflow: hidden;
     width: 36%;
     min-width: 200px;
@@ -518,6 +520,7 @@ select {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
     transition: transform 0.3s;
 }
 .room-card-new:hover .room-img {
@@ -739,6 +742,36 @@ footer {
     padding: 20px;
 }
 
+.room-gallery {
+    flex: 3;
+    position: relative;
+}
+
+.slide-container {
+    position: relative;
+    overflow: hidden;
+    width: 90%;
+    padding-top: 56.25%; /* Tỷ lệ 16:9 */
+    border-radius: var(--radius);
+    background: #f0f0f0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.my-slide {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.slide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
 .room-images {
     flex: 1;
     min-width: 300px;
@@ -752,8 +785,58 @@ footer {
 }
 
 .room-info {
-    flex: 1;
-    min-width: 280px;
+    flex: 2;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: auto;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    transition: 0.3s ease;
+    user-select: none;
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    z-index: 10;
+}
+
+.next {
+    right: 10px;
+}
+
+.prev {
+    left: 10px;
+}
+
+    .prev:hover, .next:hover {
+        background-color: rgba(0,0,0,0.8);
+    }
+
+/* Hiệu ứng Fade */
+.fade-anim {
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+
+    to {
+        opacity: 1
+    }
 }
 
 /*button view all*/
@@ -1592,7 +1675,7 @@ body {
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px 15px;
+    padding: 9px 15px;
 }
 
 .profile-page {
