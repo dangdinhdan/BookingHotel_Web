@@ -54,7 +54,7 @@
 
                                             <div class="col-md-12">
                                                 <label for="txt_SoPhong" class="form-label">số phòng</label>
-                                                <input class="form-control" type="text" id="txt_SoPhong" name="txt_SoPhong" value="@Model.ThongTinPhong.Phong.SoPhong">
+                                                <input class="form-control" type="text" id="txt_SoPhong" name="txt_SoPhong" value="@Model.ThongTinPhong.Phong.SoPhong" required>
                                             </div>
 
                                             <div class="col-md-12">
@@ -81,17 +81,17 @@
 
                                             <div class="col-md-12">
                                                 <label for="txt_GiaMoiDem" class="form-label">Giá mỗi đêm</label>
-                                                <input type="number" step="0.01" class="form-control" id="txt_GiaMoiDem" name="txt_GiaMoiDem" value="@Model.ThongTinPhong.Phong.GiaMoiDem">
+                                                <input type="number" step="0.01" class="form-control" id="txt_GiaMoiDem" name="txt_GiaMoiDem" value="@Model.ThongTinPhong.Phong.GiaMoiDem" required>
                                             </div>
 
 
                                             <div class="mb-3">
                                                 <label for="txt_SucChuaToiDa" class="form-label">Sức chứa tối đa</label>
-                                                <input type="number" min="1" step="1" class="form-control" id="txt_SucChuaToiDa" name="txt_SucChuaToiDa" value="@Model.ThongTinPhong.Phong.SucChuaToiDa">
+                                                <input type="number" min="1" step="1" class="form-control" id="txt_SucChuaToiDa" name="txt_SucChuaToiDa" value="@Model.ThongTinPhong.Phong.SucChuaToiDa" required>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="txt_MoTa" class="form-label">Mô tả</label>
-                                                <input type="text" class="form-control" id="txt_MoTa" name="txt_MoTa" value="@Model.ThongTinPhong.Phong.MoTa">
+                                                <input type="text" class="form-control" id="txt_MoTa" name="txt_MoTa" value="@Model.ThongTinPhong.Phong.MoTa" required>
                                             </div>
 
                                             <div class="input-group mb-3">
@@ -102,7 +102,7 @@
                                         </div>
 
                                         <div class="card-footer">
-                                            <button type="button" id="btn_sua" class="btn btn-primary">Sửa phòng</button>
+                                            <button type="submit" class="btn btn-primary btn_sua">Sửa phòng</button>
                                         </div>
 
                                     </form>
@@ -250,79 +250,82 @@
 
 
 <script>
-    $("#btn_sua").click(function () {
-        var form = $('#form-act')[0];
-        var formData = new FormData(form);
+    $(document).ready(function () {
+        $('#form-act').on('submit', function (e) {
+            e.preventDefault();
 
-        $.ajax({
-            type: "POST",
-            data: formData,
-            //data: JSON.stringify(lst),
-            contentType: "application/json; charset=utf-8",
-            url: window.location.origin + '/Admin/QLPhong/Edit',
-            processData: false,
-            contentType: false,
-            cache: false,
-            success: function (response) {
-                console.log(response);
+            var form = $('#form-act')[0];
+            var formData = new FormData(form);
 
-                var rs = JSON.parse(response);
+            $.ajax({
+                type: "POST",
+                data: formData,
+                //data: JSON.stringify(lst),
+                contentType: "application/json; charset=utf-8",
+                url: window.location.origin + '/Admin/QLPhong/Edit',
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function (response) {
+                    console.log(response);
 
-                if (rs.ErrCode == 1) {
-                    window.location.href = '../Index';
-                    alert(rs.ErrDesc);
+                    var rs = JSON.parse(response);
+
+                    if (rs.ErrCode == 1) {
+                        window.location.href = '../Index';
+                        alert(rs.ErrDesc);
+                    }
+                    else {
+
+                        alert(rs.ErrDesc);
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
                 }
-                else {
-
-                    alert(rs.ErrDesc);
-                }
-            },
-            error: function (data) {
-                console.log(data);
-            }
+            });
         });
     });
-
 </script>
 
 <script>
     $("#btnUpload").click(function () {
 
-    var files = $("#files")[0].files;
+        var files = $("#files")[0].files;
 
-    if (files.length === 0) {
-        $("#msg").html('<div class="alert alert-warning">Vui lòng chọn ít nhất 1 ảnh!</div>');
-        return;
-    }
-
-    var formData = new FormData();
-
-    for (var i = 0; i < files.length; i++) {
-        formData.append("files", files[i]);
-    }
-
-    formData.append("PhongID", @Model.ThongTinPhong.Phong.PhongID);
-
-    $.ajax({
-        url: window.location.origin + '/Admin/QLPhong/UploadImages',
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function (rs) {
-            if (rs.success) {
-                $("#msg").html('<div class="alert alert-success">' + rs.message + '</div>');
-                setTimeout(() => location.reload(), 300);
-            } else {
-                $("#msg").html('<div class="alert alert-danger">' + rs.message + '</div>');
-            }
-        },
-        error: function () {
-            $("#msg").html('<div class="alert alert-danger">Upload thất bại!</div>');
+        if (files.length === 0) {
+            $("#msg").html('<div class="alert alert-warning">Vui lòng chọn ít nhất 1 ảnh!</div>');
+            return;
         }
-    });
 
-});
+        var formData = new FormData();
+
+        for (var i = 0; i < files.length; i++) {
+            formData.append("files", files[i]);
+        }
+
+        formData.append("PhongID", @Model.ThongTinPhong.Phong.PhongID);
+
+        $.ajax({
+            url: window.location.origin + '/Admin/QLPhong/UploadImages',
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (rs) {
+                if (rs.success) {
+                    $("#msg").html('<div class="alert alert-success">' + rs.message + '</div>');
+                    setTimeout(() => location.reload(), 300);
+                } else {
+                    $("#msg").html('<div class="alert alert-danger">' + rs.message + '</div>');
+                }
+            },
+            error: function () {
+                $("#msg").html('<div class="alert alert-danger">Upload thất bại!</div>');
+            }
+        });
+
+    });
 
 </script>
 
