@@ -1872,3 +1872,20 @@ body {
     font-size: 14px;
     text-align: center;
 }
+.forgot-pass-container {
+    text-align: right; 
+    margin-top: 8px; 
+    margin-bottom: 5px;
+}
+
+.forgot-pass-link {
+    font-size: 13px;
+    color: #007bff; 
+    text-decoration: none;
+    font-weight: 500;
+}
+
+    .forgot-pass-link:hover {
+        text-decoration: underline; 
+        color: #0056b3;
+    }

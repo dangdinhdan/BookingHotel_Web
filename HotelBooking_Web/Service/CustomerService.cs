@@ -8,128 +8,176 @@ namespace HotelBooking_Web.Services
 {
     public class CustomerService
     {
-        private readonly HotelDbContext _db;
+        private readonly DataClasses1DataContext db;
+
         public CustomerService()
         {
-            _db = new HotelDbContext();
+            db = new DataClasses1DataContext();
         }
+
         public bool IsEmailExist(string email)
         {
-            return _db.TaiKhoans.Any(c => c.Email == email);
+            return db.tbl_TaiKhoans.Any(c => c.Email == email);
         }
+
         public string HashPassword(string password)
         {
-            using (SHA256 sha = SHA256.Create())
-            {
-                var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return BitConverter.ToString(bytes).Replace("-", "").ToLower();
-            }
+            //using (SHA256 sha = SHA256.Create())
+            //{
+            //    var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
+            //    return BitConverter.ToString(bytes).Replace("-", "").ToLower();
+            //}
+            return password;
         }
 
-        public void RegisterCustomer(TaiKhoanModel customer, string password) 
+        public void RegisterCustomer(TaiKhoanModel model, string rawPassword)
         {
-            customer.MatKhau = HashPassword(password);
-            customer.ConfirmPassword = customer.MatKhau;
-            customer.VaiTro = "customer";
-            customer.Create_at = DateTime.Now;
-            customer.isDelete = false;
-
-            if (string.IsNullOrEmpty(customer.SoDienThoai))
+            var newAccount = new tbl_TaiKhoan
             {
-                customer.SoDienThoai = "0000000000";
-            }
+                HoTen = model.HoTen,
+                Email = model.Email,
+                SoDienThoai = string.IsNullOrEmpty(model.SoDienThoai) ? "0000000000" : model.SoDienThoai,
+                DiaChi = string.IsNullOrEmpty(model.DiaChi) ? "Chưa cập nhật" : model.DiaChi,
+                //MatKhau = HashPassword(rawPassword),
+                MatKhau = rawPassword,
+                VaiTro = "customer",
+                Create_at = DateTime.Now,
+                isDelete = false
+            };
 
-            if (string.IsNullOrEmpty(customer.DiaChi))
-            {
-                customer.DiaChi = "Chưa cập nhật";
-            }
-
-            _db.TaiKhoans.Add(customer);
-            _db.SaveChanges();
+            db.tbl_TaiKhoans.InsertOnSubmit(newAccount);
+            db.SubmitChanges();
         }
 
-        public TaiKhoanModel GetCustomerByEmail(string email)
+        public tbl_TaiKhoan GetAccount(string email)
         {
-            return _db.TaiKhoans.FirstOrDefault(u => u.Email == email);
+            return db.tbl_TaiKhoans.FirstOrDefault(u => u.Email == email && u.isDelete == false);
+        }
+
+        public tbl_TaiKhoan GetAccountIncludeDeleted(string email)
+        {
+            return db.tbl_TaiKhoans.FirstOrDefault(u => u.Email == email);
         }
 
         public void UpdateProfile(string email, EditProfileViewModel model)
         {
-            var user = _db.TaiKhoans.FirstOrDefault(u => u.Email == email);
+            var user = db.tbl_TaiKhoans.FirstOrDefault(u => u.Email == email);
             if (user != null)
             {
-                user.HoTen = model.TenNguoiDung;     
+                user.HoTen = model.TenNguoiDung;
                 user.SoDienThoai = model.SoDienThoai;
-                user.DiaChi = model.Address;         
-
+                user.DiaChi = model.Address;
                 user.Update_at = DateTime.Now;
 
-                user.ConfirmPassword = user.MatKhau;
-
-                _db.SaveChanges(); 
+                db.SubmitChanges();
             }
         }
-        public bool ChangePassword(string email, string oldPassword, string newPassword, out string error)
-        {
-            error = "";
-            var user = _db.TaiKhoans.FirstOrDefault(u => u.Email == email);
-            if (user == null) return false;
 
-            // 1. Kiểm tra mật khẩu cũ (Phải Hash xong mới so sánh được)
-            string hashedOld = HashPassword(oldPassword);
-            if (user.MatKhau != hashedOld)
-            {
-                error = "Mật khẩu hiện tại không đúng.";
-                return false;
-            }
-
-            user.MatKhau = HashPassword(newPassword);
-
-            user.ConfirmPassword = user.MatKhau;
-
-            user.Update_at = DateTime.Now;
-
-            _db.SaveChanges();
-            return true;
-        }
-        public void DeleteAccount(string email)
-        {
-            var user = _db.TaiKhoans.FirstOrDefault(u => u.Email == email);
-            if (user != null)
-            {
-                user.isDelete = true;
-                user.Delete_at = DateTime.Now;
-
-                user.ConfirmPassword = user.MatKhau;
-
-                _db.SaveChanges();
-            }
-        }
         public void RestoreCustomer(TaiKhoanModel newInfo, string password)
         {
-            var user = _db.TaiKhoans.FirstOrDefault(u => u.Email == newInfo.Email);
+            var user = db.tbl_TaiKhoans.FirstOrDefault(u => u.Email == newInfo.Email);
 
             if (user != null)
             {
                 user.HoTen = newInfo.HoTen;
                 user.SoDienThoai = newInfo.SoDienThoai;
                 user.DiaChi = newInfo.DiaChi ?? "Chưa cập nhật";
-
-                user.MatKhau = HashPassword(password);
-                user.ConfirmPassword = user.MatKhau; 
+                //user.MatKhau = HashPassword(password);
+                user.MatKhau = password;
 
                 user.isDelete = false;
                 user.Delete_at = null;
                 user.Update_at = DateTime.Now;
 
-                _db.SaveChanges();
+                db.SubmitChanges();
             }
         }
-        public TaiKhoanModel GetAccountIncludeDeleted(string email)
+
+        public bool ChangePassword(string email, string oldPassword, string newPassword, out string error)
         {
-            return _db.TaiKhoans.FirstOrDefault(u => u.Email == email);
+            error = "";
+            var user = db.tbl_TaiKhoans.FirstOrDefault(u => u.Email == email && u.isDelete == false);
+
+            if (user == null)
+            {
+                error = "Tài khoản không tồn tại.";
+                return false;
+            }
+
+            //string oldPassHash = HashPassword(oldPassword);
+            //if (user.MatKhau != oldPassHash)
+            //{ ... }
+
+            if (user.MatKhau != oldPassword)
+            {
+                error = "Mật khẩu cũ không chính xác.";
+                return false;
+            }
+
+            // user.MatKhau = HashPassword(newPassword);
+
+            user.MatKhau = newPassword;
+
+            user.Update_at = DateTime.Now;
+
+            try
+            {
+                db.SubmitChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                error = "Lỗi: " + ex.Message;
+                return false;
+            }
+        }
+
+        public void DeleteAccount(string email)
+        {
+            var user = db.tbl_TaiKhoans.FirstOrDefault(u => u.Email == email);
+            if (user != null)
+            {
+                user.isDelete = true;
+                user.Delete_at = DateTime.Now;
+
+                db.SubmitChanges();
+            }
+        }
+
+        
+
+        internal object GetCustomerByEmail(string email)
+        {
+            throw new NotImplementedException();
         }
 
 
+        public bool ResetPassword(string email, string phone, string newPassword, out string error)
+        {
+            error = "";
+
+            var user = db.tbl_TaiKhoans.FirstOrDefault(u => u.Email == email && u.SoDienThoai == phone && u.isDelete == false);
+
+            if (user == null)
+            {
+                error = "Thông tin không chính xác. Vui lòng kiểm tra lại Email và Số điện thoại.";
+                return false;
+            }
+
+            user.MatKhau = newPassword;
+            user.Update_at = DateTime.Now;
+
+            try
+            {
+                db.SubmitChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                error = "Lỗi hệ thống: " + ex.Message;
+                return false;
+            }
+        }
     }
+
 }

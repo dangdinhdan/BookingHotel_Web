@@ -1,5 +1,5 @@
 ﻿using HotelBooking_Web.Models;
-using HotelBooking_Web.Services; // <-- Bổ sung using cho CustomerService
+using HotelBooking_Web.Services; 
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +11,7 @@ namespace HotelBooking_Web.Controllers
     public class TaiKhoanController : Controller
     {
         private readonly CustomerService _service = new CustomerService();
+        private DataClasses1DataContext db = new DataClasses1DataContext();
 
         private EditProfileViewModel GetMockUserProfile()
         {
@@ -86,25 +87,50 @@ namespace HotelBooking_Web.Controllers
         [HttpPost]
         public ActionResult Login(string email, string password)
         {
-            string hashedInputPassword = _service.HashPassword(password);
-
-            using (var db = new HotelDbContext())
+            if (string.IsNullOrEmpty(email))
             {
-                var user = db.TaiKhoans.FirstOrDefault(u => u.Email == email && u.MatKhau == hashedInputPassword && u.isDelete == false);
+                ModelState.AddModelError("Email", "Vui lòng nhập Email.");
+            }
+            if (string.IsNullOrEmpty(password))
+            {
+                ModelState.AddModelError("MatKhau", "Vui lòng nhập Mật khẩu.");
+            }
 
-                if (user != null)
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Email = email; 
+                return View();
+            }
+
+            var user = _service.GetAccount(email); 
+
+            if (user != null)
+            {
+                //string inputPassHash = _service.HashPassword(password);
+
+                //if (user.MatKhau == inputPassHash)
+                if (user.MatKhau == password)
                 {
-                    // THÀNH CÔNG
                     Session["UserEmail"] = user.Email;
                     Session["DisplayName"] = user.HoTen;
-                    Session["IsAdmin"] = (user.VaiTro == "Admin");
+                    Session["SoDienThoai"] = user.SoDienThoai;
+                    Session["VaiTro"] = user.VaiTro;
 
-                    return RedirectToAction("Index", "Home");
+                    Session["HoTen"] = user.HoTen;
+
+                    if (user.VaiTro != null && user.VaiTro.Trim().ToLower() == "admin")
+                    {
+                        return RedirectToAction("Index", "Home", new { area = "Admin" });
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
             }
 
-            // THẤT BẠI
-            ViewBag.Error = "Email hoặc mật khẩu không đúng. Vui lòng thử lại.";
+            ViewBag.Error = "Email hoặc mật khẩu không chính xác.";
+            ViewBag.Email = email;
             return View();
         }
 
@@ -120,32 +146,36 @@ namespace HotelBooking_Web.Controllers
             {
                 return RedirectToAction("Login");
             }
-            ViewBag.UserPhone = "0901234567";
-            ViewBag.MemberSince = "Tháng 11, 2024";
-
-            return View();
-        }
-
-        public ActionResult EditProfile()
-        {
-            if (Session["UserEmail"] == null) return RedirectToAction("Login");
-
             string email = Session["UserEmail"].ToString();
+                var item = db.tbl_TaiKhoans.FirstOrDefault(u => u.Email == email);
 
-            var user = _service.GetCustomerByEmail(email);
-
-            if (user == null) return RedirectToAction("Login");
-
-            var model = new EditProfileViewModel
-            {
-                TenNguoiDung = user.HoTen,
-                Email = user.Email,
-                SoDienThoai = user.SoDienThoai,
-                Address = user.DiaChi
-            };
-
-            return View(model);
+                if (item != null)
+                {
+                    return View(item);
+                }
+            return RedirectToAction("Login");
         }
+
+            public ActionResult EditProfile()
+            {
+                if (Session["UserEmail"] == null) return RedirectToAction("Login");
+
+                string email = Session["UserEmail"].ToString();
+
+                var user = _service.GetAccount(email);
+
+                if (user == null) return RedirectToAction("Login");
+
+                var model = new EditProfileViewModel
+                {
+                    TenNguoiDung = user.HoTen,
+                    Email = user.Email,
+                    SoDienThoai = user.SoDienThoai,
+                    Address = user.DiaChi
+                };
+
+                return View(model);
+            }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -302,6 +332,44 @@ namespace HotelBooking_Web.Controllers
                 return RedirectToAction("Login");
             }
             return View();
+        }
+
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ForgotPassword(string email, string phone, string newPassword, string confirmPassword)
+        {
+            if (string.IsNullOrEmpty(email)) ModelState.AddModelError("", "Vui lòng nhập Email.");
+            if (string.IsNullOrEmpty(phone)) ModelState.AddModelError("", "Vui lòng nhập Số điện thoại.");
+            if (string.IsNullOrEmpty(newPassword)) ModelState.AddModelError("", "Vui lòng nhập Mật khẩu mới.");
+
+            if (newPassword != confirmPassword)
+            {
+                ModelState.AddModelError("", "Mật khẩu xác nhận không khớp.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            string errorMsg = "";
+            bool result = _service.ResetPassword(email, phone, newPassword, out errorMsg);
+
+            if (result)
+            {
+                TempData["Success"] = "Lấy lại mật khẩu thành công! Hãy đăng nhập ngay.";
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                ViewBag.Error = errorMsg;
+                return View();
+            }
         }
     }
 }
