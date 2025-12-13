@@ -2,76 +2,46 @@
     ViewData["Title"] = "Trang chủ";
 }
 
-@*<section class="hero">
-    <div class="hero-inner">
-        <div class="hero-left">
-            <div class="hotel-title">Khách sạn Sunset Bay</div>
-            <div class="hotel-sub">
-                Trải nghiệm nghỉ dưỡng thoải mái bên bờ biển — phòng tiện nghi, dịch vụ chu đáo.
-            </div>
-
-            <div class="search-card">
-                <div class="form-control" style="flex:1">
-              <label class="label">Ngày nhận / trả</label>
-                    <div style="display:flex;gap:8px">
-                        <input id="checkin" type="date">
-                        <input id="checkout" type="date">
-                    </div>
-                </div>
-
-                <div class="form-control" style="width:140px">
-                    <label class="label">Khách</label>
-                    <select id="guests">
-                        <option value="1">1 khách</option>
-                        <option value="2" selected>2 khách</option>
-                        <option value="3">3 khách</option>
-                        <option value="4">4 khách</option>
-                    </select>
-                </div>
-
-                <div class="search-actions">
-                    <button id="searchBtn" class="btn btn-primary">Tìm phòng</button>
-                </div>
-            </div>
-
-            <div class="note">Đây chỉ là giao diện frontend demo. Chưa kết nối backend.</div>
-        </div>
-
-        <div class="hero-right">
-            <div class="hero-image"></div>
+<main></main>
+    <!-- HERO -->
+<section class="hero">
+    <div class="slider-background">
+        <div class="slider-track" id="sliderTrack">
+            <!-- Thứ tự: 1 -> 2 -> 3 -> 1-->
+            <div class="slide slide-1"></div>
+            <div class="slide slide-2"></div>
+            <div class="slide slide-3"></div>
+            <div class="slide slide-1"></div>
         </div>
     </div>
-</section>*@
-<main class="container"></main>
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-inner">
-            <div class="hero-left">
-                <div class="hotel-title">Khách sạn 4anhemdatai</div>
-                <div class="hotel-sub">Trải nghiệm nghỉ dưỡng thoải mái bên bờ biển — phòng tiện nghi, dịch vụ chu đáo.</div>
 
-
-
-                <div class="note">Không hỗ trợ thanh toán online</div>
-            </div>
-
-            <div class="hero-right">
-                <div class="hero-image"></div>
-            </div>
+    <div class="hero-fixed-content">
+        <div class="hotel-title">Khách sạn 4anhemdatai</div>
+        <div class="hotel-sub">
+            Trải nghiệm nghỉ dưỡng thoải mái bên bờ biển — phòng tiện nghi, dịch vụ chu đáo.
         </div>
+    </div>
 
-        <div class="search-card">
+    <div class="hero-inner-container">
+
+        <form action="@Url.Action("SearchRooms", "Rooms")" method="get" class="search-card">
+
             <div class="form-control" style="flex:1; padding-right: 20px ">
                 <label class="label">Ngày nhận / trả</label>
-                <div style="gap:8px">
-                    <input id="checkin" type="date">
-                    <input id="checkout" type="date">
+                <div style="gap:8px; display:flex;">
+                    <input type="date" id="checkin" name="checkin" required
+                           value="@DateTime.Now.ToString("yyyy-MM-dd")"
+                           style="border: 1px solid #ccc; border-radius: 10px; padding: 8px;">
+
+                    <input type="date" id="checkout" name="checkout" required
+                           value="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")"
+                           style="border: 1px solid #ccc; border-radius: 10px; padding: 8px;">
                 </div>
             </div>
 
             <div class="form-control" style="width:140px">
                 <label class="label">Khách</label>
-                <select id="guests" ; style="display:flex;gap:8px">
+                <select id="guests" name="guests" style="display:flex; gap:8px">
                     <option value="1" selected>1 khách</option>
                     <option value="2">2 khách</option>
                     <option value="3">3 khách</option>
@@ -79,19 +49,14 @@
                 </select>
             </div>
 
-            <div class="view-all-room">
-                <div class="view-all-room">
-
-                    <a href="@Url.Action("SearchRooms", "Rooms")" class="btn-view-all">
-                        Tìm phòng
-                    </a>
-
-                </div>            
+            <div class="view-all-room" style="display:flex; align-items: flex-end;">
+                <button type="submit" class="btn-view-all" style="border:none; height: 100%; cursor: pointer;">
+                    Tìm phòng
+                </button>
             </div>
-        </div>
-    </section>
-
-   
+        </form>
+    </div>
+</section>
 
     <!-- ABOUT -->
     <section id="about" class="section">

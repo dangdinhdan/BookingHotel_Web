@@ -1,4 +1,4 @@
-﻿@model HotelBooking_Web.Models.PhongViewModel
+﻿@model HotelBooking_Web.Models.chitietphong
 @{
     ViewBag.Title = "Them";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -22,124 +22,341 @@
 </div>
 
 <!--end::App Content Header-->
-<!--begin::App Content-->
-<div class="app-content">
-    <!--begin::Container-->
-    <div class="container-fluid">
-        <!--begin::Row-->
-        <div class="row g-4">
-            <!--begin::Col-->
-            <div class="col-12">
-                <!--begin::Quick Example-->
-                <div class="card card-primary card-outline mb-4">
-                    <!--begin::Header-->
+<div class="card">
+    <div class="card-header p-2">
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a class="nav-link active" href="#DSPhong" data-toggle="tab">Danh sách phòng</a></li>
+            <li class="nav-item"><a class="nav-link" href="#Anhphong" data-toggle="tab">Ảnh</a></li>
 
-                    <div class="card-header"><div class="card-title">Thông tin Phòng</div></div>
-                    <!--end::Header-->
-                    <!--begin::Form-->
-                    <form id="form-act">
+        </ul>
+    </div><!-- /.card-header -->
+    <div class="card-body">
+        <div class="tab-content">
 
-                        <div class="card-body">
+            <div class="tab-pane active" id="DSPhong">
+                <!-- Post -->
+                <div class="app-content">
 
-                            <input type="hidden" name="txt_PhongID" value="@Model.Phong.PhongID" />
+                    <div class="container-fluid">
 
-                            <div class="col-md-12">
-                                <label for="txt_SoPhong" class="form-label">số phòng</label>
-                                <input class="form-control" type="text" id="txt_SoPhong" name="txt_SoPhong" value="@Model.Phong.SoPhong">
-                            </div>
+                        <div class="row g-4">
 
-                            <div class="col-md-12">
-                                <label for="slc_LoaiPhong" class="form-label">chọn Loại phòng</label>
+                            <div class="col-12">
 
-                                <select id="slc_LoaiPhong" name="slc_LoaiPhong" class="form-control">
-                                    <option value="@Model.LoaiPhong.LoaiPhongID">@Model.LoaiPhong.TenLoaiPhong</option>
-                                    @if (Model != null && Model.DSLP.Any())
-                                    {
+                                <div class="card card-primary card-outline mb-4">
 
-                                        foreach (var item in Model.DSLP)
-                                        {
-                                            <option value="@item.LoaiPhongID">@item.TenLoaiPhong</option>
+                                    <div class="card-header"><div class="card-title">Thông tin Phòng</div></div>
 
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <option value="@Model.LoaiPhong.LoaiPhongID">@Model.LoaiPhong.TenLoaiPhong</option>
-                                    }
-                                </select>
+                                    <form id="form-act">
 
-                            </div>
+                                        <div class="card-body">
 
-                            <div class="col-md-12">
-                                <label for="txt_GiaMoiDem" class="form-label">Giá mỗi đêm</label>
-                                <input type="number" step="0.01" class="form-control" id="txt_GiaMoiDem" name="txt_GiaMoiDem" value="@Model.Phong.GiaMoiDem">
-                            </div>
+                                            <input type="hidden" name="txt_PhongID" value="@Model.ThongTinPhong.Phong.PhongID" />
+
+                                            <div class="col-md-12">
+                                                <label for="txt_SoPhong" class="form-label">số phòng</label>
+                                                <input class="form-control" type="text" id="txt_SoPhong" name="txt_SoPhong" value="@Model.ThongTinPhong.Phong.SoPhong" required>
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <label for="slc_LoaiPhong" class="form-label">chọn Loại phòng</label>
+
+                                                <select id="slc_LoaiPhong" name="slc_LoaiPhong" class="form-control">
+                                                    <option value="@Model.ThongTinPhong.LoaiPhong.LoaiPhongID">@Model.ThongTinPhong.LoaiPhong.TenLoaiPhong</option>
+                                                    @if (Model != null && Model.ThongTinPhong.DSLP.Any())
+                                                    {
+
+                                                        foreach (var item in Model.ThongTinPhong.DSLP)
+                                                        {
+                                                            <option value="@item.LoaiPhongID">@item.TenLoaiPhong</option>
+
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@Model.ThongTinPhong.LoaiPhong.LoaiPhongID">@Model.ThongTinPhong.LoaiPhong.TenLoaiPhong</option>
+                                                    }
+                                                </select>
+
+                                            </div>
+
+                                            <div class="col-md-12">
+                                                <label for="txt_GiaMoiDem" class="form-label">Giá mỗi đêm</label>
+                                                <input type="number" step="0.01" class="form-control" id="txt_GiaMoiDem" name="txt_GiaMoiDem" value="@Model.ThongTinPhong.Phong.GiaMoiDem" required>
+                                            </div>
 
 
-                            <div class="mb-3">
-                                <label for="txt_SucChuaToiDa" class="form-label">Sức chứa tối đa</label>
-                                <input type="number" min="1" step="1" class="form-control" id="txt_SucChuaToiDa" name="txt_SucChuaToiDa" value="@Model.Phong.SucChuaToiDa">
-                            </div>
-                            <div class="mb-3">
-                                <label for="txt_MoTa" class="form-label">Mô tả</label>
-                                <input type="text" class="form-control" id="txt_MoTa" name="txt_MoTa" value="@Model.Phong.MoTa">
-                            </div>
+                                            <div class="mb-3">
+                                                <label for="txt_SucChuaToiDa" class="form-label">Sức chứa tối đa</label>
+                                                <input type="number" min="1" step="1" class="form-control" id="txt_SucChuaToiDa" name="txt_SucChuaToiDa" value="@Model.ThongTinPhong.Phong.SucChuaToiDa" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="txt_MoTa" class="form-label">Mô tả</label>
+                                                <input type="text" class="form-control" id="txt_MoTa" name="txt_MoTa" value="@Model.ThongTinPhong.Phong.MoTa" required>
+                                            </div>
 
-                            <div class="input-group mb-3">
+                                            <div class="input-group mb-3">
 
-                                <input type="file" class="form-control" id="txt_HinhAnh" name="txt_HinhAnh" accept="image/*" value="@Model.Phong.HinhAnh">
-                                <label class="input-group-text" for="txt_HinhAnh">Hình ảnh</label>
+                                                <input type="file" class="form-control" id="txt_HinhAnh" name="txt_HinhAnh" accept="image/*" value="@Model.ThongTinPhong.Phong.HinhAnh">
+                                                <label class="input-group-text" for="txt_HinhAnh">Hình ảnh</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-primary btn_sua">Sửa phòng</button>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+
                             </div>
                         </div>
-                        <!--end::Body-->
-                        <!--begin::Footer-->
-                        <div class="card-footer">
-                            <button type="button" id="btn_sua" class="btn btn-primary">Sửa phòng</button>
-                        </div>
-                        <!--end::Footer-->
-                    </form>
-                    <!--end::Form-->
+                    </div>
+
+
                 </div>
-                <!--end::Quick Example-->
+                <!-- /.post -->
+
+            </div>
+            <!-- /.tab-pane -->
+            <div class="tab-pane" id="Anhphong">
+                <!-- The timeline -->
+                <div class="timeline timeline-inverse">
+                    <!-- timeline item -->
+                    <div class="app-content">
+                        <!--begin::Container-->
+                        <div class="container-fluid">
+                            <!--begin::Row-->
+                            <div class="row">
+                                <div class="col-12">
+                                    <!-- Default box -->
+                                    <div class="card">
+                                        <div class="card-header">
+
+                                            <div class="card-tools">
+                                                <button class="btn btn-primary" data-toggle="modal" data-target="#modalUploadImage">
+                                                    Thêm ảnh
+                                                </button>
+
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        
+                                                        <th class="col-lg-9" style="padding-left:160px">ảnh</th>
+                                                        <th class="col-lg-3">Thao Tác</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if (Model != null && Model.DSAnh.Any())
+                                                    {
+                                                        
+                                                        foreach (var item in Model.DSAnh)
+                                                        {
+                                                            <tr id="img-@item.PhongImages">
+                                                                
+                                                                <td style="padding-left:30px"><img class="img-fluid" style=" border-radius: 8px; padding-left: 60px; width: 256px; height: 220px; object-fit: contain; " src="@item.Url" /></td>
+                                                                <td>
+
+                                                                    <a href="javascript:void(0);" data-id="@item.PhongImages" class="btn btn-sm btn-danger btnDelete text-end">Xóa</a>
+                                                                </td>
+                                                            </tr>
+                                                            
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr>
+                                                            <td align="center">Không có bản ghi nào</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                        <!-- /.card-body -->
+
+
+                                        @*<div class="row" id="image-list">
+                                            @foreach (var img in Model.DSAnh)
+                                            {
+                                                <div class="col-md-3 text-center mb-3 image-item" id="img-@img.PhongImages">
+                                                    <img src="@img.Url" class="img-fluid rounded shadow-sm" />
+
+                                                    <button class="btn btn-danger btn-sm mt-2 btn-delete btnDelete"
+                                                            data-id="@img.PhongImages">
+                                                        Xoá ảnh
+                                                    </button>
+                                                </div>
+                                            }
+                                        </div>*@
+
+                                        <div class="card-footer"></div>
+                                        <!-- /.card-footer-->
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                            </div>
+                            <!--end::Row-->
+                        </div>
+                    </div>
+                    <!-- END timeline item -->
+
+                    <div>
+                        <i class="far fa-clock bg-gray"></i>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <!--end::Container-->
+        <!-- /.tab-content -->
+    </div><!-- /.card-body -->
 </div>
-<!--end::App Content-->
+
+<!-- Modal Upload Ảnh -->
+<div class="modal fade" id="modalUploadImage" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">Upload Ảnh Phòng</h5>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label for="files" class="font-weight-bold">Chọn nhiều ảnh:</label>
+                    <input type="file" id="files" multiple class="form-control" />
+                </div>
+
+                <div id="msg"></div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button id="btnUpload" class="btn btn-success">
+                    <i class="fas fa-upload"></i> Upload ảnh
+                </button>
+                <button class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
 
 <script>
-    $("#btn_sua").click(function () {
-        var form = $('#form-act')[0];
-        var formData = new FormData(form);
+    $(document).ready(function () {
+        $('#form-act').on('submit', function (e) {
+            e.preventDefault();
 
-        $.ajax({
-            type: "POST",
-            data: formData,
-            //data: JSON.stringify(lst),
-            contentType: "application/json; charset=utf-8",
-            url: window.location.origin + '/Admin/QLPhong/Edit',
-            processData: false,
-            contentType: false,
-            cache: false,
-            success: function (response) {
-                console.log(response);
+            var form = $('#form-act')[0];
+            var formData = new FormData(form);
 
-                var rs = JSON.parse(response);
+            $.ajax({
+                type: "POST",
+                data: formData,
+                //data: JSON.stringify(lst),
+                contentType: "application/json; charset=utf-8",
+                url: window.location.origin + '/Admin/QLPhong/Edit',
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function (response) {
+                    console.log(response);
 
-                if (rs.ErrCode == 1) {
-                    window.location.href = '../Index';
-                    alert(rs.ErrDesc);
+                    var rs = JSON.parse(response);
+
+                    if (rs.ErrCode == 1) {
+                        window.location.href = '../Index';
+                        alert(rs.ErrDesc);
+                    }
+                    else {
+
+                        alert(rs.ErrDesc);
+                    }
+                },
+                error: function (data) {
+                    console.log(data);
                 }
-                else {
-
-                    alert(rs.ErrDesc);
-                }
-            },
-            error: function (data) {
-                console.log(data);
-            }
+            });
         });
     });
+</script>
 
+<script>
+    $("#btnUpload").click(function () {
+
+        var files = $("#files")[0].files;
+
+        if (files.length === 0) {
+            $("#msg").html('<div class="alert alert-warning">Vui lòng chọn ít nhất 1 ảnh!</div>');
+            return;
+        }
+
+        var formData = new FormData();
+
+        for (var i = 0; i < files.length; i++) {
+            formData.append("files", files[i]);
+        }
+
+        formData.append("PhongID", @Model.ThongTinPhong.Phong.PhongID);
+
+        $.ajax({
+            url: window.location.origin + '/Admin/QLPhong/UploadImages',
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (rs) {
+                if (rs.success) {
+                    $("#msg").html('<div class="alert alert-success">' + rs.message + '</div>');
+                    setTimeout(() => location.reload(), 300);
+                } else {
+                    $("#msg").html('<div class="alert alert-danger">' + rs.message + '</div>');
+                }
+            },
+            error: function () {
+                $("#msg").html('<div class="alert alert-danger">Upload thất bại!</div>');
+            }
+        });
+
+    });
+
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $('body').on('click', '.btnDelete', function () {
+            var id = $(this).data("id")
+            var conf = confirm("Bạn có chắc muốn xoá ảnh này?");
+            if (conf == true) {
+                $.ajax({
+                    url: window.location.origin + '/Admin/QLPhong/DeleteImage',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        if (rs.status == true) {
+                            $("#img-" + id).fadeOut(300, function () {
+                                $(this).remove();
+                            });
+                        } else {
+                            alert("Xoá không thành công!");
+                        }
+                    },
+                    error: function () {
+                        alert("Lỗi trong quá trình xóa!");
+                    }
+                });
+            }
+
+        });
+    });
 </script>

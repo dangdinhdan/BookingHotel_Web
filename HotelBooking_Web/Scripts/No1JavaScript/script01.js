@@ -3,94 +3,6 @@
    Xử lý hiển thị phòng, tìm kiếm, modal và form đặt phòng
 ================================= */
 
-/* --- Mock dữ liệu phòng --- */
-const ROOMS = [
-    {
-        id: 1,
-        title: "Superior Sea View",
-        price: 120,
-        beds: 2,
-        guests: 3,
-        rating: 3.6,
-        img: "https://images.unsplash.com/photo-1501117716987-c8e7b7b3b6b3?q=80&w=1200&auto=format&fit=crop",
-        amenities: ["WiFi", "Breakfast", "AC"],
-        description: "Phòng hướng biển, có ban công, view đẹp.",
-    },
-    {
-        id: 2,
-        title: "Deluxe King Room",
-        price: 150,
-        beds: 1,
-        guests: 2,
-        rating: 3.6,
-        img: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=1200&auto=format&fit=crop",
-        amenities: ["WiFi", "Pool", "Gym"],
-        description: "Phòng rộng với giường king, thích hợp cho cặp đôi.",
-    },
-    {
-        id: 3,
-        title: "Family Suite",
-        price: 200,
-        beds: 3,
-        guests: 5,
-        rating: 3.6,
-        img: "https://images.unsplash.com/photo-1554995207-c18c203602cb?q=80&w=1200&auto=format&fit=crop",
-        amenities: ["Kitchen", "Parking", "Breakfast"],
-        description: "Suite cho gia đình, phòng khách tách biệt.",
-    },
-    {
-        id: 4,
-        title: "Budget Single",
-        price: 45,
-        beds: 1,
-        guests: 1,
-        rating: 3.6,
-        img: "https://images.unsplash.com/photo-1505691723518-36a0f3d9d6b2?q=80&w=1200&auto=format&fit=crop",
-        amenities: ["WiFi"],
-        description: "Phòng giá rẻ, gọn nhẹ, thích hợp ở 1 người.",
-    },
-    {
-        id: 5,
-        title: "Executive Room",
-        price: 180,
-        beds: 2,
-        guests: 3,
-        rating: 3.6,
-        img: "https://images.unsplash.com/photo-1560343090-f0409e92791a?q=80&w=1200&auto=format&fit=crop",
-        amenities: ["WiFi", "Workspace", "AC"],
-        description: "Phòng dành cho doanh nhân, có bàn làm việc.",
-    },
-];
-
-///* --- Gắn năm hiện tại vào footer --- */
-//document.getElementById("year").textContent = new Date().getFullYear();
-
-
-/* --- Tìm kiếm --- */
-//document.getElementById("searchBtn").addEventListener("click", () => {
-//    const guests = Number(document.getElementById("guests").value);
-//    const checkin = document.getElementById("checkin").value;
-//    const checkout = document.getElementById("checkout").value;
-
-//    if (checkin && checkout && new Date(checkin) > new Date(checkout)) {
-//        alert("Ngày nhận phải trước ngày trả.");
-//        return;
-//    }
-
-//    const filtered = ROOMS.filter((r) => r.guests >= guests);
-//    renderRooms(filtered);
-
-//    let label = `${filtered.length} loại phòng`;
-//    if (checkin && checkout) label += ` · ${checkin} → ${checkout}`;
-//    resultsInfo.textContent = label;
-
-//    document.getElementById("rooms").scrollIntoView({
-//        behavior: "smooth",
-//        block: "start",
-//    });
-
-
-
 
 /* --- SCROLL MƯỢT THÔNG MINH CHO MVC --- */
 document.querySelectorAll('a[href*="#"]').forEach(anchor => {
@@ -267,4 +179,42 @@ document.getElementById("viewAllBtn")?.addEventListener("click", () => {
 
     // 3. Điều hướng trang
     window.location.href = "/Rooms/SearchRooms";
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const track = document.getElementById('sliderTrack');
+    const slides = track.querySelectorAll('.slide');
+
+    // Tổng số slide (Bao gồm cả bản sao)
+    const totalSlides = slides.length;
+    let currentIndex = 0;
+    const transitionTime = 800; // 800ms (0.8 giây) - Khớp với CSS transition nếu có
+    const intervalTime = 4000;  // 4 giây chuyển ảnh 1 lần
+
+    function runSlider() {
+        // 1. Tăng index để chuyển sang slide tiếp theo
+        currentIndex++;
+
+        // Bật lại hiệu ứng chuyển động (vì có thể nó đã bị tắt ở bước reset)
+        track.style.transition = `transform ${transitionTime}ms ease-in-out`;
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+        // 2. Kiểm tra: Nếu đang ở slide cuối cùng (Slide Clone)
+        if (currentIndex === totalSlides - 1) {
+            // Đợi cho hiệu ứng trượt hoàn tất (sau 800ms)
+            setTimeout(() => {
+                // Tắt hiệu ứng chuyển động để người dùng không thấy cảnh tua lại
+                track.style.transition = 'none';
+
+                // Reset về slide đầu tiên (Slide 0)
+                currentIndex = 0;
+                track.style.transform = `translateX(0)`;
+
+            }, transitionTime);
+        }
+    }
+
+    // Chạy tự động
+    setInterval(runSlider, intervalTime);
 });

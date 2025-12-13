@@ -12,4 +12,10 @@ namespace HotelBooking_Web.Models
         public IEnumerable<tbl_LoaiPhong> DSLP { get; set; }
     }
 
+
+    public class chitietphong
+    {
+        public PhongViewModel ThongTinPhong { get; set; }
+        public IEnumerable<tbl_PhongImage> DSAnh { get; set; }
+    }
 }
