@@ -18,13 +18,48 @@
             </div>
         </div>
 
+
+
+        <div class="search-group short">
+
+            <label class="label">Loại phòng</label>
+            <select name="loaiPhongID" class="form-input-new">
+                <option value="">-- Tất cả --</option>
+
+                @if (ViewBag.LoaiPhongs != null)
+                {
+                    foreach (var item in (List<HotelBooking_Web.Models.tbl_LoaiPhong>)ViewBag.LoaiPhongs)
+                    {
+                        // Kiểm tra: Nếu ID này trùng với ID khách vừa chọn thì thêm chữ 'selected'
+                        int? selectedId = ViewBag.SelectedLoaiPhongID as int?;
+                        var isSelected = (ViewBag.SelectedLoaiPhongID == item.LoaiPhongID) ? "selected" : "";
+
+                        <option value="@item.LoaiPhongID" @isSelected>
+                            @item.TenLoaiPhong
+                        </option>
+                    }
+                }
+
+            </select>
+        </div>
+        <div class="search-group short">
+            <label class="label">Mức giá mong muốn</label>
+            <select name="priceRange" class="form-input-new">
+                <option value="">Muc gia</option>
+                <option value="1" @(ViewBag.PriceRange == 1 ? "selected" : "")>Dưới 5 lốp</option>
+                <option value="2" @(ViewBag.PriceRange == 2 ? "selected" : "")>Dưới 1 củ</option>
+                <option value="3" @(ViewBag.PriceRange == 3 ? "selected" : "")>Dưới 2 củ</option>
+                <option value="4" @(ViewBag.PriceRange == 4 ? "selected" : "")>Trên 2 củ</option>
+            </select>
+        </div>
+
         <div class="search-group short">
             <label class=" label">So khach</label>
             <select name="guests" class="form-input">
-                <option value="0" @(ViewBag.Guests ==1 ? "selected" : "")>1 khach</option>
-                <option value="2" @(ViewBag.Guests ==2 ? "selected" : "")>2 khach</option>
-                <option value="3" @(ViewBag.Guests ==3 ? "selected" : "")>3 khach</option>
-                <option value="4" @(ViewBag.Guests ==4 ? "selected" : "")>4 khach</option>
+                <option value="0" @(ViewBag.Guests == 1 ? "selected" : "")>1 khach</option>
+                <option value="2" @(ViewBag.Guests == 2 ? "selected" : "")>2 khach</option>
+                <option value="3" @(ViewBag.Guests == 3 ? "selected" : "")>3 khach</option>
+                <option value="4" @(ViewBag.Guests == 4 ? "selected" : "")>4 khach</option>
             </select>
         </div>
 
@@ -55,7 +90,7 @@
 
                     <div class="room-card-new">
                         <div class="room-img-wrapper">
-                            <img src="@roomImage" alt="@room.TenLoaiPhong ">
+                            <img class="room-img" src="@roomImage" alt="@room.TenLoaiPhong ">
 
                         </div>
 
@@ -80,7 +115,7 @@
                            
                         </div>
                     </div>
-                }
+            }
         }
     </div>
 </section>

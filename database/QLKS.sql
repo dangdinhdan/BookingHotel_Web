@@ -221,6 +221,7 @@ BEGIN
     SELECT 
         p.PhongID,
         p.SoPhong,
+		p.LoaiPhongID,
         lp.TenLoaiPhong,
         p.GiaMoiDem,
         p.SucChuaToiDa,

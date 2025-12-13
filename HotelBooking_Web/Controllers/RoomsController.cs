@@ -1,10 +1,10 @@
 
+    using HotelBooking_Web.Models;
 ﻿    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
-    using HotelBooking_Web.Models;
 
 namespace HotelBooking_Web.Controllers
 {
@@ -13,7 +13,7 @@ namespace HotelBooking_Web.Controllers
                 private DataClasses1DataContext db = new DataClasses1DataContext(System.Configuration.ConfigurationManager.ConnectionStrings["QLKSLenh"].ConnectionString);
             // GET: Rooms
 
-            public ActionResult SearchRooms(DateTime? checkin, DateTime? checkout, int? guests)
+            public ActionResult SearchRooms(DateTime? checkin, DateTime? checkout, int? guests, int? priceRange, int? loaiPhongID)
             {
                     if (checkin == null) checkin = DateTime.Now;
                     if (checkout == null) checkout = DateTime.Now.AddDays(1);
@@ -22,31 +22,63 @@ namespace HotelBooking_Web.Controllers
                     ViewBag.CheckIn = checkin.Value.ToString("yyyy-MM-dd");
                     ViewBag.CheckOut = checkout.Value.ToString("yyyy-MM-dd");
                     ViewBag.Guests = guests;
+                    ViewBag.PriceRange = priceRange;
+                    ViewBag.SelectedLoaiPhongID = loaiPhongID;
+                    ViewBag.LoaiPhongs = db.tbl_LoaiPhongs.ToList();
+                    
 
-                    // Gọi Procedure
-                    var danhSachPhong = db.sp_TimPhongTrong(checkin, checkout, guests).ToList();
+            // Gọi Procedure
+                var danhSachPhong = db.sp_TimPhongTrong(checkin, checkout, guests).ToList();
 
-                    return View(danhSachPhong);
+                var danhSachLoai = db.tbl_LoaiPhongs.ToList();
+                    ViewBag.LoaiPhongs = danhSachLoai;
+
+                    if (priceRange != null)
+                    {
+                        switch (priceRange)
+                        {
+                            case 1: // duoi 5 lop
+                                danhSachPhong = danhSachPhong.Where(p => p.GiaMoiDem <= 500000).ToList();
+                                break;
+                            case 2: // duoi 1 cu
+                                danhSachPhong = danhSachPhong.Where(p => p.GiaMoiDem <= 1000000).ToList();
+                                break;
+                            case 3: // duoi 3 cu
+                        danhSachPhong = danhSachPhong.Where(p => p.GiaMoiDem <= 3000000).ToList();
+                                break;
+                            case 4: //tren 3 cu
+                                danhSachPhong = danhSachPhong.Where(p => p.GiaMoiDem > 3000000).ToList();
+                                break;
+                        }
+                    }
+
+                    if (loaiPhongID != null)
+                    {
+                        danhSachPhong = danhSachPhong.Where(p => p.LoaiPhongID == loaiPhongID).ToList();
+                    }
+
+                return View(danhSachPhong);
             }
 
             public ActionResult Detail(int id)
             {
                 ViewBag.PhongID = id;
                 return View();
+
             }
 
         [HttpGet]
             public JsonResult GetRoomDetailJson(int id) // 'id'
             {
-                try
-                {
-                    DataClasses1DataContext db = new DataClasses1DataContext();
-                    db.DeferredLoadingEnabled = false;
+            try
+            {
+                DataClasses1DataContext db = new DataClasses1DataContext();
+                //db.DeferredLoadingEnabled = false;
 
-                    // Tìm phòng theo PhongID (Kiểu int)
-                    var room = db.tbl_Phongs.FirstOrDefault(x => x.PhongID == id);
+                // Tìm phòng theo PhongID (Kiểu int)
+                var room = db.tbl_Phongs.FirstOrDefault(x => x.PhongID == id);
 
-                    if (room == null) return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+                if (room == null) return Json(new { success = false , message = "Không thấy phòng " + id + " trong Database: " + db.Connection.Database}, JsonRequestBehavior.AllowGet);
 
                     var listImages = room.tbl_PhongImages.Select(img => img.Url).ToList();
 

@@ -1,4 +1,4 @@
-﻿<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+﻿
    var slideIndex = 1;
 
         // TỰ ĐỘNG CHẠY KHI TRANG LOAD XONG
@@ -27,7 +27,7 @@
                         // Đổ dữ liệu ảnh slide
                         var html = '';
                         $.each(response.DanhSachAnh, function (i, url) {
-                            html += `<div class="mySlides fade"><img src="${url}" class="slide-img"></div>`;
+                            html += `<div class="my-slide fade"><img src="${url}" class="slide-img"></div>`;
                         });
                         $('#slider-wrapper').html(html);
 

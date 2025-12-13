@@ -2842,6 +2842,7 @@ namespace HotelBooking_Web.Models
 		private string _MoTa;
 		
 		private string _HinhAnh;
+
 		
 		public sp_TimPhongResult()
 		{
@@ -2974,7 +2975,9 @@ namespace HotelBooking_Web.Models
 				}
 			}
 		}
-	}
+
+        public int? LoaiPhongID { get; internal set; }
+    }
 	
 	public partial class sp_BaoCaoDoanhThuTheoThangResult
 	{
