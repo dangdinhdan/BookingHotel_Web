@@ -1,8 +1,99 @@
-﻿
+﻿@model HotelBooking_Web.Models.vw_DanhSachDatPhong
 @{
     ViewBag.Title = "Detail";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Detail</h2>
+
+
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+
+                <div class="card">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4>Chi tiết phiếu đặt phòng</h4>
+                    </div>
+
+                    <div class="card-body">
+
+                        <!-- Thông tin đặt phòng -->
+                        <h5 class="mb-3">Thông tin đặt phòng</h5>
+                        <div class="row mb-2">
+                            <div class="col-6 label">Mã đặt phòng:</div>
+                            <div class="col-6 text-value">@Model.DatPhongID</div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6 label">Ngày đặt:</div>
+                            <div class="col-6 text-value">@Model.NgayDat</div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6 label">Ngày nhận phòng:</div>
+                            <div class="col-6 text-value">@Model.NgayNhanPhong.ToString("MM/dd/yyyy")</div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6 label">Ngày trả phòng:</div>
+                            <div class="col-6 text-value">@Model.NgayNhanPhong.ToString("MM/dd/yyyy")</div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6 label">Số lượng người:</div>
+                            <div class="col-6 text-value">@Model.SoLuongNguoi</div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6 label">Tổng tiền:</div>
+                            <div class="col-6 text-value text-danger">@Model.TongTien</div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6 label">Trạng thái:</div>
+                            <div class="col-6 text-value">@Model.TrangThai</div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-6 label">Ghi chú:</div>
+                            <div class="col-6 text-value">@Model.GhiChu</div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Thông tin phòng -->
+                        <h5 class="mb-3">Thông tin phòng</h5>
+                        <div class="row mb-2">
+                            <div class="col-6 label">Số phòng:</div>
+                            <div class="col-6 text-value">@Model.SoPhong</div>
+                        </div>
+                        
+
+                        <hr>
+
+                        <!-- Thông tin khách đặt -->
+                        <h5 class="mb-3">Thông tin khách đặt</h5>
+
+                        <div class="row mb-2">
+                            <div class="col-6 label">Mã tài khoản:</div>
+                            <div class="col-6 text-value">@Model.MaTK</div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-6 label">Họ tên:</div>
+                            <div class="col-6 text-value">@Model.HoTen</div>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <a href="~/Admin/QLDP/Index" class="btn btn-secondary">Quay lại</a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
 

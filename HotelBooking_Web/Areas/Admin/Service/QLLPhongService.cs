@@ -13,6 +13,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
        private DataClasses1DataContext db = new DataClasses1DataContext();
        public FunctResult<tbl_LoaiPhong> Them(string TenLoaiPhong,string MoTa)
         {
+            
             FunctResult<tbl_LoaiPhong> rs = new FunctResult<tbl_LoaiPhong>();
             try
             {
