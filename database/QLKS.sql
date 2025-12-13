@@ -89,7 +89,7 @@ CREATE TABLE tbl_GiaoDich(
 go
 
 
-INSERT INTO tbl_VaiTro(VaiTro) values ('admin'),('customer')
+INSERT INTO tbl_VaiTro(VaiTro) values ('admin'),('customer')	
 go
 
 INSERT INTO tbl_TaiKhoan(HoTen,Email,MatKhau,SoDienThoai,DiaChi,VaiTro) values
@@ -209,6 +209,7 @@ GROUP BY YEAR(gd.Create_at), MONTH(gd.Create_at);
 go
 
 
+
 CREATE OR ALTER PROCEDURE sp_TimPhong
     @NgayNhanPhong DATETIME2,
     @NgayTraPhong DATETIME2,
@@ -220,6 +221,7 @@ BEGIN
     SELECT 
         p.PhongID,
         p.SoPhong,
+		p.LoaiPhongID,
         lp.TenLoaiPhong,
         p.GiaMoiDem,
         p.SucChuaToiDa,

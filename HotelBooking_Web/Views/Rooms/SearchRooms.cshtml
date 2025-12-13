@@ -1,51 +1,122 @@
-﻿@{
+﻿@model IEnumerable<HotelBooking_Web.Models.sp_TimPhongResult>
+
+@{
     ViewData["Title"] = "Tim phong";
+    var culture = System.Globalization.CultureInfo.GetCultureInfo("vi-VN"); //chuyen tien vi en top 1 the gioi
 }
 
-<section class="section">
-    <h2>Danh sách phòng</h2>
-    <div class="muted" id="searchSummary"></div>
+<section class="section" style=" align-items:center">
+    <h2>Found result</h2>
+    <div class="muted" id="searchSummary">Tim thay <strong> @Model.Count()</strong> phong trong phu hop</div>
 
-    <div class="search-card" style="margin-top:16px">
-       
-
-        <div class="form-control" style="flex:1; padding-right: 20px ; width: 450px ">
-            <label class="label">Ngày nhận / trả</label>
-            <div>
-                <input id="checkin_search" type="date">
-                <input id="checkout_search" type="date">
+    <form action="@Url.Action("SearchRooms", "Rooms")" method="get" class="search-form-container">
+        <div class="search-group">
+            <label class="label">Ngay nhan/ tra</label>
+            <div class="search-inputs-row">
+                <input type="date" name="checkin" value="@ViewBag.CheckIn" required class="form-input">
+                <input type="date" name="checkout" value="@ViewBag.CheckOut" required class="form-input">
             </div>
         </div>
 
-        <div class="form-control" style="width:160px;">
-            <label class="label">Số khách</label>
-            <select id="guests">
-                <option value="0">Tất cả</option>
-                <option value="1">1 khách</option>
-                <option value="2">2 khách</option>
-                <option value="3">3 khách</option>
-                <option value="4">4 khách</option>
+
+
+        <div class="search-group short">
+
+            <label class="label">Loại phòng</label>
+            <select name="loaiPhongID" class="form-input-new">
+                <option value="">-- Tất cả --</option>
+
+                @if (ViewBag.LoaiPhongs != null)
+                {
+                    foreach (var item in (List<HotelBooking_Web.Models.tbl_LoaiPhong>)ViewBag.LoaiPhongs)
+                    {
+                        // Kiểm tra: Nếu ID này trùng với ID khách vừa chọn thì thêm chữ 'selected'
+                        int? selectedId = ViewBag.SelectedLoaiPhongID as int?;
+                        var isSelected = (ViewBag.SelectedLoaiPhongID == item.LoaiPhongID) ? "selected" : "";
+
+                        <option value="@item.LoaiPhongID" @isSelected>
+                            @item.TenLoaiPhong
+                        </option>
+                    }
+                }
+
+            </select>
+        </div>
+        <div class="search-group short">
+            <label class="label">Mức giá mong muốn</label>
+            <select name="priceRange" class="form-input-new">
+                <option value="">Muc gia</option>
+                <option value="1" @(ViewBag.PriceRange == 1 ? "selected" : "")>Dưới 5 lốp</option>
+                <option value="2" @(ViewBag.PriceRange == 2 ? "selected" : "")>Dưới 1 củ</option>
+                <option value="3" @(ViewBag.PriceRange == 3 ? "selected" : "")>Dưới 2 củ</option>
+                <option value="4" @(ViewBag.PriceRange == 4 ? "selected" : "")>Trên 2 củ</option>
             </select>
         </div>
 
-        <div class="search-actions">
-            <button id="searchBtn" class="btn btn-primary">Lọc phòng</button>
+        <div class="search-group short">
+            <label class=" label">So khach</label>
+            <select name="guests" class="form-input">
+                <option value="0" @(ViewBag.Guests == 1 ? "selected" : "")>1 khach</option>
+                <option value="2" @(ViewBag.Guests == 2 ? "selected" : "")>2 khach</option>
+                <option value="3" @(ViewBag.Guests == 3 ? "selected" : "")>3 khach</option>
+                <option value="4" @(ViewBag.Guests == 4 ? "selected" : "")>4 khach</option>
+            </select>
         </div>
-    </div>
 
-    @*<div style="height:12px"></div>
-    <div id="roomsGrid" class="grid"></div>*@
+        <button type="submit" class=" btn btn-primary btn-filter"> Loc phong </button>
+    </form>
 </section>
+   
 
 <section id="rooms" class="section">
     <div class="section-head">
         <h2>Các loại phòng</h2>
-        <div class="muted" id="resultsInfo">Tất cả phòng</div>
     </div>
-    <div class="grid" id="roomsGrid"></div>
 
-    <div>
-        <a href="https://localhost:44365/Rooms/Detail"> view detail </a>
+    <div class="room-grid-new">
+
+        @if (Model == null || !Model.Any())
+        {
+
+            <div class="emty-message">
+                <p>khong co phong trong nao trong khoang thoi gian nay</p>
+                <p>Hay chon khoang thoi gian khac!</p>
+            </div>
+        }
+        else
+        { 
+            foreach (var room in Model) {
+                string roomImage = string.IsNullOrEmpty(room.HinhAnh) ? "/Images/room-placeholder.png" : room.HinhAnh;
+
+                    <div class="room-card-new">
+                        <div class="room-img-wrapper">
+                            <img class="room-img" src="@roomImage" alt="@room.TenLoaiPhong ">
+
+                        </div>
+
+                        <div class="room-info-new">
+                            <div>
+                                <h3 class="room-title">@room.TenLoaiPhong - @room.SoPhong</h3>
+
+                                <p class="room--desc-new">
+                                    @(room.MoTa ?? "phong day du tien nghi, view dep, thoang mat bla bla bla..." )
+                                </p>
+                            </div>
+
+                            <div class="room-action-new">
+                                <div class="price-container">
+                                    <span>Gia: </span>
+                                    <span>@room.GiaMoiDem.ToString("C0", culture) / dem</span>
+                                </div>
+
+                                <a href="@Url.Action("Detail", "Rooms", new { id = room.PhongID })" class="btn-book">Chon phong</a>
+
+                            </div>
+                           
+                        </div>
+                    </div>
+            }
+        }
     </div>
 </section>
 

@@ -90,7 +90,7 @@ namespace HotelBooking_Web.Controllers
             string hashedInputPassword = _service.HashPassword(password);
 
             
-                var user = db.tbl_TaiKhoans.FirstOrDefault(u => u.Email == email && u.MatKhau == password &&( u.isDelete == false || u.isDelete==null));
+                var user = db.tbl_TaiKhoans.FirstOrDefault(u => u.Email == email && u.MatKhau == password &&( u.isDelete == false || u.isDelete==null ));
 
                 if (user != null)
                 {
