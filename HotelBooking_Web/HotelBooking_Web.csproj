@@ -293,6 +293,9 @@
     <Content Include="Areas\Admin\Views\QLDP\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Areas\Admin\Views\TaiKhoan\Login.cshtml" />
+    <Content Include="Assets\img\Slider\so1.jpg" />
+    <Content Include="Assets\img\Slider\so2.jpg" />
+    <Content Include="Assets\img\Slider\so3.jpg" />
     <Content Include="Areas\Admin\Views\QLDP\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\QLDP\Checkin.cshtml" />
     <Content Include="Areas\Admin\Views\QLDP\Checkout.cshtml" />
@@ -317,6 +320,7 @@
     <Content Include="Scripts\admin\js\adminlte.js" />
     <Content Include="Scripts\admin\js\adminlte.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\No1JavaScript\Detail.js" />
     <Content Include="Scripts\No1JavaScript\room.js" />
     <Content Include="Scripts\No1JavaScript\SearchRooms.js" />
     <Content Include="Scripts\No1JavaScript\script01.js" />
@@ -337,7 +341,6 @@
     <Content Include="Views\Rooms\SearchRooms.cshtml" />
     <Content Include="Views\Rooms\Detail.cshtml" />
     <Content Include="Views\Booking\Booking.cshtml" />
-    <Content Include="Views\Rooms\room.cshtml" />
     <Content Include="Views\TaiKhoan\Login.cshtml" />
     <Content Include="Views\TaiKhoan\Register.cshtml" />
     <Content Include="Views\TaiKhoan\Profile.cshtml" />
@@ -349,6 +352,7 @@
     <Content Include="Views\TaiKhoan\Favourite.cshtml" />
     <Content Include="Views\Shared\_ProfileLayout.cshtml" />
     <Content Include="Views\TaiKhoan\RegisterSuccess.cshtml" />
+    <Content Include="Views\TaiKhoan\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,53 +1,60 @@
-﻿@{
+﻿
+
+@{
     ViewBag.Title = "Chi tiết phòng";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<section id="roomDetail" class="section">
+<input type="hidden" id="currentRoomId" value="@ViewBag.PhongID" />
 
-    <div class="room-detail">
+<div class="container" style="margin-top: 40px; margin-bottom: 50px;">
+    <section id="roomDetail" class="section">
 
-        <div class="room-detail-left">
-            <img src="/Content/images/sample-room.jpg" alt="Phòng" class="room-detail-img" />
-        </div>
+        <div class="room-detail">
 
-        <div class="room-detail-right">
-            <h1 class="room-title">Phòng 203</h1>
-            <div class="room-type">Deluxe — View thành phố</div>
-
-            <div class="room-price">
-                650.000 <span>VNĐ / đêm</span>
-            </div>
-
-            <div class="room-info-grid">
-                <div class="info-row">
-                    <span class="label">Sức chứa:</span>
-                    <span class="value">3 người</span>
-                </div>
-
-                <div class="info-row">
-                    <span class="label">Trạng thái:</span>
-                    <span class="value available">Còn trống</span>
+            <div class="room-gallery">
+                <div class="slide-container">
+                    <div id="slider-wrapper"></div>
+                    <a class="prev" onclick="plusSlides(-1)">❮</a>
+                    <a class="next" onclick="plusSlides(1)">❯</a>
                 </div>
             </div>
 
-            <div class="room-description">
-                <h3>Mô tả</h3>
-                <p>
-                    Phòng rộng rãi, có cửa sổ lớn nhìn ra thành phố. Trang bị đầy đủ tiện nghi:
-                    máy lạnh, TV, bàn làm việc, wifi miễn phí.
-                </p>
-            </div>
+            <div class="room-info">
+                <h1 class="room-title" id="lblTenPhong">Đang tải dữ liệu...</h1>
 
-            <div class="room-buttons">
-                <a class="btn-primary" href="#">Đặt ngay</a>
-                <a class="btn-secondary" href="/Phong/Index">Quay lại</a>
+                <div class="room-price">
+                    <span id="lblGia">0</span> đ <span>/ đêm</span>
+                </div>
+
+                <div class="room-info-grid">
+                    <div class="info-row">
+                        <span class="label">Loại phòng:</span>
+                        <span class="value" id="lblLoaiPhong">...</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="label">Trạng thái:</span>
+                        <span class="available" id="lblTrangThai">Đang kiểm tra...</span>
+                    </div>
+                </div>
+
+                <div class="room-description" style="border-top: 1px solid #eee; padding-top: 15px;">
+                    <h3 style="font-size: 16px; margin-bottom: 8px;">Mô tả chi tiết:</h3>
+                    <div id="lblMoTa" style="color: var(--secondary); line-height: 1.6;"></div>
+                </div>
+
+                <div class="room-buttons">
+                    <button class="btn-book" style="width: 100%; padding: 12px; font-size: 16px; cursor: pointer;">
+                        ĐẶT PHÒNG NGAY
+                    </button>
+                </div>
             </div>
         </div>
-
-    </div>
-</section>
+    </section>
+</div>
 
 @section Scripts {
-    <script src="~/Scripts/No1JavaScript/room.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/Scripts/No1JavaScript/Detail.js"></script>
+    
 }

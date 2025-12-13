@@ -1,43 +1,4 @@
-﻿@*<!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>@ViewBag.Title - My ASP.NET Application</title>
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-            <div class="container">
-                @Html.ActionLink("khong choi sao biet minh khong the", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="    Toggle navigation" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-            </footer>
-        </div>
-
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
-    </body>
-    </html>*@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="utf-8" />
@@ -51,7 +12,7 @@
     @RenderSection("Scripts", required: false)
     @RenderSection("styles", required: false)
 </head>
-<body id="top">
+<body id="top" style="overflow-x:hidden">
 
     <header>
         <div class="container topbar">
@@ -66,29 +27,31 @@
             </div>
             <div class=" header-center">
                 <nav>
-                    <a href="/#top">Trang chủ</a>
-                    <a href="/#rooms">Phòng</a>
-                    <a href="/#about">Giới thiệu</a>
-                    <a href="/#contact">Liên hệ</a>
+                    @* 1. Trang chủ: Dùng ActionLink để về đúng Home/Index *@
+                    @Html.ActionLink("Trang chủ", "Index", "Home", null, null)
+
+                    @* 2. Phòng: Dẫn sang Controller Rooms *@
+                    @Html.ActionLink("Phòng", "SearchRooms", "Rooms", null, null)
+
+                    @* 3. Giới thiệu & Liên hệ: Dùng thẻ a thường với đường dẫn tuyệt đối
+        Thêm "/Home/Index" đằng trước để dù ở trang nào cũng quay về đúng chỗ *@
+                    <a href="/Home/Index#about">Giới thiệu</a>
+                    <a href="/Home/Index#contact">Liên hệ</a>
                 </nav>
             </div>
 
             <div class=" header-right">
 
-                @* --- PHẦN LOGIC ĐĂNG NHẬP MỚI --- *@
                 @{
-                    // Lấy thông tin từ Session (đã sửa đổi ở Controller)
                     var userEmail = Session["UserEmail"] as string;
                     var displayName = Session["DisplayName"] as string;
 
-                    // Logic hiển thị: Nếu có Tên thì hiện Tên, nếu không thì hiện Email
                     var labelName = !string.IsNullOrEmpty(displayName) ? displayName : userEmail;
                 }
 
                 <div class="auth" id="user-menu-container">
-                    @if (!string.IsNullOrEmpty(userEmail)) // Kiểm tra đã đăng nhập chưa (dựa vào Email)
+                    @if (!string.IsNullOrEmpty(userEmail)) 
                     {
-                        // --- TRẠNG THÁI ĐÃ ĐĂNG NHẬP ---
                         <button id="user-menu-button"
                                 type="button"
                                 class="user-avatar-button"
@@ -138,7 +101,6 @@
                     }
                     else
                     {
-                        // --- TRẠNG THÁI CHƯA ĐĂNG NHẬP ---
                         <a href="/TaiKhoan/Login" class="btn btn-ghost">Đăng nhập</a>
                         <a href="/TaiKhoan/Register" class="btn btn-primary">Đăng ký</a>
                     }
@@ -147,8 +109,8 @@
         </div>
     </header>
 
-    <main class="container">
-        <div class="container">
+    <main>
+        <div>
             @if (TempData["DeleteSuccess"] != null)
             {
                 <div class="alert alert-success" style="padding: 15px; background: #d4edda; color: #155724; margin-bottom: 20px; border-radius: 4px;">
@@ -175,14 +137,12 @@
 
     <div id="modalRoot" aria-hidden="true"></div>
 
-    @* Script xử lý đóng/mở menu User (Giữ nguyên) *@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const button = document.getElementById('user-menu-button');
             const menu = document.getElementById('user-menu');
             const container = document.getElementById('user-menu-container');
 
-            // Cập nhật năm tự động ở footer
             const yearSpan = document.getElementById('year');
             if (yearSpan) yearSpan.textContent = new Date().getFullYear();
 

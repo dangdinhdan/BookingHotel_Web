@@ -1,13 +1,13 @@
-﻿@{
+﻿@model HotelBooking_Web.Models.tbl_TaiKhoan
+@{
     ViewBag.Title = "Hồ sơ cá nhân";
     Layout = "~/Views/Shared/_ProfileLayout.cshtml";
     ViewBag.ActivePage = "Profile";
 
-    var userEmail = Session["UserEmail"] as string ?? "email@example.com";
-    var displayName = Session["DisplayName"] as string ?? "Khách hàng";
-
+    var userEmail = Session["UserEmail"] ;
+    var displayName = Session["DisplayName"] ;
+    var userPhone = Session["SoDienThoai"] ;
 }
-
 <h2>@ViewBag.Title</h2>
 
 <div class="profile-card">
@@ -22,28 +22,35 @@
     <div class="info-row">
         <div class="info-group">
             <div class="info-label">Tài khoản (Email)</div>
-            <div class="info-value">@userEmail</div>
+            <div class="info-value">@Model.Email</div>
         </div>
     </div>
 
     <div class="info-row">
         <div class="info-group">
             <div class="info-label">Họ và tên</div>
-            <div class="info-value">@displayName</div>
+            <div class="info-value">@Model.HoTen</div>
         </div>
     </div>
 
     <div class="info-row">
         <div class="info-group">
             <div class="info-label">Số điện thoại</div>
-            <div class="info-value">@ViewBag.UserPhone</div>
+            <div class="info-value">@Model.SoDienThoai</div>
         </div>
+    </div>
+        <div class="info-group">
+            <div class="info-label">Địa chỉ</div>
+            <div class="info-value">@Model.DiaChi</div>
+        </div>
+    <div>
+
     </div>
 
     <div class="info-row last-row">
         <div class="info-group">
             <div class="info-label">Ngày tham gia</div>
-            <div class="info-value">@ViewBag.MemberSince</div>
+            <div class="info-value">@Model.Create_at</div>
         </div>
     </div>
 
