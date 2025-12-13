@@ -90,9 +90,9 @@ namespace HotelBooking_Web.Areas.Admin.Service
 
 
 
-        public FunctResult<tbl_Phong> Sua(int id, string SoPhong, int LoaiPhongID, decimal GiaMoiDem, int SucChuaToiDa, string MoTa, string HinhAnh)
+        public FunctResult<ThongTinPhong> Sua(int id, string SoPhong, int LoaiPhongID, decimal GiaMoiDem, int SucChuaToiDa, string MoTa, string HinhAnh)
         {
-            FunctResult<tbl_Phong> rs = new FunctResult<tbl_Phong>();
+            FunctResult<ThongTinPhong> rs = new FunctResult<ThongTinPhong>();
 
             try
             {
@@ -115,7 +115,15 @@ namespace HotelBooking_Web.Areas.Admin.Service
 
                     db.SubmitChanges();
 
-
+                    rs.Data = new ThongTinPhong
+                    {
+                        SoPhong = old_obj.SoPhong,
+                        LoaiPhongID = old_obj.LoaiPhongID,
+                        GiaMoiDem = old_obj.GiaMoiDem,
+                        SucChuaToiDa = old_obj.SucChuaToiDa,
+                        MoTa = old_obj.MoTa,
+                        HinhAnh = old_obj.HinhAnh
+                    };
                     rs.ErrCode = EnumErrCode.Success;
                     rs.ErrDesc = "Chỉnh sửa thông tin phòng thành công";
                 }

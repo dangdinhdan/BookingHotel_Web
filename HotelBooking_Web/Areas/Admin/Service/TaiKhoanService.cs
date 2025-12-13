@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Security.Policy;
+using System.Text;
 using System.Web;
 using System.Web.Helpers;
 
@@ -90,9 +92,9 @@ namespace HotelBooking_Web.Areas.Admin.Service
 
 
 
-        public FunctResult<tbl_TaiKhoan> Sua(int TaiKhoanID ,string HoTen, string DiaChi, string Email, string SoDienThoai, string MatKhau, string VaiTro)
+        public FunctResult<ThongTinTaiKhoan> Sua(int TaiKhoanID ,string HoTen, string DiaChi, string Email, string SoDienThoai, string MatKhau, string VaiTro)
         {
-            FunctResult<tbl_TaiKhoan> rs = new FunctResult<tbl_TaiKhoan>();
+            FunctResult<ThongTinTaiKhoan> rs = new FunctResult<ThongTinTaiKhoan>();
 
             try
             {
@@ -115,7 +117,16 @@ namespace HotelBooking_Web.Areas.Admin.Service
 
                     db.SubmitChanges();
 
-
+                    rs.Data = new ThongTinTaiKhoan
+                    {
+                        HoTen = old_obj.HoTen,
+                        Email = old_obj.Email,
+                        SoDienThoai = old_obj.SoDienThoai,
+                        VaiTro = old_obj.VaiTro,
+                        DiaChi = old_obj.DiaChi,
+                        MaTK = old_obj.MaTK,
+                        TaiKhoanID = old_obj.TaiKhoanID
+                    };
                     rs.ErrCode = EnumErrCode.Success;
                     rs.ErrDesc = "Chỉnh sửa thông tin thành công";
                 }
@@ -256,5 +267,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
             }
             return rs;
         }
+
+       
     }
 }

@@ -1,4 +1,5 @@
 ﻿using HotelBooking_Web.Models;
+using HotelBooking_Web.Areas.Admin.ViewModel;
 using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
@@ -71,9 +72,9 @@ namespace HotelBooking_Web.Areas.Admin.Service
 
         
 
-        public FunctResult<tbl_LoaiPhong> Sua(int id,String TenLoaiPhong, string MoTa)
+        public FunctResult<LoaiPhongViewModel> Sua(int id,String TenLoaiPhong, string MoTa)
         {
-            FunctResult<tbl_LoaiPhong> rs = new FunctResult<tbl_LoaiPhong>();
+            FunctResult<LoaiPhongViewModel> rs = new FunctResult<LoaiPhongViewModel>();
             try
             {
                 var qr = db.tbl_LoaiPhongs.Where(o => o.LoaiPhongID == id &&(o.isDelete == null || o.isDelete == false));
@@ -87,7 +88,12 @@ namespace HotelBooking_Web.Areas.Admin.Service
                     db.SubmitChanges();
                     rs.ErrCode = EnumErrCode.Success;
                     rs.ErrDesc = "cập nhật thành công";
-                    rs.Data = old_obj;
+                    rs.Data = new LoaiPhongViewModel
+                    {
+                        LoaiPhongID = id,
+                        TenLoaiPhong = old_obj.TenLoaiPhong,
+                        MoTa = old_obj.MoTa
+                    };
                     
                 }
                 else 
@@ -95,7 +101,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
                     
                     rs.ErrCode = EnumErrCode.Empty;
                     rs.ErrDesc = "không tìm thấy loại phòng cần sửa";
-
+                   
                 }
             }
             catch (Exception ex) 
