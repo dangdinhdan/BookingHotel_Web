@@ -55,7 +55,7 @@ namespace HotelBooking_Web.Models
         #endregion
         public DataClasses1DataContext() :
 
-               base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QLKSLenh"].ConnectionString, mappingSource)
+               base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QLKSConnectionString"].ConnectionString, mappingSource)
         {
             OnCreated();
         }
