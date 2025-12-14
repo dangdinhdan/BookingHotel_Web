@@ -10,12 +10,9 @@ namespace HotelBooking_Web.Controllers
 {
         public class RoomsController : Controller
         {
-<<<<<<< HEAD
-        private DataClasses1DataContext db = new DataClasses1DataContext();
-=======
-                private DataClasses1DataContext db = new DataClasses1DataContext();
-            // GET: Rooms
->>>>>>> 28d4c4ce0bf388d750d9219e45cc520607765459
+
+            private DataClasses1DataContext db = new DataClasses1DataContext();
+
 
             public ActionResult SearchRooms(DateTime? checkin, DateTime? checkout, int? guests, int? priceRange, int? loaiPhongID)
             {
@@ -48,7 +45,7 @@ namespace HotelBooking_Web.Controllers
                                 danhSachPhong = danhSachPhong.Where(p => p.GiaMoiDem <= 1000000).ToList();
                                 break;
                             case 3: // duoi 3 cu
-                        danhSachPhong = danhSachPhong.Where(p => p.GiaMoiDem <= 3000000).ToList();
+                                danhSachPhong = danhSachPhong.Where(p => p.GiaMoiDem <= 3000000).ToList();
                                 break;
                             case 4: //tren 3 cu
                                 danhSachPhong = danhSachPhong.Where(p => p.GiaMoiDem > 3000000).ToList();

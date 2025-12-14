@@ -7,94 +7,94 @@
 
 
 
-    <div class="container mt-4">
+<div class="container mt-4">
 
-        <!-- TITLE -->
-        <div class="text-center mb-4">
-            <h2 class="fw-bold">Báo cáo tổng doanh thu đặt phòng</h2>
-            <p class="text-muted">Thống kê theo tháng và năm</p>
-        </div>
+    <!-- TITLE -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold">Báo cáo tổng doanh thu đặt phòng</h2>
+        <p class="text-muted">Thống kê theo tháng và năm</p>
+    </div>
 
-        <!-- FILTER -->
-        <div class="card p-4 report-card mb-4">
-            <div class="row g-3 align-items-end">
-                <div class="col-md-3">
-                    <label class="text-value">Chọn tháng</label>
-                    <select class="form-select">
-                        <option value="">-- Tất cả --</option>
-                        <script>
+    <!-- FILTER -->
+    <div class="card p-4 report-card mb-4">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-3">
+                <label class="text-value">Chọn tháng</label>
+                <select id="selectThang" class="form-select">
+                    <option value="">-- Tất cả --</option>
+                    <script>
                         for (let i = 1; i <= 12; i++) {
                             document.write(`<option value="${i}">Tháng ${i}</option>`);
                         }
-                        </script>
-                    </select>
-                </div>
+                    </script>
+                </select>
+            </div>
 
-                <div class="col-md-3">
-                    <label class="text-value">Chọn năm</label>
-                    <select class="form-select">
-                        <option value="">-- Tất cả --</option>
-                        <script>
-                            const y = new Date().getFullYear();
-                            for (let i = y; i >= y - 5; i--) {
-                                document.write(`<option value="${i}">${i}</option>`);
-                            }
-                        </script>
-                    </select>
-                </div>
+            <div class="col-md-3">
+                <label class="text-value">Chọn năm</label>
+                <select id="selectNam" class="form-select">
+                    <option value="">-- Tất cả --</option>
+                    <script>
+                        const y = new Date().getFullYear();
+                        for (let i = y; i >= y - 5; i--) {
+                            document.write(`<option value="${i}">${i}</option>`);
+                        }
+                    </script>
+                </select>
+            </div>
 
-                <div class="col-md-3">
-                    <button class="btn btn-primary w-100">Xem báo cáo</button>
-                </div>
+            <div class="col-md-3">
+                <button id="btnBaoCao" class="btn btn-primary w-100">Xem báo cáo</button>
             </div>
         </div>
-
-        <!-- SUMMARY -->
-        <div class="card p-4 report-card mb-4">
-            <h5>Tổng doanh thu</h5>
-            <div class="revenue-number">45,500,000 VNĐ</div>
-        </div>
-
-        <!-- CHART -->
-        <div class="card p-4 report-card mb-4">
-            <h5 class="mb-3">Biểu đồ doanh thu theo tháng</h5>
-            <canvas id="revenueChart" class="chart-area"></canvas>
-        </div>
-
-        <!-- TABLE -->
-        <div class="card p-4 report-card mb-5">
-            <h5 class="mb-3">Chi tiết doanh thu</h5>
-            <table class="table table-striped table-hover">
-                <thead class="table-primary">
-                    <tr>
-                        <th>Tháng</th>
-                        <th>Năm</th>
-                        <th>Số lượt đặt</th>
-                        <th>Doanh thu (VNĐ)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>2025</td>
-                        <td>120</td>
-                        <td>12,500,000</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>2025</td>
-                        <td>98</td>
-                        <td>9,600,000</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- SUMMARY -->
+    <div class="card p-4 report-card mb-4">
+        <h5>Tổng doanh thu</h5>
+        <div class="revenue-number">45,500,000 VNĐ</div>
+    </div>
 
-    <script>
+    <!-- CHART -->
+    <div class="card p-4 report-card mb-4">
+        <h5 class="mb-3">Biểu đồ doanh thu theo tháng</h5>
+        <canvas id="revenueChart" class="chart-area"></canvas>
+    </div>
+
+    <!-- TABLE -->
+    <div class="card p-4 report-card mb-5">
+        <h5 class="mb-3">Chi tiết doanh thu</h5>
+        <table class="table table-striped table-hover">
+            <thead class="table-primary">
+                <tr>
+                    <th>Tháng</th>
+                    <th>Năm</th>
+                    <th>Số lượt đặt</th>
+                    <th>Doanh thu (VNĐ)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>2025</td>
+                    <td>120</td>
+                    <td>12,500,000</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>2025</td>
+                    <td>98</td>
+                    <td>9,600,000</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
     // Chart.js dummy data
     const ctx = document.getElementById('revenueChart').getContext('2d');
 
@@ -112,8 +112,47 @@
             }]
         }
     });
-    </script>
+</script>
 
 
 
 
+<script>
+    $('#btnBaoCao').on('click', function () {
+
+        const thang = $('#selectThang').val() || null;
+        const nam = $('#selectNam').val() || null;
+
+        $.ajax({
+            url: '/Admin/BaoCao/GetBaoCao',
+            type: 'GET',
+            data: { thang, nam },
+            success: function (res) {
+
+                // 1. Tổng doanh thu
+                $('.revenue-number').text(
+                    res.TongDoanhThu.toLocaleString('vi-VN') + ' VNĐ'
+                );
+
+                // 2. Table
+                let rows = '';
+                res.ChiTiet.forEach(x => {
+                    rows += `
+                <tr>
+                    <td>${x.Thang}</td>
+                    <td>${x.Nam}</td>
+                    <td>${x.SoLuotDat}</td>
+                    <td>${x.DoanhThu.toLocaleString('vi-VN')}</td>
+                </tr>`;
+                });
+                $('table tbody').html(rows);
+
+                // 3. Chart
+                updateChart(res.ChiTiet);
+            },
+            error: function () {
+                alert('Không lấy được dữ liệu báo cáo!');
+            }
+        });
+    });
+</script>

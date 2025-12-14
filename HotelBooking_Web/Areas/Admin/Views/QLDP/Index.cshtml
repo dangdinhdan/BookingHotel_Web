@@ -10,11 +10,11 @@
     <div class="container-fluid">
         <!--begin::Row-->
         <div class="row">
-            <div class="col-sm-6"><h3 class="mb-0">Danh sách phòng</h3></div>
+            <div class="col-sm-6"><h3 class="mb-0">Danh sách đặt phòng</h3></div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
                     <li class="breadcrumb-item"><a href="~/admin">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Danh sách phòng</li>
+                    <li class="breadcrumb-item active" aria-current="page">Danh sách đặt phòng</li>
                 </ol>
             </div>
         </div>
@@ -93,8 +93,8 @@
                                             <td>@item.DatPhongID</td>
                                             <td>@item.MaTK</td>
                                             <td>@item.SoPhong</td>
-                                            <td>@item.NgayNhanPhong</td>
-                                            <td>@item.NgayTraPhong</td>
+                                            <td>@item.NgayNhanPhong.ToString("dd/MM/yyy")</td>
+                                            <td>@item.NgayTraPhong.ToString("dd/MM/yyy")</td>
                                             <td>@item.TrangThai</td>
                                             <td>
                                                 <a href="/admin/QLDP/Detail/@item.DatPhongID" class="btn btn-sm btn-primary">Xem chi tiết</a>
