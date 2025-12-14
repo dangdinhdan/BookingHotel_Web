@@ -170,6 +170,7 @@
     <Compile Include="Areas\Admin\Service\TaiKhoanService.cs" />
     <Compile Include="Areas\Admin\Service\QLLPhongService.cs" />
     <Compile Include="Areas\Admin\Service\QLPhongService.cs" />
+    <Compile Include="Areas\Admin\ViewModel\LoaiPhongViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModel\TaiKhoanViewModel.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\BookingController.cs" />
@@ -300,6 +301,7 @@
     <Content Include="Areas\Admin\Views\QLDP\Checkout.cshtml" />
     <Content Include="Areas\Admin\Views\QLDP\Checkin_Comf.cshtml" />
     <Content Include="Areas\Admin\Views\ThongKe\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TaiKhoan\Profile.cshtml" />
     <None Include="Models\DataClasses1.dbml.layout">
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </None>

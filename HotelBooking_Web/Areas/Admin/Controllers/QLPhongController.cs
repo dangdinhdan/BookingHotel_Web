@@ -96,7 +96,7 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
 
 
         [HttpPost]
-        public string Edit(HttpPostedFileBase txt_HinhAnh)
+        public ActionResult Edit(HttpPostedFileBase txt_HinhAnh)
         {
             int PhongID_int = int.Parse(Request["txt_PhongID"]);
             string SoPhong_str = Request["txt_SoPhong"];
@@ -122,7 +122,7 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
             }
 
             var qr = service.Sua(PhongID_int,SoPhong_str, LoaiPhong_int, GiaMoiDem_del, SucChuaToiDa_int, MoTa_str, HinhAnh_str);
-            return JsonConvert.SerializeObject(qr);
+            return Json(qr);
         }
 
         public string Delete(int id)

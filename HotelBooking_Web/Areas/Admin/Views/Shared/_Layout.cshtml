@@ -43,6 +43,8 @@
     <!--end::Third Party Plugin(Bootstrap Icons)-->
     <!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="~/Assets/admin/css/adminlte.css" />
+
+    
     <!--end::Required Plugin(AdminLTE)-->
 
 </head>
@@ -224,7 +226,7 @@
                             <!--end::Menu Body-->
                             <!--begin::Menu Footer-->
                             <li class="user-footer">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                <a href="~/admin/TaiKhoan/Profile" class="btn btn-default btn-flat">Profile</a>
                                 <a href="#" class="btn btn-default btn-flat float-end btn_logout">log out</a>
                             </li>
                             <!--end::Menu Footer-->
@@ -328,7 +330,7 @@
 </html>
 
 <script>
-        // Biến JS lưu thông tin login
+        
         var isLoggedIn = @((Session["HoTen"] != null).ToString().ToLower());
 
         if(isLoggedIn){
@@ -336,7 +338,7 @@
             
         } else {
             console.log("Chưa login, chuyển hướng tới trang login...");
-             window.location.href = '/Admin/TaiKhoan/Login'; 
+             window.location.href = window.location.origin + '/Admin/TaiKhoan/Login'; 
         }
 </script>
 

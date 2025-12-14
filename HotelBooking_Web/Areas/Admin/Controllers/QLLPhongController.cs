@@ -54,14 +54,15 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
             return JsonConvert.SerializeObject(qr);
         }
 
-        public string Edit()
+        [HttpPost]
+        public ActionResult Edit()
         {
             int LoaiPhongID = int.Parse(Request["Txt_LoaiPhongID"]);
             string TenLoaiPhong_str = Request["txt_TenLoaiPhong"];
             string MoTa_str = Request["txt_MoTa"];
 
             var qr = service.Sua(LoaiPhongID, TenLoaiPhong_str, MoTa_str);
-            return JsonConvert.SerializeObject(qr);
+            return Json(qr);
 
         }
 
