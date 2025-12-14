@@ -259,52 +259,62 @@ GO
 	
 
 
-CREATE or alter PROCEDURE sp_BaoCaoDoanhThuTheoThang
-    @Nam INT  -- Tham số đầu vào là năm cần xem báo cáo
+
+CREATE OR ALTER PROCEDURE sp_BaoCaoDoanhThuDatPhong
+    @Thang INT = NULL,
+    @Nam INT = NULL
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    -- Sử dụng Common Table Expression (CTE) để tạo ra 12 tháng
-    -- Điều này đảm bảo tất cả các tháng đều xuất hiện, kể cả khi không có doanh thu
-    ;WITH TatCaCacThang AS (
-        SELECT 1 AS Thang
-        UNION ALL SELECT 2
-        UNION ALL SELECT 3
-        UNION ALL SELECT 4
-        UNION ALL SELECT 5
-        UNION ALL SELECT 6
-        UNION ALL SELECT 7
-        UNION ALL SELECT 8
-        UNION ALL SELECT 9
-        UNION ALL SELECT 10
-        UNION ALL SELECT 11
-        UNION ALL SELECT 12
-    ),
-    -- CTE thứ hai để tính toán doanh thu thực tế theo tháng
-    DoanhThuThucTe AS (
-        SELECT 
-            MONTH(Create_at) AS Thang,
-            SUM(SoTien) AS TongDoanhThu
-        FROM 
-            tbl_GiaoDich
-        WHERE 
-            TrangThai = N'ThanhCong' -- Chỉ tính giao dịch thành công
-            AND YEAR(Create_at) = @Nam -- Lọc theo năm
-        GROUP BY 
-            MONTH(Create_at)
-    )
-    -- Tham gia 2 bảng CTE để có kết quả cuối cùng
-    SELECT 
-        m.Thang,
-        ISNULL(dt.TongDoanhThu, 0) AS TongDoanhThu
-    FROM 
-        TatCaCacThang m
-    LEFT JOIN 
-        DoanhThuThucTe dt ON m.Thang = dt.Thang
-    ORDER BY 
-        m.Thang;
-END;
+    SELECT
+        MONTH(dp.NgayTraPhong) AS Thang,
+        YEAR(dp.NgayTraPhong) AS Nam,
+        COUNT(DISTINCT dp.DatPhongID) AS SoLuotDat,
+        SUM(gd.SoTien) AS DoanhThu	
+    FROM tbl_GiaoDich gd
+    JOIN tbl_DatPhong dp
+        ON gd.DatPhongID = dp.DatPhongID
+    WHERE
+        gd.TrangThai = N'Paid'
+        AND dp.isDelete = 0
+        AND (@Nam IS NULL OR YEAR(dp.NgayTraPhong) = @Nam)
+        AND (@Thang IS NULL OR MONTH(dp.NgayTraPhong) = @Thang)
+    GROUP BY
+        YEAR(dp.NgayTraPhong),
+        MONTH(dp.NgayTraPhong)
+    ORDER BY
+        Nam, Thang;
+END
 GO
 
+CREATE PROCEDURE sp_TongDoanhThuDatPhong
+    @Thang INT = NULL,
+    @Nam INT = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
 
+    SELECT
+        SUM(gd.SoTien) AS TongDoanhThu
+    FROM tbl_GiaoDich gd
+    INNER JOIN tbl_DatPhong dp
+        ON gd.DatPhongID = dp.DatPhongID
+    WHERE
+        gd.TrangThai = N'Paid'
+        AND dp.isDelete = 0
+        AND (@Nam IS NULL OR YEAR(dp.NgayTraPhong) = @Nam)
+        AND (@Thang IS NULL OR MONTH(dp.NgayTraPhong) = @Thang);
+END
+GO
+
+EXEC sp_BaoCaoDoanhThuDatPhong;
+
+-- Theo năm
+EXEC sp_BaoCaoDoanhThuDatPhong @Nam = 2025;
+
+-- Theo tháng + năm
+EXEC sp_BaoCaoDoanhThuDatPhong @Thang = 4, @Nam = 2028;
+
+-- Tổng doanh thu
+EXEC sp_TongDoanhThuDatPhong @Nam = 2025;
