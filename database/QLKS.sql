@@ -199,14 +199,6 @@ SELECT P.PhongID,
 FROM tbl_Phong P
 JOIN tbl_LoaiPhong LP ON P.LoaiPhongID= LP.LoaiPhongID
 GO
-CREATE or alter VIEW vw_ThongKeDoanhThu AS
-SELECT 
-    YEAR(gd.Create_at) AS Nam,
-    MONTH(gd.Create_at) AS Thang,
-    SUM(gd.SoTien) AS TongDoanhThu
-FROM tbl_GiaoDich gd
-GROUP BY YEAR(gd.Create_at), MONTH(gd.Create_at);
-go
 
 
 
