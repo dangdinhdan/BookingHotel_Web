@@ -10,7 +10,7 @@ namespace HotelBooking_Web.Controllers
 {
         public class RoomsController : Controller
         {
-                private DataClasses1DataContext db = new DataClasses1DataContext(System.Configuration.ConfigurationManager.ConnectionStrings["QLKSLenh"].ConnectionString);
+                private DataClasses1DataContext db = new DataClasses1DataContext();
             // GET: Rooms
 
             public ActionResult SearchRooms(DateTime? checkin, DateTime? checkout, int? guests, int? priceRange, int? loaiPhongID)
