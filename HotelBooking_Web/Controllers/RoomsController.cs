@@ -28,7 +28,7 @@ namespace HotelBooking_Web.Controllers
                     
 
             // Gọi Procedure
-                var danhSachPhong = db.sp_TimPhongTrong(checkin, checkout, guests).ToList();
+                var danhSachPhong = db.sp_TimPhong(checkin, checkout, guests).ToList();
 
                 var danhSachLoai = db.tbl_LoaiPhongs.ToList();
                     ViewBag.LoaiPhongs = danhSachLoai;
@@ -44,7 +44,7 @@ namespace HotelBooking_Web.Controllers
                                 danhSachPhong = danhSachPhong.Where(p => p.GiaMoiDem <= 1000000).ToList();
                                 break;
                             case 3: // duoi 3 cu
-                        danhSachPhong = danhSachPhong.Where(p => p.GiaMoiDem <= 3000000).ToList();
+                                danhSachPhong = danhSachPhong.Where(p => p.GiaMoiDem <= 3000000).ToList();
                                 break;
                             case 4: //tren 3 cu
                                 danhSachPhong = danhSachPhong.Where(p => p.GiaMoiDem > 3000000).ToList();

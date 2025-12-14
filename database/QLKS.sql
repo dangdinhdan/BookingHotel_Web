@@ -271,13 +271,16 @@ BEGIN
         MONTH(dp.NgayTraPhong) AS Thang,
         YEAR(dp.NgayTraPhong) AS Nam,
         COUNT(DISTINCT dp.DatPhongID) AS SoLuotDat,
-        SUM(gd.SoTien) AS DoanhThu	
+        -- Nếu giao dịch null thì tính là 0
+        ISNULL(SUM(gd.SoTien), 0) AS DoanhThu	
     FROM tbl_GiaoDich gd
-    JOIN tbl_DatPhong dp
-        ON gd.DatPhongID = dp.DatPhongID
+    JOIN tbl_DatPhong dp ON gd.DatPhongID = dp.DatPhongID
     WHERE
-        gd.TrangThai = N'Paid'
-        AND dp.isDelete = 0
+        -- Điều kiện lọc theo trạng thái
+        (gd.TrangThai = 'Paid' OR gd.TrangThai = 'Success')
+        AND (dp.isDelete = 0 OR dp.isDelete IS NULL)
+        
+        -- Điều kiện lọc thời gian
         AND (@Nam IS NULL OR YEAR(dp.NgayTraPhong) = @Nam)
         AND (@Thang IS NULL OR MONTH(dp.NgayTraPhong) = @Thang)
     GROUP BY
@@ -288,25 +291,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE sp_TongDoanhThuDatPhong
-    @Thang INT = NULL,
-    @Nam INT = NULL
-AS
-BEGIN
-    SET NOCOUNT ON;
 
-    SELECT
-        SUM(gd.SoTien) AS TongDoanhThu
-    FROM tbl_GiaoDich gd
-    INNER JOIN tbl_DatPhong dp
-        ON gd.DatPhongID = dp.DatPhongID
-    WHERE
-        gd.TrangThai = N'Paid'
-        AND dp.isDelete = 0
-        AND (@Nam IS NULL OR YEAR(dp.NgayTraPhong) = @Nam)
-        AND (@Thang IS NULL OR MONTH(dp.NgayTraPhong) = @Thang);
-END
-GO
 
 EXEC sp_BaoCaoDoanhThuDatPhong;
 

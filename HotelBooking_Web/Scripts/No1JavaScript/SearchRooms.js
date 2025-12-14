@@ -113,25 +113,3 @@ function renderRooms(list) {
 }
 
 /* --- Tìm kiếm --- */
-document.getElementById("searchBtn").addEventListener("click", () => {
-    const guests = Number(document.getElementById("guests").value);
-    //const checkin = document.getElementById("checkin").value;
-    //const checkout = document.getElementById("checkout").value;
-
-    //if (checkin && checkout && new Date(checkin) > new Date(checkout)) {
-    //    alert("Ngày nhận phải trước ngày trả.");
-    //    return;
-    //}
-
-    const filtered = ROOMS.filter((r) => r.guests >= guests);
-    renderRooms(filtered);
-
-    //let label = `${filtered.length} loại phòng`;
-    //if (checkin && checkout) label += ` · ${checkin} → ${checkout}`;
-    ////resultsInfo.textContent = label;
-
-    document.getElementById("rooms").scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-    });
-});

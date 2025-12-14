@@ -172,6 +172,7 @@
     <Compile Include="Areas\Admin\Service\QLPhongService.cs" />
     <Compile Include="Areas\Admin\ViewModel\LoaiPhongViewModel.cs" />
     <Compile Include="Areas\Admin\ViewModel\TaiKhoanViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModel\ThongKeViewModel.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
