@@ -10,7 +10,12 @@ namespace HotelBooking_Web.Controllers
 {
         public class RoomsController : Controller
         {
+<<<<<<< HEAD
         private DataClasses1DataContext db = new DataClasses1DataContext();
+=======
+                private DataClasses1DataContext db = new DataClasses1DataContext();
+            // GET: Rooms
+>>>>>>> 28d4c4ce0bf388d750d9219e45cc520607765459
 
             public ActionResult SearchRooms(DateTime? checkin, DateTime? checkout, int? guests, int? priceRange, int? loaiPhongID)
             {
