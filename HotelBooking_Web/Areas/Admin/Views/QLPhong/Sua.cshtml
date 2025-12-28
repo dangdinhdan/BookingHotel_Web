@@ -268,10 +268,10 @@
                 processData: false,
                 contentType: false,
                 cache: false,
-                success: function (response) {
-                    console.log(response);
+                success: function (rs) {
+                    console.log(rs);
 
-                    var rs = JSON.parse(response);
+                    
 
                     if (rs.ErrCode == 1) {
                         window.location.href = '../Index';

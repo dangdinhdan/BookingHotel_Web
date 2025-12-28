@@ -1,119 +1,176 @@
-﻿
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    ViewBag.Title = "Báo cáo doanh thu";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
+<div class="container mt-4">
 
+    <div class="text-center mb-4">
+        <h2 class="fw-bold">Báo cáo tổng doanh thu đặt phòng</h2>
+        <p class="text-muted">Thống kê chi tiết theo thời gian</p>
+    </div>
 
+    <div class="card p-4 report-card mb-4 shadow-sm">
+        <div class="row g-3 align-items-end">
+            <div class="col-md-3">
+                <label class="form-label fw-bold">Chọn tháng</label>
+                <select id="ddlMonth" class="form-select">
+                    <option value="">-- Cả năm --</option>
+                    @for (int i = 1; i <= 12; i++)
+                    {
+                        <option value="@i">Tháng @i</option>
+                    }
+                </select>
+            </div>
 
-    <div class="container mt-4">
+            <div class="col-md-3">
+                <label class="form-label fw-bold">Chọn năm</label>
+                <select id="ddlYear" class="form-select">
+                    
+                    @{
+                        var currentYear = DateTime.Now.Year;
+                    }
+                    @for (int i = currentYear; i >= currentYear - 5; i--)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+            </div>
 
-        <!-- TITLE -->
-        <div class="text-center mb-4">
-            <h2 class="fw-bold">Báo cáo tổng doanh thu đặt phòng</h2>
-            <p class="text-muted">Thống kê theo tháng và năm</p>
-        </div>
-
-        <!-- FILTER -->
-        <div class="card p-4 report-card mb-4">
-            <div class="row g-3 align-items-end">
-                <div class="col-md-3">
-                    <label class="text-value">Chọn tháng</label>
-                    <select class="form-select">
-                        <option value="">-- Tất cả --</option>
-                        <script>
-                        for (let i = 1; i <= 12; i++) {
-                            document.write(`<option value="${i}">Tháng ${i}</option>`);
-                        }
-                        </script>
-                    </select>
-                </div>
-
-                <div class="col-md-3">
-                    <label class="text-value">Chọn năm</label>
-                    <select class="form-select">
-                        <option value="">-- Tất cả --</option>
-                        <script>
-                            const y = new Date().getFullYear();
-                            for (let i = y; i >= y - 5; i--) {
-                                document.write(`<option value="${i}">${i}</option>`);
-                            }
-                        </script>
-                    </select>
-                </div>
-
-                <div class="col-md-3">
-                    <button class="btn btn-primary w-100">Xem báo cáo</button>
-                </div>
+            <div class="col-md-3">
+                <button id="btnFilter" class="btn btn-primary w-100">
+                    <i class="fas fa-filter"></i> Xem báo cáo
+                </button>
             </div>
         </div>
+    </div>
 
-        <!-- SUMMARY -->
-        <div class="card p-4 report-card mb-4">
-            <h5>Tổng doanh thu</h5>
-            <div class="revenue-number">45,500,000 VNĐ</div>
+    <div class="card p-4 report-card mb-4 border-primary border-start border-4">
+        <h5>Tổng doanh thu (Dựa trên bộ lọc)</h5>
+        <div id="lblTotalRevenue" class="fs-2 fw-bold text-primary">0 VNĐ</div>
+    </div>
+
+    <div class="card p-4 report-card mb-4 shadow-sm">
+        <h5 class="mb-3">Biểu đồ biến động doanh thu trong năm</h5>
+        <div style="height: 400px;">
+            <canvas id="revenueChart"></canvas>
         </div>
+    </div>
 
-        <!-- CHART -->
-        <div class="card p-4 report-card mb-4">
-            <h5 class="mb-3">Biểu đồ doanh thu theo tháng</h5>
-            <canvas id="revenueChart" class="chart-area"></canvas>
-        </div>
-
-        <!-- TABLE -->
-        <div class="card p-4 report-card mb-5">
-            <h5 class="mb-3">Chi tiết doanh thu</h5>
-            <table class="table table-striped table-hover">
+    <div class="card p-4 report-card mb-5 shadow-sm">
+        <h5 class="mb-3">Chi tiết số liệu</h5>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover text-center align-middle">
                 <thead class="table-primary">
                     <tr>
                         <th>Tháng</th>
                         <th>Năm</th>
                         <th>Số lượt đặt</th>
-                        <th>Doanh thu (VNĐ)</th>
+                        <th>Doanh thu</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>2025</td>
-                        <td>120</td>
-                        <td>12,500,000</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>2025</td>
-                        <td>98</td>
-                        <td>9,600,000</td>
-                    </tr>
+                <tbody id="tableBody">
                 </tbody>
             </table>
         </div>
-
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script>
-    // Chart.js dummy data
-    const ctx = document.getElementById('revenueChart').getContext('2d');
+<script>
+    var myChart; // Biến toàn cục để lưu biểu đồ
 
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Th1', 'Th2', 'Th3', 'Th4', 'Th5', 'Th6', 'Th7', 'Th8', 'Th9', 'Th10', 'Th11', 'Th12'],
-            datasets: [{
-                label: 'Doanh thu (VNĐ)',
-                data: [12500000, 9600000, 8500000, 15000000, 9900000, 12700000, 14000000, 9000000, 7800000, 11000000, 10500000, 9500000],
-                borderWidth: 3,
-                borderColor: '#0d6efd',
-                backgroundColor: 'rgba(13,110,253,0.2)',
-                tension: 0.3
-            }]
-        }
+    $(document).ready(function () {
+        
+        initChart();
+        loadData();
+        $('#btnFilter').click(function () {
+            loadData();
+        });
     });
-    </script>
 
+    // Hàm gọi AJAX
+    function loadData() {
+        var m = $('#ddlMonth').val();
+        var y = $('#ddlYear').val();
 
+        $.ajax({
+            url: '/Admin/ThongKe/GetReportData', 
+            type: 'GET',
+            data: { month: m, year: y },
+            success: function (res) {
+                
+                var formattedTotal = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(res.TongDoanhThu);
+                $('#lblTotalRevenue').text(formattedTotal);
 
+                
+                var html = '';
+                if (res.ChiTiet.length == 0) {
+                    html = '<tr><td colspan="4" class="text-muted">Không có dữ liệu</td></tr>';
+                } else {
+                    $.each(res.ChiTiet, function (key, item) {
+                        var money = new Intl.NumberFormat('vi-VN').format(item.DoanhThu);
+                        html += `<tr>
+                                    <td>${item.Thang}</td>
+                                    <td>${item.Nam}</td>
+                                    <td>${item.SoLuotDat}</td>
+                                    <td class="fw-bold text-success">${money} ₫</td>
+                                 </tr>`;
+                    });
+                }
+                $('#tableBody').html(html);
 
+                // C. Update Biểu đồ
+                updateChart(res.ChartData);
+            },
+            error: function (err) {
+                alert("Lỗi tải dữ liệu báo cáo!");
+                console.log(err);
+            }
+        });
+    }
+
+    // Hàm khởi tạo biểu đồ
+    function initChart() {
+        const ctx = document.getElementById('revenueChart').getContext('2d');
+        myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Th1', 'Th2', 'Th3', 'Th4', 'Th5', 'Th6', 'Th7', 'Th8', 'Th9', 'Th10', 'Th11', 'Th12'],
+                datasets: [{
+                    label: 'Doanh thu (VNĐ)',
+                    data: [], // Để trống ban đầu
+                    borderWidth: 3,
+                    borderColor: '#0d6efd',
+                    backgroundColor: 'rgba(13,110,253,0.1)',
+                    fill: true,
+                    tension: 0.3 // Độ cong của đường
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top' },
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function (value) {
+                                // Format trục Y thành dạng tiền tệ rút gọn (ví dụ 10tr)
+                                return new Intl.NumberFormat('vi-VN', { notation: "compact" }).format(value) + ' ₫';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // Hàm cập nhật dữ liệu biểu đồ
+    function updateChart(dataArray) {
+        myChart.data.datasets[0].data = dataArray;
+        myChart.update();
+    }
+</script>

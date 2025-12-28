@@ -18,4 +18,14 @@ namespace HotelBooking_Web.Models
         public PhongViewModel ThongTinPhong { get; set; }
         public IEnumerable<tbl_PhongImage> DSAnh { get; set; }
     }
+
+    public class ThongTinPhong
+    {
+        public string SoPhong { get; set; }
+        public int LoaiPhongID { get; set; }
+        public decimal GiaMoiDem { get; set; }
+        public int? SucChuaToiDa { get; set; }
+        public string MoTa { get; set; }
+        public string HinhAnh {  get; set; }
+    }
 }

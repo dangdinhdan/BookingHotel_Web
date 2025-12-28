@@ -10,6 +10,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Services.Description;
 
@@ -34,7 +35,11 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
             return View(items);
         }
 
-
+        public ActionResult LSGD(int id)
+        {
+            var item= db.vw_DanhSachDatPhongs.Where(o=>o.TaiKhoanID== id && o.TrangThai=="Checkout");
+            return View(item);
+        }
 
         public ActionResult Them()
         {
@@ -60,6 +65,8 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
             string txt_DiaChi = Request["txt_DiaChi"];
             string txt_MatKhau = Request["txt_MatKhau"];
             string slc_VaiTro = Request["slc_VaiTro"];
+
+            
             var qr = service.Them(txt_HoTen, txt_DiaChi, txt_Email, txt_SoDienThoai, txt_MatKhau, slc_VaiTro);
             return JsonConvert.SerializeObject(qr);
         }
@@ -79,7 +86,7 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
             return JsonConvert.SerializeObject(qr);
         }
 
-        public string Edit()
+        public ActionResult Edit()
         {
             int txt_TaiKhoanID = int.Parse(Request["txt_TaiKhoanID"]);
             string txt_HoTen = Request["txt_HoTen"];
@@ -88,9 +95,11 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
             string txt_DiaChi = Request["txt_DiaChi"];
             string txt_MatKhau = Request["txt_MatKhau"];
             string slc_VaiTro = Request["slc_VaiTro"];
+
+
             var qr = service.Sua(txt_TaiKhoanID, txt_HoTen, txt_DiaChi, txt_Email, txt_SoDienThoai, txt_MatKhau, slc_VaiTro);
 
-            return JsonConvert.SerializeObject(qr);
+            return Json(qr);
         }
 
         public ActionResult Login()
@@ -109,11 +118,14 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
         {
             string Email = Request["txt_Email"];
             string password = Request["txt_Password"];
+            
+
             var rs = service.Login_action(Email, password);
 
             if (rs.ErrCode == Models.EnumErrCode.Success)
             {
-                Session["User"] = rs.Data;
+                Session["Email"] = rs.Data.Email;
+                Session["TaiKhoanID"] = rs.Data.TaiKhoanID;
                 Session["MaTK"] = rs.Data.MaTK;
                 Session["HoTen"] = rs.Data.HoTen;
                 Session["VaiTro"] = rs.Data.VaiTro;
@@ -129,17 +141,26 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
 
         }
 
-        
-
-
-        public static string HashPassword(string password)
+        public ActionResult Profile()
         {
-            using (var sha = SHA256.Create())
-            {
-                var bytes = Encoding.UTF8.GetBytes(password);
-                var hash = sha.ComputeHash(bytes);
-                return BitConverter.ToString(hash).Replace("-", "").ToLower();
-            }
+            string Email = Session["Email"].ToString();
+            var user = db.tbl_TaiKhoans.SingleOrDefault(o => o.Email == Email);
+
+            return View(user);
         }
+
+        public ActionResult EditProfile(int id)
+        {
+            var user = service.LayThongTinViewSua(id);
+
+            return View(user);
+        }
+
+        public ActionResult ChangePassword()
+        {
+            
+            return View();
+        }
+
     }
 }
