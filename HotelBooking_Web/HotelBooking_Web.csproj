@@ -180,6 +180,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\ViewModel\PhongViewModel.cs" />
+    <Compile Include="Models\BookingsModel.cs" />
     <Compile Include="Models\DataClasses1.cs">
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </Compile>

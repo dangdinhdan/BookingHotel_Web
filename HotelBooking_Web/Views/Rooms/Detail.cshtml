@@ -3,6 +3,19 @@
 @{
     ViewBag.Title = "Chi tiết phòng";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // 1. Lấy ngày check-in: Nếu ViewBag có thì dùng, không thì lấy ngày hiện tại
+    string checkIn = ViewBag.CheckIn as string ?? DateTime.Now.ToString("yyyy-MM-dd");
+
+    // 2. Lấy ngày check-out: Nếu ViewBag có thì dùng, không thì lấy ngày mai
+    string checkOut = ViewBag.CheckOut as string ?? DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
+
+    // 3. Lấy số khách: Mặc định là 1
+    int guests = ViewBag.Guests != null ? (int)ViewBag.Guests : 1;
+
+    // 4. Lấy ID phòng an toàn
+    int phongId = ViewBag.PhongID != null ? (int)ViewBag.PhongID : 0;
+
 }
 
 <input type="hidden" id="currentRoomId" value="@ViewBag.PhongID" />
@@ -44,9 +57,14 @@
                 </div>
 
                 <div class="room-buttons">
-                    <button class="btn-book" style="width: 100%; padding: 12px; font-size: 16px; cursor: pointer;">
+                    @*<button class="btn-book" style="width: 100%; padding: 12px; font-size: 16px; cursor: pointer;">
                         ĐẶT PHÒNG NGAY
-                    </button>
+                    </button>*@
+                    <a href="@Url.Action("Bookings", "Booking", new { phongId = phongId, checkin = checkIn, checkout = checkOut, guests = guests })"
+                       class="btn-book"
+                       style="display: block; text-align: center; text-decoration: none; padding: 15px; background-color: #007bff; color: white; border-radius: 5px; font-weight: bold; font-size: 18px;">
+                        ĐẶT PHÒNG NGAY
+                    </a>
                 </div>
             </div>
         </div>
