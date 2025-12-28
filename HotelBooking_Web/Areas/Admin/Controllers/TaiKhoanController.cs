@@ -35,7 +35,11 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
             return View(items);
         }
 
-
+        public ActionResult LSGD(int id)
+        {
+            var item= db.vw_DanhSachDatPhongs.Where(o=>o.TaiKhoanID== id && o.TrangThai=="Checkout");
+            return View(item);
+        }
 
         public ActionResult Them()
         {

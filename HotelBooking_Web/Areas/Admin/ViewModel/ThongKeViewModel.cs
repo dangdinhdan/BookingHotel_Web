@@ -5,7 +5,7 @@ using System.Web;
 
 namespace HotelBooking_Web.Areas.Admin.ViewModel
 {
-    public class RevenueReportItem
+    public class ThongKeViewModel
     {
         public int Thang { get; set; }
         public int Nam { get; set; }
@@ -13,10 +13,10 @@ namespace HotelBooking_Web.Areas.Admin.ViewModel
         public decimal DoanhThu { get; set; }
     }
 
-    public class ReportResponse
+    public class KetQuaThongKe
     {
         public decimal TongDoanhThu { get; set; } // Hiển thị ô tổng
-        public List<RevenueReportItem> ChiTiet { get; set; } // Dữ liệu cho bảng
+        public List<ThongKeViewModel> ChiTiet { get; set; } // Dữ liệu cho bảng
         public List<decimal> ChartData { get; set; } // Mảng 12 phần tử cho biểu đồ
     }
 

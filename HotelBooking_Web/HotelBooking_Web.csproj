@@ -303,6 +303,7 @@
     <Content Include="Areas\Admin\Views\QLDP\Checkin_Comf.cshtml" />
     <Content Include="Areas\Admin\Views\ThongKe\Index.cshtml" />
     <Content Include="Areas\Admin\Views\TaiKhoan\Profile.cshtml" />
+    <Content Include="Areas\Admin\Views\TaiKhoan\LSGD.cshtml" />
     <None Include="Models\DataClasses1.dbml.layout">
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </None>

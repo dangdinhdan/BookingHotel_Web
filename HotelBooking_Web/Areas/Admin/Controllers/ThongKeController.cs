@@ -20,25 +20,19 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
         [HttpGet]
         public JsonResult GetReportData(int? month, int? year)
         {
-            
-            // Nếu không chọn năm, mặc định lấy năm hiện tại để vẽ biểu đồ cho đẹp
             int selectedYear = year ?? DateTime.Now.Year;
 
-            // Gọi Stored Procedure lấy danh sách chi tiết
-            // Lưu ý: Cú pháp gọi SP phụ thuộc bạn dùng ADO.NET hay Entity Framework.
-            // Dưới đây là ví dụ dùng EF:
+            
             var rawData = db.sp_BaoCaoDoanhThuDatPhong(month, selectedYear).ToList();
-            var dataList = rawData.Select(x => new RevenueReportItem
+            var dataList = rawData.Select(x => new ThongKeViewModel
             {
-                // Lưu ý: LINQ to SQL thường trả về int? (nullable), nên cần ép kiểu hoặc dùng ?? 0
                 Thang = x.Thang ?? 0,
                 Nam = x.Nam ?? 0,
                 SoLuotDat = x.SoLuotDat ?? 0,
                 DoanhThu = x.DoanhThu ?? 0
             }).ToList();
 
-            // Gọi SP lấy Tổng doanh thu (hoặc có thể tính sum từ dataList ở trên để đỡ gọi DB 2 lần)
-            // Ở đây tôi tính trực tiếp từ list cho nhanh và đồng bộ
+           
             decimal totalRevenue = dataList.Sum(x => x.DoanhThu);
 
             // --- XỬ LÝ DỮ LIỆU CHO BIỂU ĐỒ (CHART) ---
@@ -47,13 +41,13 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
 
             for (int i = 1; i <= 12; i++)
             {
-                // Tìm xem tháng i có trong dữ liệu DB trả về không
+                
                 var item = dataList.FirstOrDefault(x => x.Thang == i);
                 chartData.Add(item != null ? item.DoanhThu : 0);
             }
 
             // Đóng gói dữ liệu trả về
-            var response = new ReportResponse
+            var response = new KetQuaThongKe
             {
                 TongDoanhThu = totalRevenue,
                 ChiTiet = dataList,

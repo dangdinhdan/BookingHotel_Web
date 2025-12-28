@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "LSGD";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@model IEnumerable<HotelBooking_Web.Models.vw_DanhSachDatPhong>
+
+
+<div class="app-content-header">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Row-->
+        <div class="row">
+            <div class="col-sm-6"><h3 class="mb-0">Lịch sử giao dich</h3></div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                    <li class="breadcrumb-item"><a href="~/admin/TaiKhoan">Danh sach tai khoan</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Lịch sử giao dich</li>
+                </ol>
+            </div>
+        </div>
+        <!--end::Row-->
+    </div>
+    <!--end::Container-->
+</div>
+<!--end::App Content Header-->
+<!--begin::App Content-->
+<div class="app-content">
+    <!--begin::Container-->
+    <div class="container-fluid">
+        <!--begin::Row-->
+        <div class="row">
+            <div class="col-12">
+                <!-- Default box -->
+                <div class="card">
+                    <div class="card-header">
+
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Mã đặt phòng</th>
+                                    
+                                    <th>Mã phòng</th>
+                                    <th>Ngày nhận phòng</th>
+                                    <th>Ngày trả phòng</th>
+                                    <th>Trạng thái</th>
+                                    <th>Thao Tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Any())
+                                {
+                                    var i = 1;
+                                    foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>@item.DatPhongID</td>
+                                            
+                                            <td>@item.SoPhong</td>
+                                            <td>@item.NgayNhanPhong</td>
+                                            <td>@item.NgayTraPhong</td>
+                                            <td>@item.TrangThai</td>
+                                            <td>
+                                                <a href="/admin/QLDP/Detail/@item.DatPhongID" class="btn btn-sm btn-primary">Xem chi tiết</a>
+                                                @if (item.TrangThai == "Pending")
+                                                {
+                                                    <a href="/admin/QLDP/Checkin_Comf?DatPhongID=@item.DatPhongID" style="background-color:green" class="btn btn-sm btn-primary">Check in</a>
+                                                }
+                                                @if (item.TrangThai == "Checkin")
+                                                {
+                                                    <a href="/admin/QLDP/Checkout/@item.DatPhongID" style="background-color:orangered" class="btn btn-sm btn-primary">Check out</a>
+                                                }
+
+                                            </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td align="center">Không có bản ghi nào</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer"></div>
+                    <!-- /.card-footer-->
+                </div>
+                <!-- /.card -->
+            </div>
+        </div>
+        <!--end::Row-->
+    </div>
+</div>

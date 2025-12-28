@@ -26,7 +26,7 @@
             <div class="col-md-3">
                 <label class="form-label fw-bold">Chọn năm</label>
                 <select id="ddlYear" class="form-select">
-                    @* Tự động tạo 5 năm gần nhất *@
+                    
                     @{
                         var currentYear = DateTime.Now.Year;
                     }
@@ -81,13 +81,9 @@
     var myChart; // Biến toàn cục để lưu biểu đồ
 
     $(document).ready(function () {
-        // 1. Khởi tạo biểu đồ rỗng lần đầu
+        
         initChart();
-
-        // 2. Gọi dữ liệu mặc định khi mới vào trang
         loadData();
-
-        // 3. Sự kiện bấm nút Xem báo cáo
         $('#btnFilter').click(function () {
             loadData();
         });
@@ -103,13 +99,13 @@
             type: 'GET',
             data: { month: m, year: y },
             success: function (res) {
-                // A. Update Tổng doanh thu (Format tiền Việt)
+                
                 var formattedTotal = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(res.TongDoanhThu);
                 $('#lblTotalRevenue').text(formattedTotal);
 
-                // B. Update Bảng (Table)
+                
                 var html = '';
-                if (res.ChiTiet.length === 0) {
+                if (res.ChiTiet.length == 0) {
                     html = '<tr><td colspan="4" class="text-muted">Không có dữ liệu</td></tr>';
                 } else {
                     $.each(res.ChiTiet, function (key, item) {
