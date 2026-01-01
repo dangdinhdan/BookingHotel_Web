@@ -3,6 +3,19 @@
 @{
     ViewBag.Title = "Chi tiết phòng";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // 1. Lấy ngày check-in: Nếu ViewBag có thì dùng, không thì lấy ngày hiện tại
+    string checkIn = ViewBag.CheckIn as string ?? DateTime.Now.ToString("yyyy-MM-dd");
+
+    // 2. Lấy ngày check-out: Nếu ViewBag có thì dùng, không thì lấy ngày mai
+    string checkOut = ViewBag.CheckOut as string ?? DateTime.Now.AddDays(1).ToString("yyyy-MM-dd");
+
+    // 3. Lấy số khách: Mặc định là 1
+    int guests = ViewBag.Guests != null ? (int)ViewBag.Guests : 1;
+
+    // 4. Lấy ID phòng an toàn
+    int phongId = ViewBag.PhongID != null ? (int)ViewBag.PhongID : 0;
+
 }
 
 <input type="hidden" id="currentRoomId" value="@Model.PhongID" />
@@ -44,6 +57,7 @@
                 </div>
 
                 <div class="room-buttons">
+
                     <form action="~/Booking/Index" method="post">
                         <input type="hidden" name="PhongID" value="@Model.PhongID" />
                         <input type="hidden" name="CheckIn" value="@Model.CheckIn.ToString("yyyy-MM-dd")" />

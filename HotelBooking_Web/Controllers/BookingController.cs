@@ -8,10 +8,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Description;
 
+
 namespace HotelBooking_Web.Controllers
 {
     public class BookingController : Controller
     {
+
         private DataClasses1DataContext db = new DataClasses1DataContext();
         private BookingService service = new BookingService();
         // GET: Booking
