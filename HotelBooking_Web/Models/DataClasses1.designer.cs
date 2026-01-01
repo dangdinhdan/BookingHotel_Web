@@ -53,7 +53,7 @@ namespace HotelBooking_Web.Models
     partial void Deletetbl_TaiKhoan(tbl_TaiKhoan instance);
         #endregion
         public DataClasses1DataContext() :
-               base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QLKSConnectionString1"].ConnectionString, mappingSource)
+               base(global::System.Configuration.ConfigurationManager.ConnectionStrings["QLKSConnectionString3"].ConnectionString, mappingSource)
         {
             OnCreated();
         }

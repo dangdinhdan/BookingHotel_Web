@@ -29,9 +29,9 @@ namespace HotelBooking_Web.Controllers
 
             return View(model);
         }
-        public string DatPhong()
+        public ActionResult DatPhong()
         {
-            int TaiKhoanID = int.Parse(Request["txt_TaiKhoanID"]);
+            int TaiKhoanID =int.Parse(Session["TaiKhoanID"].ToString());
             int PhongID = int.Parse(Request["txt_PhongID"]);
             DateTime Checkin = DateTime.Parse(Request["txt_CheckIn"]);
             DateTime Checkout = DateTime.Parse(Request["txt_CheckOut"]);
@@ -39,7 +39,7 @@ namespace HotelBooking_Web.Controllers
             decimal TongTien = decimal.Parse(Request["txt_TongTien"]);
             string GhiChu = Request["txt_GhiChu"];
             var qr = service.DatPhong(TaiKhoanID, PhongID, Checkin, Checkout, SoNguoi, TongTien, GhiChu);
-            return JsonConvert.SerializeObject(qr);
+            return Json(qr);
 
         }
 

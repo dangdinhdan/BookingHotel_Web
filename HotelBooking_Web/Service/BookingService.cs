@@ -27,19 +27,20 @@ namespace HotelBooking_Web.Service
                     new_obj.SoLuongNguoi = SoNguoi;
                     new_obj.TongTien = TongTien;
                     new_obj.GhiChu = GhiChu;
+                    new_obj.TrangThai = "Pending";
                     db.tbl_DatPhongs.InsertOnSubmit(new_obj);
                     db.SubmitChanges();
 
 
                     rs.ErrCode = EnumErrCode.Success;
-                    rs.ErrDesc = "Đặt phòng thành công";
-                    rs.Data = new_obj;
+                    rs.ErrDesc = "Đặt phòng thành công, mã đặt phòng của bạn là "+new_obj.DatPhongID;
+                    
                 }
                 else
                 {
                     rs.ErrCode = EnumErrCode.NotExist;
                     rs.ErrDesc = "không thể đặt phòng vì tài khoản không tồn tại";
-                    rs.Data = null;
+                    
                 }
             }
             catch (Exception ex)

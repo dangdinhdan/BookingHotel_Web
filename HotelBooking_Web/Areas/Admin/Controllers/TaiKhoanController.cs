@@ -104,7 +104,7 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
 
         public ActionResult Login()
         {
-            if (Session["HoTen"] != null)
+            if (Session["Ad_ID"] != null)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -124,11 +124,11 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
 
             if (rs.ErrCode == Models.EnumErrCode.Success)
             {
-                Session["Email"] = rs.Data.Email;
-                Session["TaiKhoanID"] = rs.Data.TaiKhoanID;
+                Session["Ad_Email"] = rs.Data.Email;
+                Session["Ad_ID"] = rs.Data.TaiKhoanID;
                 Session["MaTK"] = rs.Data.MaTK;
-                Session["HoTen"] = rs.Data.HoTen;
-                Session["VaiTro"] = rs.Data.VaiTro;
+                Session["Ad_HoTen"] = rs.Data.HoTen;
+                Session["Ad_VaiTro"] = rs.Data.VaiTro;
 
             }
             return JsonConvert.SerializeObject(rs);
@@ -143,7 +143,7 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
 
         public ActionResult Profile()
         {
-            string Email = Session["Email"].ToString();
+            string Email = Session["Ad_Email"].ToString();
             var user = db.tbl_TaiKhoans.SingleOrDefault(o => o.Email == Email);
 
             return View(user);

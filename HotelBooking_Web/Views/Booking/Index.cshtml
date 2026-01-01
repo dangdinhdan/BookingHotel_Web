@@ -106,7 +106,7 @@
                 <input type="hidden" name="txt_TongTien" value="@ViewBag.TongTien" />
 
 
-                <button type="submit" class="btn-primary" style="width:100%; padding:14px; margin-top:12px; ">
+                <button type="submit" class="btn btn-primary btn_them" style="width:100%; padding:14px; margin-top:12px; ">
                     Xác Nhận
                 </button>
 
@@ -129,13 +129,14 @@
             $.ajax({
                 type: "POST",
                 data: formData,
+                contentType: "application/json; charset=utf-8",
                 url: window.location.origin + '/Booking/DatPhong',
                 processData: false,
                 contentType: false,
                 cache: false,
-                success: function (response) {
-                    console.log(response);
-                    var rs = JSON.parse(response);
+                success: function (rs) {
+                    console.log(rs);
+                    
                     if (rs.ErrCode == 1) {
 
                         window.location.href = window.location.origin + '/TaiKhoan/BookingList';
