@@ -8,34 +8,10 @@
     <div class="booking-page" style="display:flex; gap:24px; margin-top:30px; flex-wrap:wrap;">
 
         <!-- LEFT FORM -->
-        <div class="booking-left" style="flex:1; min-width:360px;">
+        <div class="booking-right" style="flex:1; min-width:360px;">
 
             <!-- Liên hệ đặt chỗ -->
-            <div class="booking-box">
-                <h2 class="booking-title">Liên hệ đặt chỗ</h2>
-
-                <div class="form-group">
-                    <label>Họ tên *</label>
-                    <input type="text" class="input" name="txt_HoTen" placeholder="Như trên CMND" value="@Session["DisplayName"]" required />
-                </div>
-
-                <div class="form-group">
-                    <label>Điện thoại di động *</label>
-                    <div style="display:flex; gap:8px;">
-                        <select class="input" style="max-width:110px;">
-                            <option>+84</option>
-                        </select>
-                        <input type="text" class="input" name="txt_SoDienThoai" placeholder="Ví dụ: 0912345678" value="@Session["SoDienThoai"]"  />
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Email *</label>
-                    <input type="email" class="input" name="txt_Email" placeholder="email@example.com" value="@Session["UserEmail"]" required />
-                </div>
-
-
-            </div>
+           
 
 
             <!-- Yêu cầu đặc biệt -->
@@ -51,8 +27,8 @@
 
         </div>
 
-        <!-- RIGHT SUMMARY -->
-        <div class="booking-right" style="width:360px; min-width:300px;">
+        <!-- RIGHT SUMMARY --> 
+        <div class=" booking-left" style=" width: 360px; min-width: 300px;">
             <div class="summary-box">
 
                 <h3 style="font-size:18px; font-weight:700; margin-bottom:8px;">
