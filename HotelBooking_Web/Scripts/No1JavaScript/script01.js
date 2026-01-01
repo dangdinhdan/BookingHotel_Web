@@ -184,6 +184,7 @@ document.getElementById("viewAllBtn")?.addEventListener("click", () => {
 
 document.addEventListener('DOMContentLoaded', function () {
     const track = document.getElementById('sliderTrack');
+    if (!track) return;
     const slides = track.querySelectorAll('.slide');
 
     // Tổng số slide (Bao gồm cả bản sao)

@@ -109,7 +109,14 @@
                                     <span>@room.GiaMoiDem.ToString("C0", culture) / dem</span>
                                 </div>
 
-                                <a href="@Url.Action("Detail", "Rooms", new { id = room.PhongID })" class="btn-book">Chon phong</a>
+                                <a href="@Url.Action("Detail", "Rooms", new { 
+                                        id = room.PhongID,
+                                        checkin = ViewBag.CheckIn,
+                                        checkout = ViewBag.CheckOut,
+                                        guests = ViewBag.Guests 
+                                    })" 
+                                   class="btn-book">Chon phong
+                                </a>
 
                             </div>
                            

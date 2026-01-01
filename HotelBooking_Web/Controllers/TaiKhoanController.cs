@@ -115,8 +115,8 @@ namespace HotelBooking_Web.Controllers
                     Session["DisplayName"] = user.HoTen;
                     Session["SoDienThoai"] = user.SoDienThoai;
                     Session["VaiTro"] = user.VaiTro;
-
-                    Session["HoTen"] = user.HoTen;
+                    Session["TaiKhoanID"] = user.TaiKhoanID;
+                    
 
                     if (user.VaiTro != null && user.VaiTro.Trim().ToLower() == "admin")
                     {

@@ -1,11 +1,11 @@
-﻿
+﻿@model HotelBooking_Web.Models.DatPhongViewModel
 
 @{
     ViewBag.Title = "Chi tiết phòng";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<input type="hidden" id="currentRoomId" value="@ViewBag.PhongID" />
+<input type="hidden" id="currentRoomId" value="@Model.PhongID" />
 
 <div class="container" style="margin-top: 40px; margin-bottom: 50px;">
     <section id="roomDetail" class="section">
@@ -34,7 +34,7 @@
                     </div>
                     <div class="info-row">
                         <span class="label">Trạng thái:</span>
-                        <span class="available" id="lblTrangThai">Đang kiểm tra...</span>
+                        <span class="available" id="lblTrangThai">Trống</span>
                     </div>
                 </div>
 
@@ -44,9 +44,17 @@
                 </div>
 
                 <div class="room-buttons">
-                    <button class="btn-book" style="width: 100%; padding: 12px; font-size: 16px; cursor: pointer;">
-                        ĐẶT PHÒNG NGAY
-                    </button>
+                    <form action="~/Booking/Index" method="post">
+                        <input type="hidden" name="PhongID" value="@Model.PhongID" />
+                        <input type="hidden" name="CheckIn" value="@Model.CheckIn.ToString("yyyy-MM-dd")" />
+                        <input type="hidden" name="CheckOut" value="@Model.CheckOut.ToString("yyyy-MM-dd")" />
+                        <input type="hidden" name="SoNguoi" value="@Model.SoNguoi" />
+
+                        <button type="submit" class="btn btn-success btn-book" style="width: 100%; padding: 12px; font-size: 16px; cursor: pointer;" >
+                            Đặt phòng
+                        </button>
+                    </form>
+                    
                 </div>
             </div>
         </div>
