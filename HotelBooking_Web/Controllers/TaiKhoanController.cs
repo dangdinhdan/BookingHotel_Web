@@ -21,7 +21,7 @@ namespace HotelBooking_Web.Controllers
             {
                 TenNguoiDung = Session["DisplayName"]?.ToString() ?? "Khách Hàng",
                 Email = Session["UserEmail"]?.ToString() ?? "khach@gmail.com",
-                SoDienThoai = "0901234567" // Dữ liệu giả
+                SoDienThoai = "0901234567" // Mock dât
             };
         }
 
