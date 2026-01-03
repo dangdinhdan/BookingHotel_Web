@@ -1,8 +1,10 @@
-﻿using HotelBooking_Web.Models;
+﻿using HotelBooking_Web.Helpers;
+using HotelBooking_Web.Models;
 using HotelBooking_Web.Services; 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -341,35 +343,82 @@ namespace HotelBooking_Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ForgotPassword(string email, string phone, string newPassword, string confirmPassword)
+        public async Task<ActionResult> ForgotPassword(string email) 
         {
-            if (string.IsNullOrEmpty(email)) ModelState.AddModelError("", "Vui lòng nhập Email.");
-            if (string.IsNullOrEmpty(phone)) ModelState.AddModelError("", "Vui lòng nhập Số điện thoại.");
-            if (string.IsNullOrEmpty(newPassword)) ModelState.AddModelError("", "Vui lòng nhập Mật khẩu mới.");
+            var user = db.tbl_TaiKhoans.FirstOrDefault(u => u.Email == email && (u.isDelete == false || u.isDelete == null));
+
+            if (user != null)
+            {
+                Random rand = new Random();
+                string otp = rand.Next(100000, 999999).ToString();
+
+                user.CodeReset = otp;
+                user.TimeReset = DateTime.Now.AddMinutes(5);
+                db.SubmitChanges();
+
+                string subject = "Mã xác nhận đổi mật khẩu - 4AnhemHotel";
+                string body = $"<h3>Xin chào {user.HoTen},</h3>" +
+                              $"<p>Bạn vừa yêu cầu đặt lại mật khẩu. Mã xác nhận của bạn là:</p>" +
+                              $"<h2 style='color:red'>{otp}</h2>" +
+                              $"<p>Mã này có hiệu lực trong 5 phút. Tuyệt đối không chia sẻ mã này cho ai.</p>";
+
+                bool isSent = await MailHelper.SendMailAsync(user.Email, subject, body);
+
+                if (isSent) return RedirectToAction("VerifyOtp", new { email = email });
+            }
+            return View();
+        }
+        public ActionResult VerifyOtp(string email)
+        {
+            if (string.IsNullOrEmpty(email)) return RedirectToAction("ForgotPassword");
+
+            ViewBag.Email = email;
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult VerifyOtp(string email, string otp, string newPassword, string confirmPassword)
+        {
+            ViewBag.Email = email; 
+
+            if (newPassword.Length < 6)
+            {
+                ViewBag.Error = "Mật khẩu mới phải từ 6 ký tự trở lên.";
+                return View();
+            }
 
             if (newPassword != confirmPassword)
             {
-                ModelState.AddModelError("", "Mật khẩu xác nhận không khớp.");
-            }
-
-            if (!ModelState.IsValid)
-            {
+                ViewBag.Error = "Mật khẩu xác nhận không khớp.";
                 return View();
             }
 
-            string errorMsg = "";
-            bool result = _service.ResetPassword(email, phone, newPassword, out errorMsg);
+            var user = db.tbl_TaiKhoans.FirstOrDefault(u => u.Email == email && (u.isDelete == false || u.isDelete == null));
 
-            if (result)
+            if (user != null)
             {
-                TempData["Success"] = "Lấy lại mật khẩu thành công! Hãy đăng nhập ngay.";
-                return RedirectToAction("Login");
+                if (user.CodeReset == otp && user.TimeReset >= DateTime.Now)
+                {
+                    user.MatKhau = newPassword; 
+                    
+                    user.CodeReset = null;
+                    user.TimeReset = null;
+
+                    db.SubmitChanges();
+
+                    TempData["Success"] = "Đổi mật khẩu thành công! Hãy đăng nhập ngay.";
+                    return RedirectToAction("Login");
+                }
+                else
+                {
+                    ViewBag.Error = "Mã xác nhận không đúng hoặc đã hết hạn.";
+                    return View();
+                }
             }
-            else
-            {
-                ViewBag.Error = errorMsg;
-                return View();
-            }
+
+            ViewBag.Error = "Đã có lỗi xảy ra. Vui lòng thực hiện lại.";
+            return View();
         }
+
     }
 }

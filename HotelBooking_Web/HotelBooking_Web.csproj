@@ -182,6 +182,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\ViewModel\PhongViewModel.cs" />
+    <Compile Include="Helpers\MailHelper.cs" />
+    <Compile Include="Models\DataClasses1.Partial.cs" />
     <Compile Include="Models\DataClasses1.cs">
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </Compile>
@@ -355,6 +357,7 @@
     <Content Include="Views\Shared\_ProfileLayout.cshtml" />
     <Content Include="Views\TaiKhoan\RegisterSuccess.cshtml" />
     <Content Include="Views\TaiKhoan\ForgotPassword.cshtml" />
+    <Content Include="Views\TaiKhoan\VerifyOTP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

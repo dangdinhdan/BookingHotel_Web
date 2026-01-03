@@ -100,6 +100,7 @@ INSERT INTO tbl_TaiKhoan(HoTen,Email,MatKhau,SoDienThoai,DiaChi,VaiTro) values
 ('Pham Thi D', 'thid@gmail.com', '123456', '0909090909', N'Hải Phòng', 'customer');
 go
 
+
 INSERT INTO tbl_LoaiPhong(TenLoaiPhong, MoTa) VALUES
 (N'Phòng đơn', N'Phòng 1 giường đơn, phù hợp cho 1 người.'),
 (N'Phòng đôi', N'Phòng 1 giường đôi hoặc 2 giường đơn cho 2 người.'),
@@ -160,7 +161,10 @@ INSERT INTO tbl_GiaoDich(DatPhongID, SoTien, TrangThai, PhuongThuc) VALUES
 (4, 2000000, N'Paid', N'VNPAY');
 go
 
-
+--ALTER TABLE tbl_TaiKhoan
+--ADD CodeReset VARCHAR(10) NULL,
+--    TimeReset DATETIME2 NULL;
+--GO
 
 CREATE OR ALTER VIEW vw_DanhSachDatPhong AS
 SELECT DP.DatPhongID,
