@@ -134,12 +134,17 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
             return JsonConvert.SerializeObject(rs);
         }
 
-        public string logout_act()
+        [HttpPost]
+        public ActionResult Logout_Act()
         {
+            // Xóa toàn bộ session
             Session.Clear();
-            return "Đã đăng xuất";
+            Session.RemoveAll();
+            Session.Abandon();
 
+            return Json(new { success = true });
         }
+
 
         public ActionResult Profile()
         {

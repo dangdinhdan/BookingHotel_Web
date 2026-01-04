@@ -65,7 +65,7 @@ namespace HotelBooking_Web.Areas.Admin.Service
                     qr_dp.TrangThai = "Canceled";
                     db.SubmitChanges();
                     rs.ErrDesc = "Đã quá ngày check in, đặt phòng bị hủy";
-                    rs.ErrCode = EnumErrCode.NotExist;
+                    rs.ErrCode = EnumErrCode.Fail;
                 }
                 else
                 {

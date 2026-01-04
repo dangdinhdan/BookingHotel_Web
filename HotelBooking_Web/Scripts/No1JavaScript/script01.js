@@ -184,38 +184,35 @@ document.getElementById("viewAllBtn")?.addEventListener("click", () => {
 
 document.addEventListener('DOMContentLoaded', function () {
     const track = document.getElementById('sliderTrack');
-    
-    const slides = track.querySelectorAll('.slide');
 
-    // Tổng số slide (Bao gồm cả bản sao)
-    const totalSlides = slides.length;
-    let currentIndex = 0;
-    const transitionTime = 800; // 800ms (0.8 giây) - Khớp với CSS transition nếu có
-    const intervalTime = 4000;  // 4 giây chuyển ảnh 1 lần
+    // Chỉ chạy nếu tìm thấy sliderTrack trên trang hiện tại
+    if (track) {
+        const slides = track.querySelectorAll('.slide');
+        let currentIndex = 0;
+        const transitionTime = 800; // 0.8 giây
+        const intervalTime = 4000;  // 4 giây đổi ảnh
 
-    function runSlider() {
-        // 1. Tăng index để chuyển sang slide tiếp theo
-        currentIndex++;
+        function runSlider() {
+            currentIndex++;
 
-        // Bật lại hiệu ứng chuyển động (vì có thể nó đã bị tắt ở bước reset)
-        track.style.transition = `transform ${transitionTime}ms ease-in-out`;
-        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            // Bật hiệu ứng trượt
+            track.style.transition = `transform ${transitionTime}ms ease-in-out`;
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
 
-        // 2. Kiểm tra: Nếu đang ở slide cuối cùng (Slide Clone)
-        if (currentIndex === totalSlides - 1) {
-            // Đợi cho hiệu ứng trượt hoàn tất (sau 800ms)
-            setTimeout(() => {
-                // Tắt hiệu ứng chuyển động để người dùng không thấy cảnh tua lại
-                track.style.transition = 'none';
+            // Nếu đang ở slide cuối cùng (slide-1 bản clone)
+            if (currentIndex === slides.length - 1) {
+                setTimeout(() => {
+                    // Tắt hiệu ứng để reset về vị trí đầu tiên một cách âm thầm
+                    track.style.transition = 'none';
+                    currentIndex = 0;
+                    track.style.transform = `translateX(0)`;
+                }, transitionTime);
+            }
+        }
 
-                // Reset về slide đầu tiên (Slide 0)
-                currentIndex = 0;
-                track.style.transform = `translateX(0)`;
-
-            }, transitionTime);
+        // Chỉ tự động chạy nếu có nhiều hơn 1 slide
+        if (slides.length > 1) {
+            setInterval(runSlider, intervalTime);
         }
     }
-
-    // Chạy tự động
-    setInterval(runSlider, intervalTime);
 });
