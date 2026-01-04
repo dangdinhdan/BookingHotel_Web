@@ -186,7 +186,6 @@
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\DatPhongViewModel.cs" />
-    <Compile Include="Models\DbContext.cs" />
     <Compile Include="Models\EditProfileViewModel.cs" />
     <Compile Include="Models\FunctResult.cs" />
     <Compile Include="Models\DataClasses1.designer.cs">

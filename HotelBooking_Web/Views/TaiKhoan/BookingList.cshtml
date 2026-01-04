@@ -1,83 +1,104 @@
-﻿@{
+﻿@model List<HotelBooking_Web.Models.vw_DanhSachDatPhong>
+@{
     ViewBag.Title = "Đơn đặt phòng của tôi";
     Layout = "~/Views/Shared/_ProfileLayout.cshtml";
     ViewBag.ActivePage = "BookingList";
-
-    var mockBookings = new List<dynamic>
-{
-        new {
-            Id = "BK-2023001",
-            RoomName = "Deluxe King Ocean View",
-            Image = "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&q=80&w=300&h=200",
-            CheckIn = "25/11/2025",
-            CheckOut = "28/11/2025",
-            Price = "3.500.000 VNĐ",
-            Status = "Thành công",
-            StatusClass = "status-success"
-        },
-        new {
-            Id = "BK-2023002",
-            RoomName = "Superior Double Room",
-            Image = "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&q=80&w=300&h=200",
-            CheckIn = "10/12/2025",
-            CheckOut = "12/12/2025",
-            Price = "1.800.000 VNĐ",
-            Status = "Đang chờ thanh toán",
-            StatusClass = "status-pending"
-        },
-        new {
-            Id = "BK-2023003",
-            RoomName = "Family Suite Garden",
-            Image = "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&q=80&w=300&h=200",
-            CheckIn = "01/01/2026",
-            CheckOut = "05/01/2026",
-            Price = "5.000.000 VNĐ",
-            Status = "Đã hủy",
-            StatusClass = "status-cancelled" 
-        }
-
-    };
 }
 
-<h2 style="margin-bottom: 25px;">@ViewBag.Title</h2>
+<h2>@ViewBag.Title</h2>
 
 <div class="booking-list">
-    @if (mockBookings.Count > 0)
+    @if (Model != null && Model.Count > 0)
     {
-        foreach (var item in mockBookings)
+        foreach (var item in Model)
         {
+            var hinhAnh = string.IsNullOrEmpty(item.PhongID.ToString()) 
+                ? "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&q=80&w=300&h=200"
+                : "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&q=80&w=300&h=200";
+            
+            var maDonHang = item.DatPhongID;
+            
+            var ngayNhan = item.NgayNhanPhong.ToString("dd/MM/yyyy");
+            var ngayTra = item.NgayTraPhong.ToString("dd/MM/yyyy");
+            
+            var tongTien = (item.TongTien ?? 0).ToString("N0") + " VNĐ";
+            
+            string statusClass = "status-pending";
+            string statusText = "Đang chờ";
+            
+            if (!string.IsNullOrEmpty(item.TrangThai))
+            {
+                switch (item.TrangThai.ToLower())
+                {
+                    case "pending":
+                        statusClass = "status-pending";
+                        statusText = "Đang chờ thanh toán";
+                        break;
+                    case "checkin":
+                        statusClass = "status-success";
+                        statusText = "Đã nhận phòng";
+                        break;
+                    case "checkout":
+                        statusClass = "status-success";
+                        statusText = "Đã trả phòng";
+                        break;
+                    case "cancelled":
+                        statusClass = "status-cancelled";
+                        statusText = "Đã hủy";
+                        break;
+                    default:
+                        statusClass = "status-pending";
+                        statusText = item.TrangThai;
+                        break;
+                }
+            }
+            
             <div class="booking-card">
-                <img src="@item.Image" alt="@item.RoomName" class="booking-card-img" />
+                <img src="@hinhAnh" alt="@item.SoPhong" class="booking-card-img" />
 
                 <div class="booking-card-body">
                     <div>
                         <div class="booking-header">
                             <div>
-                                <a href="#" class="booking-room-name">@item.RoomName</a>
-                                <div class="booking-id">Mã đơn hàng: #@item.Id</div>
+                                <a href="#" class="booking-room-name">Phòng @item.SoPhong</a>
+                                <div class="booking-id">Mã đơn hàng: #@maDonHang</div>
                             </div>
-                            <div class="booking-price">@item.Price</div>
+                            <div class="booking-price">@tongTien</div>
                         </div>
 
                         <div class="booking-dates">
                             <div class="booking-date-item">
                                 <span>Nhận phòng</span>
-                                @item.CheckIn
+                                @ngayNhan
                             </div>
                             <div class="booking-date-item">
                                 <span>Trả phòng</span>
-                                @item.CheckOut
+                                @ngayTra
                             </div>
                         </div>
+                        
+                        @if (!string.IsNullOrEmpty(item.GhiChu))
+                        {
+                            <div style="font-size: 13px; color: #666; margin-top: 8px;">
+                                <strong>Ghi chú:</strong> @item.GhiChu
+                            </div>
+                        }
                     </div>
 
                     <div class="booking-footer">
-                        <span class="status-badge @item.StatusClass">
+                        <span class="status-badge @statusClass">
                             <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="12" /></svg>
-                            @item.Status
+                            @statusText
                         </span>
 
-                        <a href="#" class="btn-ghost" style="padding: 8px 16px; font-size: 13px;">
+                        <a href="@Url.Action("Detail", "Rooms", new {
+                               id = item.PhongID,
+                               checkin = item.NgayNhanPhong.ToString("yyyy-MM-dd"),
+                               checkout = item.NgayTraPhong.ToString("yyyy-MM-dd"),
+                               guests = item.SoLuongNguoi ?? 1
+   })"
+                           class="btn-ghost"
+                           style="padding: 8px 16px; font-size: 13px;">
                             Xem chi tiết
                         </a>
                     </div>
@@ -87,8 +108,16 @@
     }
     else
     {
-        <div style="text-align: center; padding: 40px; color: #888; background: #fff; border-radius: 12px; border: 1px solid #eee;">
-            <p>Hiện tại bạn chưa có đơn đặt phòng nào.</p>
+        <div style="text-align: center; padding: 60px 20px; background: #fff; border-radius: 12px; border: 1px solid #eee;">
+            <div style="width: 80px; height: 80px; background: #f8f9fa; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+            </div>
+            <h3 style="font-size: 18px; margin-bottom: 10px; color: #333;">Chưa có đơn đặt phòng</h3>
+            <p style="color: #888; margin-bottom: 20px;">Hiện tại bạn chưa có đơn đặt phòng nào.</p>
+            <a href="/Rooms/SearchRooms" class="btn btn-primary">Tìm phòng ngay</a>
         </div>
     }
 </div>

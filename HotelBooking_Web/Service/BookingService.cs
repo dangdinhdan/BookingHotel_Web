@@ -10,12 +10,12 @@ namespace HotelBooking_Web.Service
     {
         private DataClasses1DataContext db = new DataClasses1DataContext();
 
-        public FunctResult<tbl_DatPhong> DatPhong(int TaiKhoanID, int PhongID, DateTime Checkin, DateTime Checkout, int SoNguoi,decimal TongTien,string GhiChu)
+        public FunctResult<tbl_DatPhong> DatPhong(int TaiKhoanID, int PhongID, DateTime Checkin, DateTime Checkout, int SoNguoi, decimal TongTien, string GhiChu)
         {
             FunctResult<tbl_DatPhong> rs = new FunctResult<tbl_DatPhong>();
             try
             {
-                var qr = db.tbl_TaiKhoans.SingleOrDefault(o=>o.TaiKhoanID == TaiKhoanID);
+                var qr = db.tbl_TaiKhoans.SingleOrDefault(o => o.TaiKhoanID == TaiKhoanID);
                 if (qr != null)
                 {
                     tbl_DatPhong new_obj = new tbl_DatPhong();
@@ -33,14 +33,14 @@ namespace HotelBooking_Web.Service
 
 
                     rs.ErrCode = EnumErrCode.Success;
-                    rs.ErrDesc = "Đặt phòng thành công, mã đặt phòng của bạn là "+new_obj.DatPhongID;
-                    
+                    rs.ErrDesc = "Đặt phòng thành công, mã đặt phòng của bạn là " + new_obj.DatPhongID;
+
                 }
                 else
                 {
                     rs.ErrCode = EnumErrCode.NotExist;
                     rs.ErrDesc = "không thể đặt phòng vì tài khoản không tồn tại";
-                    
+
                 }
             }
             catch (Exception ex)

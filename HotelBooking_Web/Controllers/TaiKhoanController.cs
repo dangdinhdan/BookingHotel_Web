@@ -312,8 +312,19 @@ namespace HotelBooking_Web.Controllers
 
         public ActionResult BookingList()
         {
-            if (Session["UserEmail"] == null) return RedirectToAction("Login");
-            return View();
+            if (Session["UserEmail"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            int taiKhoanID = int.Parse(Session["TaiKhoanID"].ToString());
+
+            var danhSachDatPhong = db.vw_DanhSachDatPhongs
+                .Where(dp => dp.TaiKhoanID == taiKhoanID && (dp.isDelete == false||dp.isDelete==null))
+                .OrderByDescending(dp => dp.NgayDat)
+                .ToList();
+
+            return View(danhSachDatPhong);
         }
 
         public ActionResult TransactionHistory()
@@ -370,6 +381,10 @@ namespace HotelBooking_Web.Controllers
                 ViewBag.Error = errorMsg;
                 return View();
             }
+        }
+        public ActionResult Detail()
+        {
+            return View();
         }
     }
 }
