@@ -13,14 +13,7 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
         // GET: Admin/Home
         public ActionResult Index()
         {
-            if (Session["HoTen"]!= null)
-            {
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("Login","TaiKhoan");
-            }
+            return View();
             
         }
     }

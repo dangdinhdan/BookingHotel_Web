@@ -229,7 +229,7 @@
                             <!--begin::Menu Footer-->
                             <li class="user-footer">
                                 <a href="~/admin/TaiKhoan/Profile" class="btn btn-default btn-flat">Profile</a>
-                                <a href="#" class="btn btn-default btn-flat float-end btn_logout">log out</a>
+                                <a  class="btn btn-default btn-flat float-end btn_logout">log out</a>
                             </li>
                             <!--end::Menu Footer-->
                         </ul>
@@ -332,39 +332,31 @@
 </html>
 
 <script>
-        
-        var isLoggedIn = @((Session["Ad_HoTen"] != null).ToString().ToLower());
+    var isLoggedIn = @((Session["Ad_ID"] != null).ToString().ToLower());
+    var currentPath = window.location.pathname.toLowerCase();
 
-        if(isLoggedIn){
-            console.log("Người dùng đã login.");
-            
-        } else {
-            console.log("Chưa login, chuyển hướng tới trang login...");
-             window.location.href = window.location.origin + '/Admin/TaiKhoan/Login'; 
-        }
+    if (!isLoggedIn && !currentPath.includes('/admin/taikhoan/login')) {
+        window.location.href = window.location.origin + '/Admin/TaiKhoan/Login';
+    }
 </script>
 
 <script>
-    $(document).ready(function () {
-        $('body').on('click', '.btn_logout', function () {
-            
-            var conf = confirm("bạn có muốn Đăng xuất không?");
-            if (conf == true) {
-                $.ajax({
-                    url: window.location.origin + '/TaiKhoan/logout_act',
-                    type: 'POST',
-                    
-                    success: function (response) {
-                        
-                        window.location.href = window.location.origin + '/Admin/TaiKhoan/Login';
+    $('body').on('click', '.btn_logout', function () {
 
-                    },
-                    error: function (data) {
-                        console.log(data);
+        if (confirm("Bạn có muốn đăng xuất không?")) {
+            $.ajax({
+                url: window.location.origin + '/Admin/TaiKhoan/Logout_Act',
+                type: 'POST',
+                success: function (res) {
+                    if (res.success) {
+                        window.location.href = '/Admin/TaiKhoan/Login';
                     }
-                });
-            }
-
-        });
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
     });
+
 </script>
