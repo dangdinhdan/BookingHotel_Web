@@ -20,14 +20,23 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
 
         public ActionResult Index(string query, int? page)
         {
-            var pageSize = 10;
-            int pageIndex = page ?? 1;
+            
 
-            var rooms = service.Search(query);
+            if (Session["Ad_ID"] != null)
+            {
+                var pageSize = 10;
+                int pageIndex = page ?? 1;
 
-            var items = rooms.OrderByDescending(x => x.PhongID).ToPagedList(pageIndex, pageSize);
+                var rooms = service.Search(query);
 
-            return View(items);
+                var items = rooms.OrderByDescending(x => x.PhongID).ToPagedList(pageIndex, pageSize);
+
+                return View(items);
+            }
+            else
+            {
+                return RedirectToAction("Login", "TaiKhoan");
+            }
         }
 
         public ActionResult Them()

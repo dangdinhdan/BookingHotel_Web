@@ -21,12 +21,20 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
         // GET: Admin/QLDP
         public ActionResult Index(int? page, string query, string status)
         {
-            int pageIndex = page ?? 1;
-            var pageSize = 10;
-            var list = service.Search(query, status);
-            var items = list.OrderByDescending(x => x.DatPhongID).ToPagedList(pageIndex, pageSize);
-            return View(items);
             
+            if (Session["Ad_ID"] != null)
+            {
+                int pageIndex = page ?? 1;
+                var pageSize = 10;
+                var list = service.Search(query, status);
+                var items = list.OrderByDescending(x => x.DatPhongID).ToPagedList(pageIndex, pageSize);
+                return View(items);
+            }
+            else
+            {
+                return RedirectToAction("Login", "TaiKhoan");
+            }
+
         }
         public ActionResult Detail(int id)
         {

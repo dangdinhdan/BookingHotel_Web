@@ -14,7 +14,14 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
         private DataClasses1DataContext db = new DataClasses1DataContext();
         public ActionResult Index()
         {
-            return View();
+            if (Session["Ad_ID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "TaiKhoan");
+            }
         }
 
         [HttpGet]

@@ -17,10 +17,20 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
         // GET: Admin/QLLPhong
         public ActionResult Index(int ? page)
         {
-            var pageSize = 10;
-            int pageIndex = page ?? 1;
-            var items = db.tbl_LoaiPhongs.Where(x=>x.isDelete == null || x.isDelete == false).OrderByDescending(x => x.LoaiPhongID).ToPagedList(pageIndex, pageSize);
-            return View(items);
+            
+
+            if (Session["Ad_ID"] != null)
+            {
+                var pageSize = 10;
+                int pageIndex = page ?? 1;
+                var items = db.tbl_LoaiPhongs.Where(x => x.isDelete == null || x.isDelete == false).OrderByDescending(x => x.LoaiPhongID).ToPagedList(pageIndex, pageSize);
+                return View(items);
+            }
+            else
+            {
+                return RedirectToAction("Login", "TaiKhoan");
+            }
+
         }
 
         public ActionResult Them()
