@@ -61,11 +61,7 @@ namespace HotelBooking_Web.Controllers
 
             public ActionResult Detail(int id,DateTime checkin, DateTime checkout, int guests)
             {
-                if (Session["TaiKhoanID"] == null)
-                {
-                return RedirectToAction("Login", "TaiKhoan");
                 
-                }
                 var item = new DatPhongViewModel
                 {
                     PhongID = id,
@@ -80,6 +76,7 @@ namespace HotelBooking_Web.Controllers
             [HttpGet]
             public JsonResult GetRoomDetailJson(int id) // 'id'
             {
+                
                 try
                 {
                     DataClasses1DataContext db = new DataClasses1DataContext();

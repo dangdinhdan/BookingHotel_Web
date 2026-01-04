@@ -19,6 +19,11 @@ namespace HotelBooking_Web.Controllers
         // GET: Booking
         public ActionResult Index(DatPhongViewModel model)
         {
+            if (Session["TaiKhoanID"] == null)
+            {
+                return RedirectToAction("Login", "TaiKhoan");
+
+            }
             var item = db.tbl_Phongs.SingleOrDefault(o => o.PhongID == model.PhongID);
             ViewBag.Phong = item;
             
