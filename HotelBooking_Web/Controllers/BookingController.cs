@@ -44,6 +44,7 @@ namespace HotelBooking_Web.Controllers
             return Json(qr);
 
         }
+        
 
     }
 }
