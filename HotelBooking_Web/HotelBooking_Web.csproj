@@ -186,7 +186,6 @@
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\DatPhongViewModel.cs" />
-    <Compile Include="Models\DbContext.cs" />
     <Compile Include="Models\EditProfileViewModel.cs" />
     <Compile Include="Models\FunctResult.cs" />
     <Compile Include="Models\DataClasses1.designer.cs">
@@ -221,6 +220,10 @@
     <Content Include="Assets\img\credit\visa.png" />
     <Content Include="Assets\img\default-150x150.png" />
     <Content Include="Assets\img\icons.png" />
+    <Content Include="Assets\img\iconweb\datphong1.png" />
+    <Content Include="Assets\img\iconweb\loaiphong.png" />
+    <Content Include="Assets\img\iconweb\phong.png" />
+    <Content Include="Assets\img\iconweb\taikhoan.png" />
     <Content Include="Assets\img\photo1.png" />
     <Content Include="Assets\img\photo2.png" />
     <Content Include="Assets\img\photo3.jpg" />
@@ -230,6 +233,63 @@
     <Content Include="Assets\img\prod-3.jpg" />
     <Content Include="Assets\img\prod-4.jpg" />
     <Content Include="Assets\img\prod-5.jpg" />
+    <Content Include="Assets\img\rooms\p10\20031457-6d917a3e83f0361e16ca9b96466cb3f3.jpg" />
+    <Content Include="Assets\img\rooms\p10\20031457-864fa5bbf87827db075d790d945ae8bd.jpg" />
+    <Content Include="Assets\img\rooms\p10\20031457-8843508a8d631ca4777e3afb6c076067.jpg" />
+    <Content Include="Assets\img\rooms\p10\20031457-8c97222429bd39b14ddb80ffb15785ff.jpg" />
+    <Content Include="Assets\img\rooms\p11\10022651-51eb33ccee82f1a9d6fa95b9d271d941.jpg" />
+    <Content Include="Assets\img\rooms\p11\10022651-7dbba81dd6b217497564929a5101017f.jpg" />
+    <Content Include="Assets\img\rooms\p11\10022651-a1b15a052cfbd243ff34271b5c5e7526.jpg" />
+    <Content Include="Assets\img\rooms\p11\10022651-a64b71af7d0d673b54b5099b20e6a896.jpg" />
+    <Content Include="Assets\img\rooms\p11\10022651-b4f308e98f070b6137fa0eeef928b13d.jpg" />
+    <Content Include="Assets\img\rooms\p12\10022651-14f3ab05119c0e8021f9d60fe42fd449.jpg" />
+    <Content Include="Assets\img\rooms\p12\10022651-16f984a1ba2f2c100be2aeb16ce87046.jpg" />
+    <Content Include="Assets\img\rooms\p12\10022651-59a3968add1453aa8cd7324548d85d61.jpg" />
+    <Content Include="Assets\img\rooms\p12\10022651-74010687b356f9d32655a3759ff5a86a.jpg" />
+    <Content Include="Assets\img\rooms\p12\10022651-c5b13baa5a6343697fce5a127670315e.jpg" />
+    <Content Include="Assets\img\rooms\p1\20001694-22ad00d6e2a2b70e41cdb9242ac0a45b.jpg" />
+    <Content Include="Assets\img\rooms\p1\20001694-5c41535252a4cc4943d01dce37061500.jpg" />
+    <Content Include="Assets\img\rooms\p1\20001694-5c52e295edd47cc0f9c3e7f62db7a1c8.jpeg" />
+    <Content Include="Assets\img\rooms\p1\20001694-902f5e6ec12b534da644c3e4ba36bc45.jpeg" />
+    <Content Include="Assets\img\rooms\p1\20001694-ac99ce8e833cdfd51799cd7f2d84967c.jpeg" />
+    <Content Include="Assets\img\rooms\p1\20001694-bf3e6059457c70430ed48713d62b8df5.jpg" />
+    <Content Include="Assets\img\rooms\p2\10023050-519e7c5a2c0f0922d00817353cfd5efa.jpeg" />
+    <Content Include="Assets\img\rooms\p2\10023050-840x460-FIT_AND_TRIM-d5e758cb3d30b59d5cf1dfc4d8fecdec.jpeg" />
+    <Content Include="Assets\img\rooms\p2\10023050-9602def698c8d1ba9fdcef06008af78b.jpeg" />
+    <Content Include="Assets\img\rooms\p2\10023050-d3e76e4b738b51cdcb0ec4ffd082c99d.jpeg" />
+    <Content Include="Assets\img\rooms\p3\10023050-672bf8dfea78c9d89b44dbc47cdf372e.jpeg" />
+    <Content Include="Assets\img\rooms\p3\10023050-840x460-FIT_AND_TRIM-19e7c98d3fb6a6b28ef1c22f90157f34.jpeg" />
+    <Content Include="Assets\img\rooms\p3\10023050-840x460-FIT_AND_TRIM-ffed3370ed3d6abb10adc4d734c265a8.jpeg" />
+    <Content Include="Assets\img\rooms\p3\10023050-9602def698c8d1ba9fdcef06008af78b.jpeg" />
+    <Content Include="Assets\img\rooms\p4\10023050-501fc23eec0f28924be7191ea13370c9.jpeg" />
+    <Content Include="Assets\img\rooms\p4\10023050-840x460-FIT_AND_TRIM-e84e0a700b566e52cb40dc564b2949c0.jpeg" />
+    <Content Include="Assets\img\rooms\p4\10023050-840x460-FIT_AND_TRIM-f6f635b674bcfa7297190ae92c12ce65.jpeg" />
+    <Content Include="Assets\img\rooms\p4\10023050-9602def698c8d1ba9fdcef06008af78b.jpeg" />
+    <Content Include="Assets\img\rooms\p5\10023050-1fc6ea5f6d144d32d120baa624923a44.jpeg" />
+    <Content Include="Assets\img\rooms\p5\10023050-840x460-FIT_AND_TRIM-01fcd3a2ffa7828866fcf7b8a6b53db0.jpeg" />
+    <Content Include="Assets\img\rooms\p5\10023050-840x460-FIT_AND_TRIM-7186d16571756bf8219e4e3b4c52c7f1.jpeg" />
+    <Content Include="Assets\img\rooms\p5\10023050-840x460-FIT_AND_TRIM-d576ab107f26df5eb7eb4f069e498e58.jpeg" />
+    <Content Include="Assets\img\rooms\p5\10023050-840x460-FIT_AND_TRIM-f7e8dcf9b7b4984304271bfeaf884383.jpeg" />
+    <Content Include="Assets\img\rooms\p6\10023050-041ace39158cf5b082b441a93ae57d42.jpeg" />
+    <Content Include="Assets\img\rooms\p6\10023050-1bf9e08b0972522dd045c9ddf3d9dad1.jpeg" />
+    <Content Include="Assets\img\rooms\p6\10023050-1e48b339ecd1529f3344b6476906661e.jpeg" />
+    <Content Include="Assets\img\rooms\p6\10023050-2eca0d31285fdfef8e894cf021de0312.jpeg" />
+    <Content Include="Assets\img\rooms\p6\10023050-406cc45b64426cc4bc710e5444cab84b.jpeg" />
+    <Content Include="Assets\img\rooms\p6\10023050-9b2875e9211ebb5a791f1db374ea8f8f.jpeg" />
+    <Content Include="Assets\img\rooms\p7\20023314-ad8ff0eb27f6d8a8dd5bc41e4a8a10cb.jpg" />
+    <Content Include="Assets\img\rooms\p7\67757118-3000x2047-FIT_AND_TRIM-62fdf9adc7aeb0bc0802350081504f24.jpg" />
+    <Content Include="Assets\img\rooms\p7\67757118-3000x2052-FIT_AND_TRIM-0ee613076980837e9ca0d4c6966cacf9.jpg" />
+    <Content Include="Assets\img\rooms\p7\67757118-3000x2495-FIT_AND_TRIM-42982403ed14c775a205413c940e8dc7.jpg" />
+    <Content Include="Assets\img\rooms\p8\10020351-15a703d108067f251da70b7d87fb34fb.jpg" />
+    <Content Include="Assets\img\rooms\p8\10020351-24f73c2db6214118df912cc1ccba8520.jpg" />
+    <Content Include="Assets\img\rooms\p8\10020351-2b84513b00e5932d29deb49ecc2a51b7.jpg" />
+    <Content Include="Assets\img\rooms\p8\10020351-56331b09b6cbdc0e66f2010698ecf018.jpg" />
+    <Content Include="Assets\img\rooms\p8\10020351-e5d76adf559b4d80983adebd1fb0fc78.jpg" />
+    <Content Include="Assets\img\rooms\p9\10020373-1b8b1fac15ba9874140c1209b1e3b294.jpg" />
+    <Content Include="Assets\img\rooms\p9\10020373-2a693775e95a412d9435f65d04598fd4.jpg" />
+    <Content Include="Assets\img\rooms\p9\10020373-734b621865948bb0555a029e56579d6f.jpg" />
+    <Content Include="Assets\img\rooms\p9\10020373-d520a8f781623f201ea06c0cfabda8ad.jpg" />
+    <Content Include="Assets\img\rooms\p9\10020373-fdc33c831322e41cdc7a8b58b62fc251.jpg" />
     <Content Include="Assets\img\user1-128x128.jpg" />
     <Content Include="Assets\img\user2-160x160.jpg" />
     <Content Include="Assets\img\user3-128x128.jpg" />
@@ -306,6 +366,8 @@
     <Content Include="Areas\Admin\Views\ThongKe\Index.cshtml" />
     <Content Include="Areas\Admin\Views\TaiKhoan\Profile.cshtml" />
     <Content Include="Areas\Admin\Views\TaiKhoan\LSGD.cshtml" />
+    <Content Include="Assets\img\rooms\p10\20031457-c4e1942bb69cec8593ba0aa3cf30f3b7.webp" />
+    <Content Include="Assets\img\rooms\p7\20023314-78d0231f7441b335bafce712f63ef867.webp" />
     <None Include="Models\DataClasses1.dbml.layout">
       <DependentUpon>DataClasses1.dbml</DependentUpon>
     </None>
@@ -360,7 +422,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Assets\img\rooms\" />
     <Folder Include="Views\IdentityConfig\" />
     <Folder Include="Views\User\" />
   </ItemGroup>

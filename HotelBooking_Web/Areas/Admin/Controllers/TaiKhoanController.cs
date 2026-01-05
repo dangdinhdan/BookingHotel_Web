@@ -23,16 +23,25 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
         // GET: Admin/QLTKhoan
         public ActionResult Index(int? page,string query)
         {
-            var pageSize = 10;
-            int pageIndex = page ?? 1;
+            
 
-            //string query = Request["query"];
+            if (Session["Ad_ID"] != null)
+            {
+                var pageSize = 10;
+                int pageIndex = page ?? 1;
 
-            var list = service.Search(query);
+                //string query = Request["query"];
 
-            var items = list.OrderByDescending(x => x.TaiKhoanID).ToPagedList(pageIndex, pageSize);
+                var list = service.Search(query);
 
-            return View(items);
+                var items = list.OrderByDescending(x => x.TaiKhoanID).ToPagedList(pageIndex, pageSize);
+
+                return View(items);
+            }
+            else
+            {
+                return RedirectToAction("Login", "TaiKhoan");
+            }
         }
 
         public ActionResult LSGD(int id)

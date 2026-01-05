@@ -13,9 +13,17 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
         // GET: Admin/Home
         public ActionResult Index()
         {
+
+            if (Session["Ad_ID"] != null)
+            {
+
                 return View();
-            
-            
+
+            }
+            else
+            {
+                return RedirectToAction("Login", "TaiKhoan");
+            }
         }
     }
 }
