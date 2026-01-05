@@ -386,10 +386,10 @@ namespace HotelBooking_Web.Controllers
         {
             return View();
         }
-        public ActionResult BookingDetails(int id)
-        {
-            var item=
-            return View();
-        }
+        //public ActionResult BookingDetails(int id)
+        //{
+        //    var item=
+        //    return View();
+        //}
     }
 }
