@@ -285,11 +285,5 @@ GO
 
 
 
-EXEC sp_BaoCaoDoanhThuDatPhong;
 
--- Theo năm
-EXEC sp_BaoCaoDoanhThuDatPhong @Nam = 2025;
-
--- Theo tháng + năm
-EXEC sp_BaoCaoDoanhThuDatPhong @Thang = 4, @Nam = 2028;
 

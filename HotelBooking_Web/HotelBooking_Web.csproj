@@ -419,6 +419,7 @@
     <Content Include="Views\Shared\_ProfileLayout.cshtml" />
     <Content Include="Views\TaiKhoan\RegisterSuccess.cshtml" />
     <Content Include="Views\TaiKhoan\ForgotPassword.cshtml" />
+    <Content Include="Views\TaiKhoan\BookingDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -323,6 +323,7 @@ namespace HotelBooking_Web.Controllers
                 .Where(dp => dp.TaiKhoanID == taiKhoanID && (dp.isDelete == false||dp.isDelete==null))
                 .OrderByDescending(dp => dp.NgayDat)
                 .ToList();
+           
 
             return View(danhSachDatPhong);
         }
@@ -386,10 +387,14 @@ namespace HotelBooking_Web.Controllers
         {
             return View();
         }
-        //public ActionResult BookingDetails(int id)
-        //{
-        //    var item=
-        //    return View();
-        //}
+        public ActionResult BookingDetails()
+        {
+            //var item = db.vw_DanhSachDatPhongs.SingleOrDefault(o=>o.DatPhongID == id);
+            //if (item == null)
+            //{
+            //    return HttpNotFound();
+            //}
+            return View();
+        }
     }
 }

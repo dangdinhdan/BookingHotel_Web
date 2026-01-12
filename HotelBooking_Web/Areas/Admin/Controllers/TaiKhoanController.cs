@@ -157,11 +157,25 @@ namespace HotelBooking_Web.Areas.Admin.Controllers
 
         public ActionResult Profile()
         {
-            string Email = Session["Ad_Email"].ToString();
-            var user = db.tbl_TaiKhoans.SingleOrDefault(o => o.Email == Email);
+            
+            if (Session["Ad_Email"] == null)
+            {
+                return RedirectToAction("Login", "TaiKhoan");
+            }
+
+            string email = Session["Ad_Email"].ToString();
+            var user = db.tbl_TaiKhoans.SingleOrDefault(o => o.Email == email);
+            ViewBag.id = user.TaiKhoanID.ToString();
+
+            if (user == null)
+            {
+                
+                return HttpNotFound();
+            }
 
             return View(user);
         }
+        
 
         public ActionResult EditProfile(int id)
         {
